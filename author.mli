@@ -1,6 +1,6 @@
 (** CS 3110 Spring 2021 Final Assignmment
 
-    @authors Christopher Desir (ckd38) 
+    @authors Christopher Desir (ckd38), Jenna Mertz (jkm242)
     
 *)
 
