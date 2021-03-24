@@ -21,6 +21,13 @@ exception TypeMismatch of square_type
 (** Raised when an unknown square is encountered. *)
 exception UnknownSquare of square_name
 
+(** Raised when an unknown type is encountered. *)
+exception UnknownType of square_type
+
+(** Raised when a square doesn't have the right attributes that precedes its
+type, ie no mortgage on a ["Street"]. *)
+exception InvalidSquare of (square_type * square_name)
+
 (** [from_json j] is the board that [j] represents. Requires: [j] is
     a valid JSON Monopoly board representation. *)
 val from_json : Yojson.Basic.t -> t
@@ -30,6 +37,7 @@ val from_json : Yojson.Basic.t -> t
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_square].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
     The following square_types are valid for cost_of_square: 
     [["Street", "Income Tax", "Luxury Tax", "Railroad", "Utility"]] *)
 val cost_of_square : t -> square_name -> int
@@ -49,12 +57,21 @@ val position_of_square : t -> square_name -> int
 
 (** [type_of_square b s] is the type of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
+    Raises [UnknownType s] if [s] is not a valid type in board.
     All squares should have a square_type.
     The following square_types are valid for an instance of board:
     [["Go", "Jail/Just Visitng", "Chance", "Community Chest", 
       "Street", "Income Tax", "Luxury Tax", "Railroad", "Utility", 
       "Free Parking", "Go To Jail"]] *)
 val type_of_square : t -> square_name -> square_type
+
+(** [set_of_square b s] is the set of square [s] on board [b].
+    Raises [UnknownSquare s] if [s] is not a square in [b].
+    Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
+    [set_of_square].
+    The following square_types are valid for set_of_square: 
+    [["Street", "Railroad", "Utility"]] *)
+val set_of_square : t -> square_name -> string
 
 (** [contains b s] returns true if square [s] is on board [b]. *)
 val contains : t -> square_name -> bool

@@ -6,6 +6,10 @@ exception TypeMismatch of square_type
 
 exception UnknownSquare of square_name
 
+exception UnknownType of square_type
+
+exception InvalidSquare of (square_type * square_name)
+
 type rent = {
   tier: int;
   cost: int;
@@ -101,7 +105,9 @@ let from_json json = {
   community_chest_cards = json |> member "community" |> to_list |> 
     List.map community_chest_cards_of_board;
 }
-let contains board s = failwith "unimplemented"
+let contains board s =
+  let square_finder (square : square) = square.name = s in
+  List.exists square_finder board.squares
 
 let cost_of_square board s = failwith "unimplemented"
 
@@ -110,6 +116,8 @@ let mortgage_of_square board s = failwith "unimplemented"
 let position_of_square board s = failwith "unimplemented"
 
 let type_of_square board s = failwith "unimplemented"
+
+let set_of_square board s = failwith "unimplemented"
 
 let upgrade_cost board s = failwith "unimplemented"
 

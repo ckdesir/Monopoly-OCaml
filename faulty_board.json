@@ -1,0 +1,316 @@
+{
+  "squares": [
+    {
+      "name": "Pennsylvania Railroad",
+      "type": "Not Railroad",
+      "position": 0,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Reading Railroad - No Cost",
+      "type": "Railroad",
+      "position": 1,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Mediterranean Avenue",
+      "type": "Streets",
+      "position": 2,
+      "cost": 60,
+      "upgrade cost": 50,
+      "set": "brown",
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 2
+        },
+        {
+          "tier": 1,
+          "cost": 10
+        },
+        {
+          "tier": 2,
+          "cost": 30
+        },
+        {
+          "tier": 3,
+          "cost": 90
+        },
+        {
+          "tier": 4,
+          "cost": 160
+        },
+        {
+          "tier": 5,
+          "cost": 250
+        }
+      ],
+      "mortgage": 30
+    },
+    {
+      "name": "Luxury Tax",
+      "type": "Luxury tax",
+      "position": 3,
+      "cost": 75
+    },
+    {
+      "name": "Luxury Tax - No Cost",
+      "type": "Luxury Tax",
+      "position": 4
+    },
+    {
+      "name": "Baltic Avenue - No Cost",
+      "type": "Street",
+      "position": 5,
+      "upgrade cost": 50,
+      "set": "brown",
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 4
+        },
+        {
+          "tier": 1,
+          "cost": 20
+        },
+        {
+          "tier": 2,
+          "cost": 60
+        },
+        {
+          "tier": 3,
+          "cost": 180
+        },
+        {
+          "tier": 4,
+          "cost": 320
+        },
+        {
+          "tier": 5,
+          "cost": 450
+        }
+      ],
+      "mortgage": 30
+    },
+    {
+      "name": "Water Works",
+      "type": "utility",
+      "position": 6,
+      "cost": 150,
+      "set": "Utility",
+      "mortgage": 75
+    },
+    {
+      "name": "Water Works - No Cost",
+      "type": "utility",
+      "position": 6,
+      "set": "Utility",
+      "mortgage": 75
+    }
+  ],
+    "chance": [
+      {
+        "title": "Advance to Go (Collect $200)",
+        "action": "move",
+        "squarename": "Go",
+        "position": 0
+      },
+      {
+        "title": "Advance to Illinois Avenue - If you pass Go, collect $200",
+        "action": "move",
+        "squarename": "Illinois Avenue",
+        "position": 24
+      },
+      {
+        "title": "Advance to St. Charles Place - If you pass Go, collect $200",
+        "action": "move",
+        "squarename": "St. Charles Place",
+        "position": 11
+      },
+      {
+        "title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
+        "action": "movenearest",
+        "type": "Utility",
+        "rentmultiplier": 10
+      },
+      {
+        "title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
+        "action": "movenearest",
+        "type": "Railroad",
+        "rentmultiplier": 2
+      },
+      {
+        "title": "Bank pays you dividend of $50",
+        "action": "addfunds",
+        "amount": 50
+      },
+      {
+        "title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
+        "action": "jail",
+        "subaction": "getout"
+      },
+      {
+        "title": "Go Back 3 Spaces",
+        "action": "move",
+        "count": -3
+      },
+      {
+        "title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
+        "action": "jail",
+        "subaction": "goto"
+      },
+      {
+        "title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
+        "action": "propertycharges",
+        "house": 25,
+        "hotels": 100
+      },
+      {
+        "title": "Pay poor tax of $15",
+        "action": "removefunds",
+        "amount": 15
+      },
+      {
+        "title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
+        "action": "move",
+        "squarename": "Reading Railroad"
+      },
+      {
+        "title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
+        "action": "move",
+        "squarename": "Boardwalk"
+      },
+      {
+        "title": "You have been elected Chairman of the Board - Pay each player $50",
+        "action": "removefundstoplayers",
+        "amount": 50
+      },
+      {
+        "title": "Your building loan matures - Collect $150",
+        "action": "addfunds",
+        "amount": 50
+      }
+    ],
+    "community": [
+      {
+        "title": "Advance to Go (Collect $200)",
+        "action": "move",
+        "squarename": "Go"
+      },
+      {
+        "title": "Bank error in your favor - Collect $200 ",
+        "action": "addfunds",
+        "amount": 200
+      },
+      {
+        "title": "Doctor fee - Pay $50",
+        "action": "removefunds",
+        "amount": 50
+      },
+      {
+        "title": "From sale of stock you get $50",
+        "action": "addfunds",
+        "amount": 50
+      },
+      {
+        "title": "Get Out of Jail Free",
+        "action": "jail",
+        "subaction": "getout"
+      },
+      {
+        "title": "Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200",
+        "action": "jail",
+        "subaction": "goto"
+      },
+      {
+        "title": "Grand Opera Night - Collect $50 from every player for opening night seats",
+        "action": "addfundsfromplayers",
+        "amount": 50
+      },
+      {
+        "title": "Holiday Fund matures - Receive $100",
+        "action": "addfunds",
+        "amount": 100
+      },
+      {
+        "title": "Income tax refund - Collect $20",
+        "action": "addfunds",
+        "amount": 20
+      },
+      {
+        "title": "Life insurance matures - Collect $100",
+        "action": "addfunds",
+        "amount": 100
+      },
+      {
+        "title": "Pay hospital fees of $100",
+        "action": "removefunds",
+        "amount": 100
+      },
+      {
+        "title": "Pay school fees of $150",
+        "action": "removefunds",
+        "amount": 150
+      },
+      {
+        "title": "Receive $25 consultancy fee",
+        "action": "addfunds",
+        "amount": 25
+      },
+      {
+        "title": "You are assessed for street repairs - $40 per house - $115 per hotel",
+        "action": "propertycharges",
+        "house": 40,
+        "hotels": 115
+      },
+      {
+        "title": "You have won second prize in a beauty contest - Collect $10",
+        "action": "addfunds",
+        "amount": 10
+      },
+      {
+        "title": "You inherit $100",
+        "action": "addfunds",
+        "amount": 100
+      }
+    ]
+  }
