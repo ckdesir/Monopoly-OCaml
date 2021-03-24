@@ -22,10 +22,33 @@ type square = {
   mortgage: int option;
 }
 
+type chance_card = {
+  title: string;
+  action: string;
+  name: square_name option;
+  position: int option;
+  stype: square_type option;
+  rent_multiplier: int option;
+  subaction: string option;
+  amount: int option;
+  count: int option;
+  house: int option;
+  hotels: int option;
+}
+
+type community_chest = {
+  title: string;
+  action: string;
+  subaction: string option;
+  amount: int option;
+  house: int option;
+  hotels: int option;
+}
+
 type t = {
   squares : square list;
-  (* chance : chance list;
-  community : community list; *)
+  chance_cards : chance_card list;
+  community_chest_cards : community_chest list;
 }
 
 open Yojson.Basic.Util
@@ -48,8 +71,33 @@ let squares_of_board json = {
   rent_tiers = json |> member "rent" |> to_option rent_tiers_of_board;
 }
 
+let chance_cards_of_board json = {
+  title = json |> member "title" |> to_string;
+  action = json |> member "action" |> to_string;
+  name = json |> member "action" |> to_string_option;
+  position = json |> member "position" |> to_int_option;
+  stype = json |> member "type" |> to_string_option;
+  rent_multiplier = json |> member "rentmultiplier" |> to_int_option;
+  subaction = json |> member "subaction" |> to_string_option;
+  amount = json |> member "amount" |> to_int_option;
+  count = json |> member "count" |> to_int_option;
+  house = json |> member "house" |> to_int_option;
+  hotels = json |> member "hotels" |> to_int_option;
+}
+
+let community_chest_cards_of_board json = {
+  title = json |> member "title" |> to_string;
+  action = json |> member "action" |> to_string;
+  subaction = json |> member "subaction" |> to_string_option;
+  amount = json |> member "amount" |> to_int_option;
+  house = json |> member "house" |> to_int_option;
+  hotels = json |> member "hotels" |> to_int_option;
+}
 let from_json json = {
-  squares = json |> member "squares" |> to_list |> List.map squares_of_board;
-  (* chance = json |> member "chance" |> to_list |> List.map chance_cards;
-  community = json |> member "community" |> to_list |> List.map community_chest_cards; *)
+  squares = 
+    json |> member "squares" |> to_list |> List.map squares_of_board;
+  chance_cards = 
+    json |> member "chance" |> to_list |> List.map chance_cards_of_board;
+  community_chest_cards = json |> member "community" |> to_list |> 
+    List.map community_chest_cards_of_board;
 }
