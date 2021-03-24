@@ -101,3 +101,30 @@ let from_json json = {
   community_chest_cards = json |> member "community" |> to_list |> 
     List.map community_chest_cards_of_board;
 }
+
+let cost_of_square board s = failwith "unimplemented"
+
+let mortgage_of_square board s = failwith "unimplemented"
+
+let position_of_square board s = failwith "unimplemented"
+
+let type_of_square board s = failwith "unimplemented"
+
+let upgrade_cost board s = failwith "unimplemented"
+
+let cost_of_tier_0_rent board s = failwith "unimplemented"
+
+let cost_of_tier_1_rent board s = failwith "unimplemented"
+
+let cost_of_tier_2_rent board s = failwith "unimplemented"
+
+let cost_of_tier_3_rent board s = failwith "unimplemented"
+
+let cost_of_tier_4_rent board s = failwith "unimplemented"
+
+let cost_of_tier_5_rent board s = failwith "unimplemented"
+
+
+
+
+

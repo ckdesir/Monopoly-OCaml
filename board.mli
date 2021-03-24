@@ -32,7 +32,7 @@ val from_json : Yojson.Basic.t -> t
     [cost_of_square].
     The following square_types are valid for cost_of_square: 
     "Street", "Income Tax", "Luxury Tax", "Railroad", "Utility" *)
-(* val cost_of_square : Yojson.Basic.t -> square_name -> int *)
+val cost_of_square : Yojson.Basic.t -> square_name -> int
 
 (** [mortgage_of_square b s] is the mortgage of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
@@ -40,7 +40,7 @@ val from_json : Yojson.Basic.t -> t
     [mortgage_of_square].
     The following square_types are valid for mortgage_of_square: 
     "Street", "Railroad", "Utility" *)
-(* val mortgage_of_square : Yojson.Basic.t -> square_name -> int
+val mortgage_of_square : Yojson.Basic.t -> square_name -> int
 
 val position_of_square : Yojson.Basic.t -> square_name -> int
 
@@ -58,7 +58,7 @@ val cost_of_tier_3_rent : Yojson.Basic.t -> square_name -> int
 
 val cost_of_tier_4_rent : Yojson.Basic.t -> square_name -> int
 
-val cost_of_tier_5_rent : Yojson.Basic.t -> square_name -> int *)
+val cost_of_tier_5_rent : Yojson.Basic.t -> square_name -> int
 
 (* val tier_1_definition : Yojson.Basic.t -> square_name -> string
 
