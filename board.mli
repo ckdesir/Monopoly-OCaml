@@ -46,11 +46,9 @@ val position_of_square : Yojson.Basic.t -> square_name -> int
 
 val type_of_square : Yojson.Basic.t -> square_name -> square_type
 
-val cost_of_house : Yojson.Basic.t -> square_name -> int
+val upgrade_cost : Yojson.Basic.t -> square_name -> int
 
-val cost_of_hotel : Yojson.Basic.t -> square_name -> int
-
-val cost_of_basic_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_0_rent : Yojson.Basic.t -> square_name -> int
 
 val cost_of_tier_1_rent : Yojson.Basic.t -> square_name -> int
 
@@ -60,7 +58,7 @@ val cost_of_tier_3_rent : Yojson.Basic.t -> square_name -> int
 
 val cost_of_tier_4_rent : Yojson.Basic.t -> square_name -> int
 
-val cost_of_final_tier_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_5_rent : Yojson.Basic.t -> square_name -> int
 
 (* val tier_1_definition : Yojson.Basic.t -> square_name -> string
 

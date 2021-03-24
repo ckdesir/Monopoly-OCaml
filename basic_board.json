@@ -1,5 +1,5 @@
 {
-  "items": [
+  "squares": [
     {
       "name": "Go",
       "type": "Go",
@@ -10,19 +10,34 @@
       "type": "Street",
       "position": 1,
       "cost": 60,
-      "upgrade cost": {
-        "house": 50,
-        "hotel": 50
-      },
+      "upgrade cost": 50,
       "set": "brown",
-      "rent": {
-        "basic": 2,
-        "tier 1": 10,
-        "tier 2": 30,
-        "tier 3": 90,
-        "tier 4": 160,
-        "final tier": 250
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 2
+        },
+        {
+          "tier": 1,
+          "cost": 10
+        },
+        {
+          "tier": 2,
+          "cost": 30
+        },
+        {
+          "tier": 3,
+          "cost": 90
+        },
+        {
+          "tier": 4,
+          "cost": 160
+        },
+        {
+          "tier": 5,
+          "cost": 250
+        }
+      ],
       "mortgage": 30
     },
     {
@@ -35,19 +50,34 @@
       "type": "Street",
       "position": 3,
       "cost": 60,
-      "upgrade cost": {
-        "house": 50,
-        "hotel": 50
-      },
+      "upgrade cost": 50,
       "set": "brown",
-      "rent": {
-        "basic": 4,
-        "tier 1": 20,
-        "tier 2": 60,
-        "tier 3": 180,
-        "tier 4": 320,
-        "final tier": 450
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 4
+        },
+        {
+          "tier": 1,
+          "cost": 20
+        },
+        {
+          "tier": 2,
+          "cost": 60
+        },
+        {
+          "tier": 3,
+          "cost": 180
+        },
+        {
+          "tier": 4,
+          "cost": 320
+        },
+        {
+          "tier": 5,
+          "cost": 450
+        }
+      ],
       "mortgage": 30
     },
     {
@@ -62,12 +92,24 @@
       "position": 5,
       "cost": 200,
       "set": "Railroad",
-      "rent": {
-        "basic": 25,
-        "tier 1": 50,
-        "tier 2": 100,
-        "tier 3": 200
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
       "mortgage": 100
     },
     {
@@ -75,19 +117,34 @@
       "type": "Street",
       "position": 6,
       "cost": 100,
-      "upgrade cost": {
-        "house": 50,
-        "hotel": 50
-      },
+      "upgrade cost": 50,
       "set": "light blue",
-      "rent": {
-        "basic": 6,
-        "tier 1": 30,
-        "tier 2": 90,
-        "tier 3": 270,
-        "tier 4": 400,
-        "final tier": 550
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 6
+        },
+        {
+          "tier": 1,
+          "cost": 30
+        },
+        {
+          "tier": 2,
+          "cost": 90
+        },
+        {
+          "tier": 3,
+          "cost": 270
+        },
+        {
+          "tier": 4,
+          "cost": 400
+        },
+        {
+          "tier": 5,
+          "cost": 550
+        }
+      ],
       "mortgage": 50
     },
     {
@@ -100,19 +157,34 @@
       "type": "Street",
       "position": 8,
       "cost": 100,
-      "upgrade cost": {
-        "house": 50,
-        "hotel": 50
-      },
+      "upgrade cost": 50,
       "set": "light blue",
-      "rent": {
-        "basic": 6,
-        "tier 1": 30,
-        "tier 2": 90,
-        "tier 3": 270,
-        "tier 4": 400,
-        "final tier": 550
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 6
+        },
+        {
+          "tier": 1,
+          "cost": 30
+        },
+        {
+          "tier": 2,
+          "cost": 90
+        },
+        {
+          "tier": 3,
+          "cost": 270
+        },
+        {
+          "tier": 4,
+          "cost": 400
+        },
+        {
+          "tier": 5,
+          "cost": 550
+        }
+      ],
       "mortgage": 50
     },
     {
@@ -120,19 +192,34 @@
       "type": "Street",
       "position": 9,
       "cost": 120,
-      "upgrade cost": {
-        "house": 50,
-        "hotel": 50
-      },
+      "upgrade cost": 50,
       "set": "light blue",
-      "rent": {
-        "basic": 8,
-        "tier 1": 40,
-        "tier 2": 100,
-        "tier 3": 300,
-        "tier 4": 450,
-        "final tier": 600
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 8
+        },
+        {
+          "tier": 1,
+          "cost": 40
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 300
+        },
+        {
+          "tier": 4,
+          "cost": 450
+        },
+        {
+          "tier": 5,
+          "cost": 600
+        }
+      ],
       "mortgage": 60
     },
     {
@@ -145,19 +232,34 @@
       "type": "Street",
       "position": 11,
       "cost": 140,
-      "upgrade cost": {
-        "house": 100,
-        "hotel": 100
-      },
+      "upgrade cost": 100,
       "set": "pink",
-      "rent": {
-        "basic": 10,
-        "tier 1": 50,
-        "tier 2": 150,
-        "tier 3": 450,
-        "tier 4": 625,
-        "final tier": 750
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 10
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 150
+        },
+        {
+          "tier": 3,
+          "cost": 450
+        },
+        {
+          "tier": 4,
+          "cost": 625
+        },
+        {
+          "tier": 5,
+          "cost": 750
+        }
+      ],
       "mortgage": 70
     },
     {
@@ -173,19 +275,34 @@
       "type": "Street",
       "position": 13,
       "cost": 140,
-      "upgrade cost": {
-        "house": 100,
-        "hotel": 100
-      },
+      "upgrade cost": 100,
       "set": "pink",
-      "rent": {
-        "basic": 10,
-        "tier 1": 50,
-        "tier 2": 150,
-        "tier 3": 450,
-        "tier 4": 625,
-        "final tier": 750
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 10
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 150
+        },
+        {
+          "tier": 3,
+          "cost": 450
+        },
+        {
+          "tier": 4,
+          "cost": 625
+        },
+        {
+          "tier": 5,
+          "cost": 750
+        }
+      ],
       "mortgage": 70
     },
     {
@@ -193,19 +310,34 @@
       "type": "Street",
       "position": 14,
       "cost": 160,
-      "upgrade cost": {
-        "house": 100,
-        "hotel": 100
-      },
+      "upgrade cost": 100,
       "set": "pink",
-      "rent": {
-        "basic": 12,
-        "tier 1": 60,
-        "tier 2": 180,
-        "tier 3": 500,
-        "tier 4": 700,
-        "final tier": 900
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 12
+        },
+        {
+          "tier": 1,
+          "cost": 60
+        },
+        {
+          "tier": 2,
+          "cost": 180
+        },
+        {
+          "tier": 3,
+          "cost": 500
+        },
+        {
+          "tier": 4,
+          "cost": 700
+        },
+        {
+          "tier": 5,
+          "cost": 900
+        }
+      ],
       "mortgage": 80
     },
     {
@@ -214,12 +346,24 @@
       "position": 15,
       "cost": 200,
       "set": "Railroad",
-      "rent": {
-        "basic": 25,
-        "tier 1": 50,
-        "tier 2": 100,
-        "tier 3": 200
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
       "mortgage": 100
     },
     {
@@ -227,19 +371,34 @@
       "type": "Street",
       "position": 16,
       "cost": 180,
-      "upgrade cost": {
-        "house": 100,
-        "hotel": 100
-      },
+      "upgrade cost": 100,
       "set": "orange",
-      "rent": {
-        "basic": 14,
-        "tier 1": 70,
-        "tier 2": 200,
-        "tier 3": 550,
-        "tier 4": 750,
-        "final tier": 950
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 14
+        },
+        {
+          "tier": 1,
+          "cost": 70
+        },
+        {
+          "tier": 2,
+          "cost": 200
+        },
+        {
+          "tier": 3,
+          "cost": 550
+        },
+        {
+          "tier": 4,
+          "cost": 750
+        },
+        {
+          "tier": 5,
+          "cost": 950
+        }
+      ],
       "mortgage": 90
     },
     {
@@ -252,19 +411,34 @@
       "type": "Street",
       "position": 18,
       "cost": 180,
-      "upgrade cost": {
-        "house": 100,
-        "hotel": 100
-      },
+      "upgrade cost": 100,
       "set": "orange",
-      "rent": {
-        "basic": 14,
-        "tier 1": 70,
-        "tier 2": 200,
-        "tier 3": 550,
-        "tier 4": 750,
-        "final tier": 950
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 14
+        },
+        {
+          "tier": 1,
+          "cost": 70
+        },
+        {
+          "tier": 2,
+          "cost": 200
+        },
+        {
+          "tier": 3,
+          "cost": 550
+        },
+        {
+          "tier": 4,
+          "cost": 750
+        },
+        {
+          "tier": 5,
+          "cost": 950
+        }
+      ],
       "mortgage": 80
     },
     {
@@ -272,19 +446,34 @@
       "type": "Street",
       "position": 19,
       "cost": 200,
-      "upgrade cost": {
-        "house": 100,
-        "hotel": 100
-      },
+      "upgrade cost": 100,
       "set": "orange",
-      "rent": {
-        "basic": 16,
-        "tier 1": 80,
-        "tier 2": 220,
-        "tier 3": 600,
-        "tier 4": 800,
-        "final tier": 1000
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 16
+        },
+        {
+          "tier": 1,
+          "cost": 80
+        },
+        {
+          "tier": 2,
+          "cost": 220
+        },
+        {
+          "tier": 3,
+          "cost": 600
+        },
+        {
+          "tier": 4,
+          "cost": 800
+        },
+        {
+          "tier": 5,
+          "cost": 1000
+        }
+      ],
       "mortgage": 100
     },
     {
@@ -297,19 +486,34 @@
       "type": "Street",
       "position": 21,
       "cost": 220,
-      "upgrade cost": {
-        "house": 150,
-        "hotel": 150
-      },
+      "upgrade cost": 150,
       "set": "red",
-      "rent": {
-        "basic": 18,
-        "tier 1": 90,
-        "tier 2": 250,
-        "tier 3": 700,
-        "tier 4": 875,
-        "final tier": 1050
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 18
+        },
+        {
+          "tier": 1,
+          "cost": 90
+        },
+        {
+          "tier": 2,
+          "cost": 250
+        },
+        {
+          "tier": 3,
+          "cost": 700
+        },
+        {
+          "tier": 4,
+          "cost": 875
+        },
+        {
+          "tier": 5,
+          "cost": 1050
+        }
+      ],
       "mortgage": 110
     },
     {
@@ -322,19 +526,34 @@
       "type": "Street",
       "position": 23,
       "cost": 220,
-      "upgrade cost": {
-        "house": 150,
-        "hotel": 150
-      },
+      "upgrade cost": 150,
       "set": "red",
-      "rent": {
-        "basic": 18,
-        "tier 1": 90,
-        "tier 2": 250,
-        "tier 3": 700,
-        "tier 4": 875,
-        "final tier": 1050
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 18
+        },
+        {
+          "tier": 1,
+          "cost": 90
+        },
+        {
+          "tier": 2,
+          "cost": 250
+        },
+        {
+          "tier": 3,
+          "cost": 700
+        },
+        {
+          "tier": 4,
+          "cost": 875
+        },
+        {
+          "tier": 5,
+          "cost": 1050
+        }
+      ],
       "mortgage": 110
     },
     {
@@ -342,19 +561,34 @@
       "type": "Street",
       "position": 24,
       "cost": 240,
-      "upgrade cost": {
-        "house": 150,
-        "hotel": 150
-      },
+      "upgrade cost": 150,
       "set": "red",
-      "rent": {
-        "basic": 20,
-        "tier 1": 100,
-        "tier 2": 300,
-        "tier 3": 750,
-        "tier 4": 925,
-        "final tier": 1100
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 20
+        },
+        {
+          "tier": 1,
+          "cost": 100
+        },
+        {
+          "tier": 2,
+          "cost": 300
+        },
+        {
+          "tier": 3,
+          "cost": 750
+        },
+        {
+          "tier": 4,
+          "cost": 925
+        },
+        {
+          "tier": 5,
+          "cost": 1100
+        }
+      ],
       "mortgage": 120
     },
     {
@@ -363,12 +597,24 @@
       "position": 25,
       "cost": 200,
       "set": "Railroad",
-      "rent": {
-        "basic": 25,
-        "tier 1": 50,
-        "tier 2": 100,
-        "tier 3": 200
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
       "mortgage": 100
     },
     {
@@ -376,19 +622,34 @@
       "type": "Street",
       "position": 26,
       "cost": 260,
-      "upgrade cost": {
-        "house": 150,
-        "hotel": 150
-      },
+      "upgrade cost": 150,
       "set": "yellow",
-      "rent": {
-        "basic": 22,
-        "tier 1": 110,
-        "tier 2": 330,
-        "tier 3": 800,
-        "tier 4": 975,
-        "final tier": 1150
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 22
+        },
+        {
+          "tier": 1,
+          "cost": 110
+        },
+        {
+          "tier": 2,
+          "cost": 330
+        },
+        {
+          "tier": 3,
+          "cost": 800
+        },
+        {
+          "tier": 4,
+          "cost": 975
+        },
+        {
+          "tier": 5,
+          "cost": 1150
+        }
+      ],
       "mortgage": 130
     },
     {
@@ -396,19 +657,34 @@
       "type": "Street",
       "position": 27,
       "cost": 260,
-      "upgrade cost": {
-        "house": 150,
-        "hotel": 150
-      },
+      "upgrade cost": 150,
       "set": "yellow",
-      "rent": {
-        "basic": 22,
-        "tier 1": 110,
-        "tier 2": 330,
-        "tier 3": 800,
-        "tier 4": 975,
-        "final tier": 1150
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 22
+        },
+        {
+          "tier": 1,
+          "cost": 110
+        },
+        {
+          "tier": 2,
+          "cost": 330
+        },
+        {
+          "tier": 3,
+          "cost": 800
+        },
+        {
+          "tier": 4,
+          "cost": 975
+        },
+        {
+          "tier": 5,
+          "cost": 1150
+        }
+      ],
       "mortgage": 130
     },
     {
@@ -424,19 +700,34 @@
       "type": "Street",
       "position": 29,
       "cost": 280,
-      "upgrade cost": {
-        "house": 150,
-        "hotel": 150
-      },
+      "upgrade cost": 150,
       "set": "yellow",
-      "rent": {
-        "basic": 24,
-        "tier 1": 120,
-        "tier 2": 360,
-        "tier 3": 850,
-        "tier 4": 1025,
-        "final tier": 1200
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 24
+        },
+        {
+          "tier": 1,
+          "cost": 120
+        },
+        {
+          "tier": 2,
+          "cost": 360
+        },
+        {
+          "tier": 3,
+          "cost": 850
+        },
+        {
+          "tier": 4,
+          "cost": 1025
+        },
+        {
+          "tier": 5,
+          "cost": 1200
+        }
+      ],
       "mortgage": 140
     },
     {
@@ -449,19 +740,34 @@
       "type": "Street",
       "position": 31,
       "cost": 300,
-      "upgrade cost": {
-        "house": 200,
-        "hotel": 200
-      },
+      "upgrade cost": 200,
       "set": "green",
-      "rent": {
-        "basic": 26,
-        "tier 1": 130,
-        "tier 2": 390,
-        "tier 3": 900,
-        "tier 4": 1100,
-        "final tier": 1275
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 26
+        },
+        {
+          "tier": 1,
+          "cost": 130
+        },
+        {
+          "tier": 2,
+          "cost": 390
+        },
+        {
+          "tier": 3,
+          "cost": 900
+        },
+        {
+          "tier": 4,
+          "cost": 1100
+        },
+        {
+          "tier": 5,
+          "cost": 1275
+        }
+      ],
       "mortgage": 150
     },
     {
@@ -469,19 +775,34 @@
       "type": "Street",
       "position": 32,
       "cost": 300,
-      "upgrade cost": {
-        "house": 200,
-        "hotel": 200
-      },
+      "upgrade cost": 200,
       "set": "green",
-      "rent": {
-        "basic": 26,
-        "tier 1": 130,
-        "tier 2": 390,
-        "tier 3": 900,
-        "tier 4": 1100,
-        "final tier": 1275
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 26
+        },
+        {
+          "tier": 1,
+          "cost": 130
+        },
+        {
+          "tier": 2,
+          "cost": 390
+        },
+        {
+          "tier": 3,
+          "cost": 900
+        },
+        {
+          "tier": 4,
+          "cost": 1100
+        },
+        {
+          "tier": 5,
+          "cost": 1275
+        }
+      ],
       "mortgage": 150
     },
     {
@@ -494,19 +815,34 @@
       "type": "Street",
       "position": 34,
       "cost": 300,
-      "upgrade cost": {
-        "house": 200,
-        "hotel": 200
-      },
+      "upgrade cost": 200,
       "set": "green",
-      "rent": {
-        "basic": 28,
-        "tier 1": 150,
-        "tier 2": 4500,
-        "tier 3": 1000,
-        "tier 4": 1200,
-        "final tier": 1400
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 28
+        },
+        {
+          "tier": 1,
+          "cost": 150
+        },
+        {
+          "tier": 2,
+          "cost": 450
+        },
+        {
+          "tier": 3,
+          "cost": 1000
+        },
+        {
+          "tier": 4,
+          "cost": 1200
+        },
+        {
+          "tier": 5,
+          "cost": 1400
+        }
+      ],
       "mortgage": 160
     },
     {
@@ -515,12 +851,24 @@
       "position": 35,
       "cost": 200,
       "set": "Railroad",
-      "rent": {
-        "basic": 25,
-        "tier 1": 50,
-        "tier 2": 100,
-        "tier 3": 200
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
       "mortgage": 100
     },
     {
@@ -533,19 +881,34 @@
       "type": "Street",
       "position": 37,
       "cost": 350,
-      "upgrade cost": {
-        "house": 200,
-        "hotel": 200
-      },
+      "upgrade cost": 200,
       "set": "dark blue",
-      "rent": {
-        "basic": 35,
-        "tier 1": 175,
-        "tier 2": 500,
-        "tier 3": 1100,
-        "tier 4": 1300,
-        "final tier": 1500
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 35
+        },
+        {
+          "tier": 1,
+          "cost": 175
+        },
+        {
+          "tier": 2,
+          "cost": 500
+        },
+        {
+          "tier": 3,
+          "cost": 1100
+        },
+        {
+          "tier": 4,
+          "cost": 1300
+        },
+        {
+          "tier": 5,
+          "cost": 1500
+        }
+      ],
       "mortgage": 175
     },
     {
@@ -559,19 +922,34 @@
       "type": "Street",
       "position": 39,
       "cost": 400,
-      "upgrade cost": {
-        "house": 200,
-        "hotel": 200
-      },
+      "upgrade cost": 200,
       "set": "dark blue",
-      "rent": {
-        "basic": 50,
-        "tier 1": 200,
-        "tier 2": 600,
-        "tier 3": 1400,
-        "tier 4": 1700,
-        "final tier": 2000
-      },
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 50
+        },
+        {
+          "tier": 1,
+          "cost": 200
+        },
+        {
+          "tier": 2,
+          "cost": 600
+        },
+        {
+          "tier": 3,
+          "cost": 1400
+        },
+        {
+          "tier": 4,
+          "cost": 1700
+        },
+        {
+          "tier": 5,
+          "cost": 2000
+        }
+      ],
       "mortgage": 200
     }
   ],
@@ -658,7 +1036,7 @@
       "amount": 50
     }
   ],
-  "communitychest": [
+  "community": [
     {
       "title": "Advance to Go (Collect $200)",
       "action": "move",
