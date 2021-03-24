@@ -1,0 +1,157 @@
+{
+  "type": "object",
+  "properties": {
+    "squares": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the square",
+            "type": "string"
+          },
+          "type": {
+            "description": "What type of square is it?",
+            "type": "string",
+            "enum": ["Go", 
+              "Jail/Just Visitng", 
+              "Chance", 
+              "Community Chest", 
+              "Street",
+              "Income Tax",
+              "Luxury Tax", 
+              "Railroad",
+              "Utility", 
+              "Free Parking", 
+              "Go To Jail"]
+          },
+          "cost": {
+            "description": "Initial cost associated with buying square/landing on square (if tax), if applicable",
+            "type": "number"
+          },
+          "upgrade cost": {
+            "description": "Upgrade costs associated with buying houses/hotels if type of square is Street",
+            "type": "object",
+            "properties": {
+              "house": {
+                "type": "number"
+              },
+              "hotel": {
+                "type": "number"
+              }
+            }
+          },
+          "set": {
+            "description": "What set this property belongs to, either by name or by color or by type (i.e. railroad/utility).",
+            "type": "string"
+          },
+          //idk how to impose rent upgrades with unlimited railroad/utility
+          "rent": {
+            "description": "Rent breakdown of a property",
+            "type": "object",
+            "properties": {
+              "basic": {
+                "type": "number"
+              },
+              "tier 1": {
+                "type": "number"
+              },
+              "tier 2": {
+                "type": "number"
+              },
+              "tier 3": {
+                "type": "number"
+              }
+              // "tier 4": {
+              //   "anyOf": [
+              //     {
+              //       "type": "number"
+              //     },
+              //     {
+              //       "type": "null"
+              //     }
+              //   ]
+              // },
+              // "final tier": {
+              //   "anyOf": [
+              //     {
+              //       "type": "number"
+              //     },
+              //     {
+              //       "type": "null"
+              //     }
+              //   ]
+              // },
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "name",
+          "type"
+        ],
+        "if": {
+          "properties": {
+            "type": {
+              "const": "Street"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "cost",
+            "upgrade cost",
+            "set",
+            "rent"
+          ],
+          "dependencies": {
+            "rent":{
+              "properties": {
+                "tier 4": {
+                  "type": "number"
+                },
+                "final tier": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "tier 4",
+                "final tier"
+              ]
+            }
+          }
+        },
+        "else": {
+          "required": [
+            "account",
+            "person"
+          ]
+        }
+        // "dependencies": {
+        //   "type": {
+        //     "enum": ["Street, Railroad, Utility"]
+        //   },
+        //   "required": ["cost", "set", "rent"]
+        // }
+        // "if": {
+        //   "properties": {
+        //      "type": {
+        //        "enum": ["Street"]
+        //      } 
+        //     }
+        // }
+        // "required": [
+        //   "name",
+        //   "description",
+        //   "exits"
+        // ]
+      }
+    }
+  },
+  "required": [
+    "squares"
+  ],
+  "additionalProperties": false
+}
