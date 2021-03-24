@@ -110,6 +110,8 @@ let position_of_square board s = failwith "unimplemented"
 
 let type_of_square board s = failwith "unimplemented"
 
+let contains board s = failwith "unimplemented"
+
 let upgrade_cost board s = failwith "unimplemented"
 
 let cost_of_tier_0_rent board s = failwith "unimplemented"

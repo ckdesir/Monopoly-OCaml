@@ -56,6 +56,9 @@ val position_of_square : Yojson.Basic.t -> square_name -> int
       "Free Parking", "Go To Jail"]] *)
 val type_of_square : Yojson.Basic.t -> square_name -> square_type
 
+(** [contains b s] returns true if square [s] is on board [b]. *)
+val contains : Yojson.Basic.t -> square_name -> bool
+
 (** [upgrade_cost b s] is the upgrade cost of square [s] on board [b].
     Upgrade cost is the amount of money required to pay for a house/hotel.
     Raises [UnknownSquare s] if [s] is not a square in [b].
