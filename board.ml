@@ -123,8 +123,3 @@ let cost_of_tier_3_rent board s = failwith "unimplemented"
 let cost_of_tier_4_rent board s = failwith "unimplemented"
 
 let cost_of_tier_5_rent board s = failwith "unimplemented"
-
-
-
-
-
