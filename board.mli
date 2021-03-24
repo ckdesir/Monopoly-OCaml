@@ -32,7 +32,7 @@ val from_json : Yojson.Basic.t -> t
     [cost_of_square].
     The following square_types are valid for cost_of_square: 
     [["Street", "Income Tax", "Luxury Tax", "Railroad", "Utility"]] *)
-val cost_of_square : Yojson.Basic.t -> square_name -> int
+val cost_of_square : t -> square_name -> int
 
 (** [mortgage_of_square b s] is the mortgage of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
@@ -40,12 +40,12 @@ val cost_of_square : Yojson.Basic.t -> square_name -> int
     [mortgage_of_square].
     The following square_types are valid for mortgage_of_square: 
     [["Street", "Railroad", "Utility"]] *)
-val mortgage_of_square : Yojson.Basic.t -> square_name -> int
+val mortgage_of_square : t -> square_name -> int
 
 (** [position_of_square b s] is the position of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
     All square_types should have a valid position on the board *)
-val position_of_square : Yojson.Basic.t -> square_name -> int
+val position_of_square : t -> square_name -> int
 
 (** [type_of_square b s] is the type of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
@@ -54,10 +54,10 @@ val position_of_square : Yojson.Basic.t -> square_name -> int
     [["Go", "Jail/Just Visitng", "Chance", "Community Chest", 
       "Street", "Income Tax", "Luxury Tax", "Railroad", "Utility", 
       "Free Parking", "Go To Jail"]] *)
-val type_of_square : Yojson.Basic.t -> square_name -> square_type
+val type_of_square : t -> square_name -> square_type
 
 (** [contains b s] returns true if square [s] is on board [b]. *)
-val contains : Yojson.Basic.t -> square_name -> bool
+val contains : t -> square_name -> bool
 
 (** [upgrade_cost b s] is the upgrade cost of square [s] on board [b].
     Upgrade cost is the amount of money required to pay for a house/hotel.
@@ -66,7 +66,7 @@ val contains : Yojson.Basic.t -> square_name -> bool
     [upgrade_cost].
     The following square_types are valid for upgrade_cost: 
     [["Street"]] *)
-val upgrade_cost : Yojson.Basic.t -> square_name -> int
+val upgrade_cost : t -> square_name -> int
 
 (** [cost_of_tier_0_rent b s] is the cost of tier 0 rent of
     square [s] on board [b].
@@ -84,7 +84,7 @@ val upgrade_cost : Yojson.Basic.t -> square_name -> int
     [cost_of_tier_0_rent].
     The following square_types are valid for cost_of_tier_0_rent: 
     [["Street", "Railroad"]] *)
-val cost_of_tier_0_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_0_rent : t -> square_name -> int
 
 (** [cost_of_tier_1_rent b s] is the cost of tier 1 rent of
     square [s] on board [b].
@@ -100,7 +100,7 @@ val cost_of_tier_0_rent : Yojson.Basic.t -> square_name -> int
     [cost_of_tier_1_rent].
     The following square_types are valid for cost_of_tier_1_rent: 
     [["Street", "Railroad"]] *)
-val cost_of_tier_1_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_1_rent : t -> square_name -> int
 
 (** [cost_of_tier_2_rent b s] is the cost of tier 2 rent of
     square [s] on board [b].
@@ -116,7 +116,7 @@ val cost_of_tier_1_rent : Yojson.Basic.t -> square_name -> int
     [cost_of_tier_2_rent].
     The following square_types are valid for cost_of_tier_2_rent: 
     [["Street", "Railroad"]] *)
-val cost_of_tier_2_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_2_rent : t -> square_name -> int
 
 (** [cost_of_tier_3_rent b s] is the cost of tier 3 rent of
     square [s] on board [b].
@@ -132,7 +132,7 @@ val cost_of_tier_2_rent : Yojson.Basic.t -> square_name -> int
     [cost_of_tier_3_rent].
     The following square_types are valid for cost_of_tier_3_rent: 
     [["Street", "Railroad"]] *)
-val cost_of_tier_3_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_3_rent : t -> square_name -> int
 
 (** [cost_of_tier_4_rent b s] is the cost of tier 4 rent of
     square [s] on board [b].
@@ -145,7 +145,7 @@ val cost_of_tier_3_rent : Yojson.Basic.t -> square_name -> int
     [cost_of_tier_4_rent].
     The following square_types are valid for cost_of_tier_4_rent: 
     [["Street"]] *)
-val cost_of_tier_4_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_4_rent : t -> square_name -> int
 
 (** [cost_of_tier_5_rent b s] is the cost of tier 5 rent of
     square [s] on board [b].
@@ -158,8 +158,8 @@ val cost_of_tier_4_rent : Yojson.Basic.t -> square_name -> int
     [cost_of_tier_5_rent].
     The following square_types are valid for cost_of_tier_5_rent: 
     [["Street"]] *)
-val cost_of_tier_5_rent : Yojson.Basic.t -> square_name -> int
+val cost_of_tier_5_rent : t -> square_name -> int
 
-(* val chance_card_list : Yojson.Basic.t -> ???
+(* val chance_card_list : t -> ???
 
-val community_card_list : Yojson.Basic.t -> ??? *)
+val community_card_list : t -> ??? *)

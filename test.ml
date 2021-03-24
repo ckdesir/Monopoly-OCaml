@@ -119,11 +119,12 @@ let cost_of_tier_5_rent_error test_name board name excption =
 
 (********************************************************************
    End helper functions.
- ********************************************************************)
+********************************************************************)
 
 let basic_board = from_json (Yojson.Basic.from_file "basic_board.json")
 let board_test =
-  [ 
+  [
+    contains_test "valid square" basic_board "Pennsylvania Railroad" true
     
   ]
 
