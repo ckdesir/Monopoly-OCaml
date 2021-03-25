@@ -13,6 +13,32 @@ type square_type = string
 (** The name of the square. *)
 type square_name = string
 
+(** Defines a chance card. *)
+type chance_card = {
+  title: string;
+  action: string;
+  name: square_name option;
+  position: int option;
+  stype: square_type option;
+  rent_multiplier: int option;
+  subaction: string option;
+  amount: int option;
+  count: int option;
+  house: int option;
+  hotels: int option;
+}
+
+(** Defines a community card. *)
+type community_chest = {
+  title: string;
+  action: string;
+  subaction: string option;
+  position: int option;
+  amount: int option;
+  house: int option;
+  hotels: int option;
+}
+
 (** Raised when an operation is done on a type that doesn't match.
     For example, obtaining the mortgage of a "Community Chest" type
 *)
@@ -32,28 +58,13 @@ exception InvalidSquare of (square_type * square_name)
     a valid JSON Monopoly board representation. *)
 val from_json : Yojson.Basic.t -> t
 
-(** [cost_of_square b s] is the cost of square [s] on board [b].
-    Cost is associated with buying square / landing on square if applicable.
-    Raises [UnknownSquare s] if [s] is not a square in [b].
-    Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
-    [cost_of_square].
-    Raises [InvalidSquare] if the valid type doesn't have a cost.
-    The following square_types are valid for cost_of_square: 
-    [["Street", "Income Tax", "Luxury Tax", "Railroad", "Utility"]] *)
-val cost_of_square : t -> square_name -> int
+(** [contains b s] returns true if square [s] is on board [b]. *)
+val contains : t -> square_name -> bool
 
-(** [mortgage_of_square b s] is the mortgage of square [s] on board [b].
-    Raises [UnknownSquare s] if [s] is not a square in [b].
-    Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
-    [mortgage_of_square].
-    The following square_types are valid for mortgage_of_square: 
-    [["Street", "Railroad", "Utility"]] *)
-val mortgage_of_square : t -> square_name -> int
-
-(** [position_of_square b s] is the position of square [s] on board [b].
+(** [position_of_square b s] is all the positions of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
     All square_types should have a valid position on the board *)
-val position_of_square : t -> square_name -> int
+val position_of_square : t -> square_name -> int list
 
 (** [type_of_square b s] is the type of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
@@ -62,25 +73,47 @@ val position_of_square : t -> square_name -> int
     The following square_types are valid for an instance of board:
     [["Go", "Jail/Just Visitng", "Chance", "Community Chest", 
       "Street", "Income Tax", "Luxury Tax", "Railroad", "Utility", 
-      "Free Parking", "Go To Jail"]] *)
+      "Free Parking", "Go to Jail"]] *)
 val type_of_square : t -> square_name -> square_type
+
+(** [cost_of_square b s] is the cost of square [s] on board [b].
+    Cost is associated with buying square / landing on square if applicable.
+    Raises [UnknownSquare s] if [s] is not a square in [b].
+    Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
+    [cost_of_square].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
+    The following square_types are valid for cost_of_square: 
+    [["Street", "Income Tax", "Luxury Tax", "Railroad", "Utility"]] *)
+val cost_of_square : t -> square_name -> int
+
+(** [mortgage_of_square b s] is the mortgage of square [s] on board [b].
+    Raises [UnknownSquare s] if [s] is not a square in [b].
+    Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
+    [mortgage_of_square].
+    Raises [InvalidSquare] if the valid type doesn't have a mortgage.
+    Raises [UnknownType s] if [s] is not a valid type in board.
+    The following square_types are valid for mortgage_of_square: 
+    [["Street", "Railroad", "Utility"]] *)
+val mortgage_of_square : t -> square_name -> int
 
 (** [set_of_square b s] is the set of square [s] on board [b].
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [set_of_square].
+    Raises [InvalidSquare] if the valid type doesn't have a set.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for set_of_square: 
     [["Street", "Railroad", "Utility"]] *)
 val set_of_square : t -> square_name -> string
-
-(** [contains b s] returns true if square [s] is on board [b]. *)
-val contains : t -> square_name -> bool
 
 (** [upgrade_cost b s] is the upgrade cost of square [s] on board [b].
     Upgrade cost is the amount of money required to pay for a house/hotel.
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [upgrade_cost].
+    Raises [InvalidSquare] if the valid type doesn't have a upgrade cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for upgrade_cost: 
     [["Street"]] *)
 val upgrade_cost : t -> square_name -> int
@@ -99,6 +132,8 @@ val upgrade_cost : t -> square_name -> int
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_tier_0_rent].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for cost_of_tier_0_rent: 
     [["Street", "Railroad"]] *)
 val cost_of_tier_0_rent : t -> square_name -> int
@@ -115,6 +150,8 @@ val cost_of_tier_0_rent : t -> square_name -> int
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_tier_1_rent].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for cost_of_tier_1_rent: 
     [["Street", "Railroad"]] *)
 val cost_of_tier_1_rent : t -> square_name -> int
@@ -131,6 +168,8 @@ val cost_of_tier_1_rent : t -> square_name -> int
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_tier_2_rent].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for cost_of_tier_2_rent: 
     [["Street", "Railroad"]] *)
 val cost_of_tier_2_rent : t -> square_name -> int
@@ -147,6 +186,8 @@ val cost_of_tier_2_rent : t -> square_name -> int
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_tier_3_rent].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for cost_of_tier_3_rent: 
     [["Street", "Railroad"]] *)
 val cost_of_tier_3_rent : t -> square_name -> int
@@ -160,6 +201,8 @@ val cost_of_tier_3_rent : t -> square_name -> int
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_tier_4_rent].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for cost_of_tier_4_rent: 
     [["Street"]] *)
 val cost_of_tier_4_rent : t -> square_name -> int
@@ -173,10 +216,24 @@ val cost_of_tier_4_rent : t -> square_name -> int
     Raises [UnknownSquare s] if [s] is not a square in [b].
     Raises [TypeMismatch] if the square_type of [s] is an invalid operation on 
     [cost_of_tier_5_rent].
+    Raises [InvalidSquare] if the valid type doesn't have a cost.
+    Raises [UnknownType s] if [s] is not a valid type in board.
     The following square_types are valid for cost_of_tier_5_rent: 
     [["Street"]] *)
 val cost_of_tier_5_rent : t -> square_name -> int
 
-(* val chance_card_list : t -> ???
+(** [get_chance_card t] returns a pair containing a chance_card and a 
+    new board with said chance_card placed however they are represented in
+    t such that it isn't chosen until all other chance_cards are chosen.
 
-val community_card_list : t -> ??? *)
+    Raises [Failure] if there is no chance_card to obtain. *)
+val get_chance_card : t -> (chance_card * t)
+
+(** [get_community_chest_card t] returns a pair containing a community_chest 
+    and a new board with said community_chest placed however they are 
+    represented in t such that it isn't chosen until all
+    other community_chest are chosen.
+
+    Raises [Failure] if there is no community_chest to obtain. *)
+val get_community_chest_card : t -> (community_chest * t)
+

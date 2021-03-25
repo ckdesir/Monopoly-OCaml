@@ -27,10 +27,9 @@
       "mortgage": 100
     },
     {
-      "name": "Reading Railroad - No Cost",
+      "name": "Reading Railroad - Bad",
       "type": "Railroad",
       "position": 1,
-      "set": "Railroad",
       "rent": [
         {
           "tier": 0,
@@ -48,14 +47,13 @@
           "tier": 3,
           "cost": 200
         }
-      ],
-      "mortgage": 100
+      ]
     },
     {
       "name": "Mediterranean Avenue",
       "type": "Streets",
       "position": 2,
-      "cost": 60,
+      "cost": null,
       "upgrade cost": 50,
       "set": "brown",
       "rent": [
@@ -84,7 +82,7 @@
           "cost": 250
         }
       ],
-      "mortgage": 30
+      "mortgage": null
     },
     {
       "name": "Luxury Tax",
@@ -93,16 +91,20 @@
       "cost": 75
     },
     {
-      "name": "Luxury Tax - No Cost",
+      "name": "Luxury Tax - Bad",
       "type": "Luxury Tax",
       "position": 4
     },
     {
-      "name": "Baltic Avenue - No Cost",
+      "name": "Luxury Null",
+      "type": "Luxury Tax",
+      "position": 3,
+      "cost": null
+    },
+    {
+      "name": "Baltic Avenue - Bad",
       "type": "Street",
       "position": 5,
-      "upgrade cost": 50,
-      "set": "brown",
       "rent": [
         {
           "tier": 0,
@@ -128,189 +130,297 @@
           "tier": 5,
           "cost": 450
         }
-      ],
-      "mortgage": 30
+      ]
     },
     {
       "name": "Water Works",
       "type": "utility",
       "position": 6,
-      "cost": 150,
-      "set": "Utility",
-      "mortgage": 75
+      "cost": 150
     },
     {
-      "name": "Water Works - No Cost",
-      "type": "utility",
+      "name": "Water Works - Bad",
+      "type": "Utility",
+      "position": 7
+    },
+    {
+      "name": "Water Null",
+      "type": "Utility",
+      "position": 7,
+      "set": null,
+      "cost": null,
+      "mortgage": null
+    },
+    {
+      "name": "Income Tax",
+      "type": "Income tax",
+      "position": 8,
+      "cost": 200
+    },
+    {
+      "name": "Income Null",
+      "type": "Income Tax",
+      "position": 8,
+      "cost": null
+    },
+    {
+      "name": "Income Tax Bad",
+      "type": "Income Tax",
+      "position": 9
+    },
+    {
+      "name": "Short Line",
+      "type": "Railroad",
+      "position": 10,
+      "cost": null,
+      "set": "Railroad",
+      "rent": [],
+      "mortgage": null
+    },
+    {
+      "name": "Big Bertha",
+      "type": "Railroad",
+      "position": 11,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": 0
+        },
+        {
+          "tier": 1
+        },
+        {
+          "tier": 2
+        },
+        {
+          "tier": 3
+        },
+        {
+          "tier": 4
+        },
+        {
+          "tier": 5
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Thomas",
+      "type": "Railroad",
+      "position": 11,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "cost": 20
+        },
+        {
+          "cost": 30
+        },
+        {
+          "cost": 40
+        },
+        {
+          "cost": 50
+        },
+        {
+          "cost": 60
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "B. & O. Railroad",
+      "type": "Railroad",
+      "position": 25,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": null,
+          "cost": 25
+        },
+        {
+          "tier": null,
+          "cost": 50
+        },
+        {
+          "tier": null,
+          "cost": 100
+        },
+        {
+          "tier": null,
+          "cost": 200
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Reading Railroad",
+      "type": "Railroad",
+      "position": 5,
+      "cost": 200,
+      "set": null,
+      "rent": [
+        {
+          "tier": 0,
+          "cost": null
+        },
+        {
+          "tier": 1,
+          "cost": null
+        },
+        {
+          "tier": 2,
+          "cost": null
+        },
+        {
+          "tier": 3,
+          "cost": null
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Park Place",
+      "type": "Street",
+      "position": 37,
+      "cost": null,
+      "upgrade cost": null,
+      "set": null,
+      "rent": [
+        {
+          "tier": 0,
+          "cost": null
+        },
+        {
+          "tier": 1,
+          "cost": null
+        },
+        {
+          "tier": 2,
+          "cost": null
+        },
+        {
+          "tier": 3,
+          "cost": null
+        },
+        {
+          "tier": 4,
+          "cost": null
+        },
+        {
+          "tier": 5,
+          "cost": null
+        }
+      ],
+      "mortgage": null
+    },
+    {
+      "name": "Boardwalk",
+      "type": "Street",
+      "position": 39,
+      "cost": 400,
+      "upgrade cost": 200,
+      "set": "dark blue",
+      "rent": [
+        {
+          "tier": null,
+          "cost": 50
+        },
+        {
+          "tier": null,
+          "cost": 200
+        },
+        {
+          "tier": null,
+          "cost": 600
+        },
+        {
+          "tier": null,
+          "cost": 1400
+        },
+        {
+          "tier": null,
+          "cost": 1700
+        },
+        {
+          "tier": null,
+          "cost": 2000
+        }
+      ],
+      "mortgage": 200
+    },
+    {
+      "name": "Oriental Avenue",
+      "type": "Street",
       "position": 6,
-      "set": "Utility",
-      "mortgage": 75
+      "cost": 100,
+      "upgrade cost": 50,
+      "set": "light blue",
+      "rent": [
+        {
+          "tier": 0
+        },
+        {
+          "tier": 1
+        },
+        {
+          "tier": 2
+        },
+        {
+          "tier": 3
+        },
+        {
+          "tier": 4
+        },
+        {
+          "tier": 5
+        }
+      ],
+      "mortgage": 50
+    },
+    {
+      "name": "Vermont Avenue",
+      "type": "Street",
+      "position": 8,
+      "cost": 100,
+      "upgrade cost": 50,
+      "set": "light blue",
+      "rent": [
+        {
+          "cost": 6
+        },
+        {
+          "cost": 30
+        },
+        {
+          "cost": 90
+        },
+        {
+          "cost": 270
+        },
+        {
+          "cost": 400
+        },
+        {
+          "cost": 550
+        }
+      ],
+      "mortgage": 50
+    },
+    {
+      "name": "Connecticut Avenue",
+      "type": "Street",
+      "position": 9,
+      "cost": 120,
+      "upgrade cost": 50,
+      "set": "light blue",
+      "rent": [],
+      "mortgage": 60
     }
   ],
-    "chance": [
-      {
-        "title": "Advance to Go (Collect $200)",
-        "action": "move",
-        "squarename": "Go",
-        "position": 0
-      },
-      {
-        "title": "Advance to Illinois Avenue - If you pass Go, collect $200",
-        "action": "move",
-        "squarename": "Illinois Avenue",
-        "position": 24
-      },
-      {
-        "title": "Advance to St. Charles Place - If you pass Go, collect $200",
-        "action": "move",
-        "squarename": "St. Charles Place",
-        "position": 11
-      },
-      {
-        "title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
-        "action": "movenearest",
-        "type": "Utility",
-        "rentmultiplier": 10
-      },
-      {
-        "title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
-        "action": "movenearest",
-        "type": "Railroad",
-        "rentmultiplier": 2
-      },
-      {
-        "title": "Bank pays you dividend of $50",
-        "action": "addfunds",
-        "amount": 50
-      },
-      {
-        "title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
-        "action": "jail",
-        "subaction": "getout"
-      },
-      {
-        "title": "Go Back 3 Spaces",
-        "action": "move",
-        "count": -3
-      },
-      {
-        "title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
-        "action": "jail",
-        "subaction": "goto"
-      },
-      {
-        "title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
-        "action": "propertycharges",
-        "house": 25,
-        "hotels": 100
-      },
-      {
-        "title": "Pay poor tax of $15",
-        "action": "removefunds",
-        "amount": 15
-      },
-      {
-        "title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
-        "action": "move",
-        "squarename": "Reading Railroad"
-      },
-      {
-        "title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
-        "action": "move",
-        "squarename": "Boardwalk"
-      },
-      {
-        "title": "You have been elected Chairman of the Board - Pay each player $50",
-        "action": "removefundstoplayers",
-        "amount": 50
-      },
-      {
-        "title": "Your building loan matures - Collect $150",
-        "action": "addfunds",
-        "amount": 50
-      }
-    ],
-    "community": [
-      {
-        "title": "Advance to Go (Collect $200)",
-        "action": "move",
-        "squarename": "Go"
-      },
-      {
-        "title": "Bank error in your favor - Collect $200 ",
-        "action": "addfunds",
-        "amount": 200
-      },
-      {
-        "title": "Doctor fee - Pay $50",
-        "action": "removefunds",
-        "amount": 50
-      },
-      {
-        "title": "From sale of stock you get $50",
-        "action": "addfunds",
-        "amount": 50
-      },
-      {
-        "title": "Get Out of Jail Free",
-        "action": "jail",
-        "subaction": "getout"
-      },
-      {
-        "title": "Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200",
-        "action": "jail",
-        "subaction": "goto"
-      },
-      {
-        "title": "Grand Opera Night - Collect $50 from every player for opening night seats",
-        "action": "addfundsfromplayers",
-        "amount": 50
-      },
-      {
-        "title": "Holiday Fund matures - Receive $100",
-        "action": "addfunds",
-        "amount": 100
-      },
-      {
-        "title": "Income tax refund - Collect $20",
-        "action": "addfunds",
-        "amount": 20
-      },
-      {
-        "title": "Life insurance matures - Collect $100",
-        "action": "addfunds",
-        "amount": 100
-      },
-      {
-        "title": "Pay hospital fees of $100",
-        "action": "removefunds",
-        "amount": 100
-      },
-      {
-        "title": "Pay school fees of $150",
-        "action": "removefunds",
-        "amount": 150
-      },
-      {
-        "title": "Receive $25 consultancy fee",
-        "action": "addfunds",
-        "amount": 25
-      },
-      {
-        "title": "You are assessed for street repairs - $40 per house - $115 per hotel",
-        "action": "propertycharges",
-        "house": 40,
-        "hotels": 115
-      },
-      {
-        "title": "You have won second prize in a beauty contest - Collect $10",
-        "action": "addfunds",
-        "amount": 10
-      },
-      {
-        "title": "You inherit $100",
-        "action": "addfunds",
-        "amount": 100
-      }
-    ]
-  }
+  "chance": [],
+  "community": []
+}
