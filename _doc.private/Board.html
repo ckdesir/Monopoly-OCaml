@@ -63,6 +63,21 @@
 </div>
 </div>
 
+<pre><span id="EXCEPTIONUnknownType"><span class="keyword">exception</span> UnknownType</span> <span class="keyword">of</span> <code class="type"><a href="Board.html#TYPEsquare_type">square_type</a></code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when an unknown type is encountered.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONInvalidSquare"><span class="keyword">exception</span> InvalidSquare</span> <span class="keyword">of</span> <code class="type">(<a href="Board.html#TYPEsquare_type">square_type</a> * <a href="Board.html#TYPEsquare_name">square_name</a>)</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when a square doesn't have the right attributes that precedes its
+type, ie no mortgage on a <code class="code">"Street"</code>.</p>
+</div>
+</div>
+
 <pre><code><span id="TYPErent"><span class="keyword">type</span> <code class="type"></code>rent</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -314,6 +329,12 @@
 </div>
 </div>
 
+<pre><span id="VALcontains"><span class="keyword">val</span> contains</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">contains b s</code> returns true if square <code class="code">s</code> is on board <code class="code">b</code>.</p>
+</div>
+</div>
+
 <pre><span id="VALcost_of_square"><span class="keyword">val</span> cost_of_square</span> : <code class="type">'a -> 'b -> 'c</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_square b s</code> is the cost of square <code class="code">s</code> on board <code class="code">b</code>.
@@ -321,6 +342,7 @@
     Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
     Raises <code class="code">TypeMismatch</code> if the square_type of <code class="code">s</code> is an invalid operation on 
     <code class="code">cost_of_square</code>.
+    Raises <code class="code">InvalidSquare</code> if the valid type doesn't have a cost.
     The following square_types are valid for cost_of_square: 
     <code class="code">["Street", "Income Tax", "Luxury Tax", "Railroad", "Utility"]</code></p>
 </div>
@@ -349,11 +371,23 @@
 <div class="info-desc">
 <p><code class="code">type_of_square b s</code> is the type of square <code class="code">s</code> on board <code class="code">b</code>.
     Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
+    Raises <code class="code">UnknownType s</code> if <code class="code">s</code> is not a valid type in board.
     All squares should have a square_type.
     The following square_types are valid for an instance of board:
     <code class="code">["Go", "Jail/Just Visitng", "Chance", "Community Chest", 
       "Street", "Income Tax", "Luxury Tax", "Railroad", "Utility", 
       "Free Parking", "Go To Jail"]</code></p>
+</div>
+</div>
+
+<pre><span id="VALset_of_square"><span class="keyword">val</span> set_of_square</span> : <code class="type">'a -> 'b -> 'c</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">set_of_square b s</code> is the set of square <code class="code">s</code> on board <code class="code">b</code>.
+    Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
+    Raises <code class="code">TypeMismatch</code> if the square_type of <code class="code">s</code> is an invalid operation on 
+    <code class="code">set_of_square</code>.
+    The following square_types are valid for set_of_square: 
+    <code class="code">["Street", "Railroad", "Utility"]</code></p>
 </div>
 </div>
 

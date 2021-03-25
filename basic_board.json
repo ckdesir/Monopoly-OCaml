@@ -1040,7 +1040,8 @@
     {
       "title": "Advance to Go (Collect $200)",
       "action": "move",
-      "squarename": "Go"
+      "squarename": "Go",
+      "position": 0
     },
     {
       "title": "Bank error in your favor - Collect $200 ",
