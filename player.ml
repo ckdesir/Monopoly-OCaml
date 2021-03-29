@@ -27,7 +27,20 @@ let properties t = t.properties
 let bankrupt (player : player) : bool = player.is_bankrupt
 
 let is_in_jail t =
-  match t.current_square with "jail" -> true | _ -> false
+  match t.current_square with
+  | "Jail/Just Visiting" -> true
+  | _ -> false
+
+let create n p =
+  {
+    name = n;
+    piece = p;
+    current_square = "Go";
+    balance = 0;
+    properties = [];
+    is_bankrupt = false;
+    get_out_of_jail_cards = 0;
+  }
 
 let pay amt giver recip =
   if amt > giver.balance then raise InsufficientFunds

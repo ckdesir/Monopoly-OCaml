@@ -37,6 +37,11 @@ val bankrupt : t -> bool
     currently in jail. *)
 val is_in_jail : t -> bool
 
+(** [create n p] instantiates a player of type [t] with name [n], piece
+    [p], current_square of "GO", balance of 1500, properties [],
+    is_bankrupt false, and get_out_of_jail_cards of 0. *)
+val create : player_id -> string -> t
+
 (** [pay int t p] alters two player's mutable balances to perform the
     physical action of paying in Monopoly. For example, if [t] had $600
     and [p] had $400 then [pay 100 t p] would result in [balance t]
