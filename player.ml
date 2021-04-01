@@ -36,7 +36,7 @@ let create n p =
     name = n;
     piece = p;
     current_square = "Go";
-    balance = 0;
+    balance = 1500;
     properties = [];
     is_bankrupt = false;
     get_out_of_jail_cards = 0;
@@ -63,7 +63,7 @@ let send_to_jail (player : player) : player =
       {
         name = player.name;
         piece = player.piece;
-        current_square = "jail";
+        current_square = "Jail/Just Visiting";
         balance = player.balance;
         properties = player.properties;
         is_bankrupt = player.is_bankrupt;
@@ -81,6 +81,28 @@ let send_to_jail (player : player) : player =
       }
 
 let owns player square = List.mem square player.properties
+
+let incr_cards player =
+  {
+    name = player.name;
+    piece = player.piece;
+    current_square = player.current_square;
+    balance = player.balance;
+    properties = player.properties;
+    is_bankrupt = player.is_bankrupt;
+    get_out_of_jail_cards = player.get_out_of_jail_cards + 1;
+  }
+
+let acquire player square =
+  {
+    name = player.name;
+    piece = player.piece;
+    current_square = player.current_square;
+    balance = player.balance;
+    properties = square :: player.properties;
+    is_bankrupt = player.is_bankrupt;
+    get_out_of_jail_cards = player.get_out_of_jail_cards;
+  }
 
 let trade
     p1

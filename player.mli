@@ -56,6 +56,10 @@ val pay : int -> t -> t -> unit
     Raises [InsufficientFunds] if the player lacks funds.*)
 val bank_transaction : int -> t -> unit
 
+(** [pass_go t] adds 200 to player [t]'s balance, equivalent to
+    [bank_transaction 200 t]*)
+val pass_go : t -> unit
+
 (** [jail_cards t] represents the amount of get-out-of-jail free cards
     that player [t] is currently holding. If [jail_cards t] is 0, then
     the player will be sent to jail if prompted*)
@@ -66,11 +70,23 @@ val jail_cards : t -> int
     moving a piece to jail in Monopoly. *)
 val send_to_jail : t -> t
 
+(** [acquire t s] returns an identical player as [t] except the square s
+    is added [t]'s list of properties*)
+val acquire : t -> Board.square_name -> t
+
 (**[trade p1 p2 p1_props p2_props] is a pair of players [p1] and [p2]
    with the various exchanged properties, mirroring if players traded
    squares in real life. Note: cannot trade get_out_of_jail cards. *)
 val trade :
   t -> t -> Board.square_name list -> Board.square_name list -> t * t
+
+(** [owns t s] returns the boolean of whether or not player [t] owns the
+    square [s]*)
+val owns : t -> Board.square_name -> bool
+
+(** [incr cards p] returns the a player identical to [p] with one more
+    get-out-of-jail-free card*)
+val incr_cards : t -> t
 
 (**[trade_cards p1 p2 amt] is a pair of players [p1] and [p2] that have
    exchanged [amt] get-out-of-jail cards, with [p1] giving [amt] to [p2]*)
