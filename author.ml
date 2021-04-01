@@ -1,2 +1,1 @@
-let hours_worked = 0
-(** Chris: 8 *)
+let hours_worked = 12

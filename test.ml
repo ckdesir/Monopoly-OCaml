@@ -1,5 +1,6 @@
 open OUnit2
 open Board
+open Player
 
 (** Testing helper functions! *)
 let int_list_printer lst = 
@@ -890,7 +891,6 @@ let trade_card_tests =
     field_test "P1 has a card now" player1 jail_cards 1;
     field_test "P2 has no cards" player2 jail_cards 0;
   ]
-
 
 let suite =
   "test suite for Final project"
