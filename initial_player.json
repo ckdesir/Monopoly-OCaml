@@ -1,0 +1,9 @@
+{
+  "name": "Player 1",
+  "piece": "thimble",
+  "current_square": "Go",
+  "balance": "$200",
+  "properties": "None",
+  "bankrupt": "false",
+  "is_in_jail": "false"
+}

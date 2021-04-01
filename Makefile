@@ -1,4 +1,4 @@
-MODULES=board main author
+MODULES=board main author roll state player
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES:=.ml)
 MLIS=$(MODULES:=.mli)
