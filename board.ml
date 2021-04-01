@@ -16,28 +16,28 @@ type rent = {
 }
 
 type square = {
-  name: square_name;
-  stype: square_type;
-  position: int;
-  cost: int option;
-  upgrade_cost: int option;
-  set: string option;
-  rent_tiers: rent list option;
-  mortgage: int option;
+  name : square_name;
+  stype : square_type;
+  position : int;
+  cost : int option;
+  upgrade_cost : int option;
+  set : string option;
+  rent_tiers : rent list option;
+  mortgage : int option;
 }
 
 type chance_card = {
-  title: string;
-  action: string;
-  name: square_name option;
-  position: int option;
-  stype: square_type option;
-  rent_multiplier: int option;
-  subaction: string option;
-  amount: int option;
-  count: int option;
-  house: int option;
-  hotels: int option;
+  title : string;
+  action : string;
+  name : square_name option;
+  position : int option;
+  stype : square_type option;
+  rent_multiplier : int option;
+  subaction : string option;
+  amount : int option;
+  count : int option;
+  house : int option;
+  hotels : int option;
 }
 
 type community_chest = {
