@@ -16,7 +16,7 @@ test:
 	$(OCAMLBUILD) -tag 'debug' $(TEST) && ./$(TEST) -runner sequential
 
 play:
-	$(OCAMLBUILD) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=b ./$(MAIN)
+	$(OCAMLBUILD) $(OBJECTS) -tag 'debug' $(MAIN) && OCAMLRUNPARAM=b ./$(MAIN)
 
 check:
 	@bash check.sh
