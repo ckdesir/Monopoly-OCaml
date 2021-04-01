@@ -1,0 +1,426 @@
+{
+  "squares": [
+    {
+      "name": "Pennsylvania Railroad",
+      "type": "Not Railroad",
+      "position": 0,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Reading Railroad - Bad",
+      "type": "Railroad",
+      "position": 1,
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 25
+        },
+        {
+          "tier": 1,
+          "cost": 50
+        },
+        {
+          "tier": 2,
+          "cost": 100
+        },
+        {
+          "tier": 3,
+          "cost": 200
+        }
+      ]
+    },
+    {
+      "name": "Mediterranean Avenue",
+      "type": "Streets",
+      "position": 2,
+      "cost": null,
+      "upgrade cost": 50,
+      "set": "brown",
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 2
+        },
+        {
+          "tier": 1,
+          "cost": 10
+        },
+        {
+          "tier": 2,
+          "cost": 30
+        },
+        {
+          "tier": 3,
+          "cost": 90
+        },
+        {
+          "tier": 4,
+          "cost": 160
+        },
+        {
+          "tier": 5,
+          "cost": 250
+        }
+      ],
+      "mortgage": null
+    },
+    {
+      "name": "Luxury Tax",
+      "type": "Luxury tax",
+      "position": 3,
+      "cost": 75
+    },
+    {
+      "name": "Luxury Tax - Bad",
+      "type": "Luxury Tax",
+      "position": 4
+    },
+    {
+      "name": "Luxury Null",
+      "type": "Luxury Tax",
+      "position": 3,
+      "cost": null
+    },
+    {
+      "name": "Baltic Avenue - Bad",
+      "type": "Street",
+      "position": 5,
+      "rent": [
+        {
+          "tier": 0,
+          "cost": 4
+        },
+        {
+          "tier": 1,
+          "cost": 20
+        },
+        {
+          "tier": 2,
+          "cost": 60
+        },
+        {
+          "tier": 3,
+          "cost": 180
+        },
+        {
+          "tier": 4,
+          "cost": 320
+        },
+        {
+          "tier": 5,
+          "cost": 450
+        }
+      ]
+    },
+    {
+      "name": "Water Works",
+      "type": "utility",
+      "position": 6,
+      "cost": 150
+    },
+    {
+      "name": "Water Works - Bad",
+      "type": "Utility",
+      "position": 7
+    },
+    {
+      "name": "Water Null",
+      "type": "Utility",
+      "position": 7,
+      "set": null,
+      "cost": null,
+      "mortgage": null
+    },
+    {
+      "name": "Income Tax",
+      "type": "Income tax",
+      "position": 8,
+      "cost": 200
+    },
+    {
+      "name": "Income Null",
+      "type": "Income Tax",
+      "position": 8,
+      "cost": null
+    },
+    {
+      "name": "Income Tax Bad",
+      "type": "Income Tax",
+      "position": 9
+    },
+    {
+      "name": "Short Line",
+      "type": "Railroad",
+      "position": 10,
+      "cost": null,
+      "set": "Railroad",
+      "rent": [],
+      "mortgage": null
+    },
+    {
+      "name": "Big Bertha",
+      "type": "Railroad",
+      "position": 11,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": 0
+        },
+        {
+          "tier": 1
+        },
+        {
+          "tier": 2
+        },
+        {
+          "tier": 3
+        },
+        {
+          "tier": 4
+        },
+        {
+          "tier": 5
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Thomas",
+      "type": "Railroad",
+      "position": 11,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "cost": 20
+        },
+        {
+          "cost": 30
+        },
+        {
+          "cost": 40
+        },
+        {
+          "cost": 50
+        },
+        {
+          "cost": 60
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "B. & O. Railroad",
+      "type": "Railroad",
+      "position": 25,
+      "cost": 200,
+      "set": "Railroad",
+      "rent": [
+        {
+          "tier": null,
+          "cost": 25
+        },
+        {
+          "tier": null,
+          "cost": 50
+        },
+        {
+          "tier": null,
+          "cost": 100
+        },
+        {
+          "tier": null,
+          "cost": 200
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Reading Railroad",
+      "type": "Railroad",
+      "position": 5,
+      "cost": 200,
+      "set": null,
+      "rent": [
+        {
+          "tier": 0,
+          "cost": null
+        },
+        {
+          "tier": 1,
+          "cost": null
+        },
+        {
+          "tier": 2,
+          "cost": null
+        },
+        {
+          "tier": 3,
+          "cost": null
+        }
+      ],
+      "mortgage": 100
+    },
+    {
+      "name": "Park Place",
+      "type": "Street",
+      "position": 37,
+      "cost": null,
+      "upgrade cost": null,
+      "set": null,
+      "rent": [
+        {
+          "tier": 0,
+          "cost": null
+        },
+        {
+          "tier": 1,
+          "cost": null
+        },
+        {
+          "tier": 2,
+          "cost": null
+        },
+        {
+          "tier": 3,
+          "cost": null
+        },
+        {
+          "tier": 4,
+          "cost": null
+        },
+        {
+          "tier": 5,
+          "cost": null
+        }
+      ],
+      "mortgage": null
+    },
+    {
+      "name": "Boardwalk",
+      "type": "Street",
+      "position": 39,
+      "cost": 400,
+      "upgrade cost": 200,
+      "set": "dark blue",
+      "rent": [
+        {
+          "tier": null,
+          "cost": 50
+        },
+        {
+          "tier": null,
+          "cost": 200
+        },
+        {
+          "tier": null,
+          "cost": 600
+        },
+        {
+          "tier": null,
+          "cost": 1400
+        },
+        {
+          "tier": null,
+          "cost": 1700
+        },
+        {
+          "tier": null,
+          "cost": 2000
+        }
+      ],
+      "mortgage": 200
+    },
+    {
+      "name": "Oriental Avenue",
+      "type": "Street",
+      "position": 6,
+      "cost": 100,
+      "upgrade cost": 50,
+      "set": "light blue",
+      "rent": [
+        {
+          "tier": 0
+        },
+        {
+          "tier": 1
+        },
+        {
+          "tier": 2
+        },
+        {
+          "tier": 3
+        },
+        {
+          "tier": 4
+        },
+        {
+          "tier": 5
+        }
+      ],
+      "mortgage": 50
+    },
+    {
+      "name": "Vermont Avenue",
+      "type": "Street",
+      "position": 8,
+      "cost": 100,
+      "upgrade cost": 50,
+      "set": "light blue",
+      "rent": [
+        {
+          "cost": 6
+        },
+        {
+          "cost": 30
+        },
+        {
+          "cost": 90
+        },
+        {
+          "cost": 270
+        },
+        {
+          "cost": 400
+        },
+        {
+          "cost": 550
+        }
+      ],
+      "mortgage": 50
+    },
+    {
+      "name": "Connecticut Avenue",
+      "type": "Street",
+      "position": 9,
+      "cost": 120,
+      "upgrade cost": 50,
+      "set": "light blue",
+      "rent": [],
+      "mortgage": 60
+    }
+  ],
+  "chance": [],
+  "community": []
+}

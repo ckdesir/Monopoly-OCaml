@@ -126,4 +126,4 @@ print_meta "Congratulations! You have passed [make finalcheck]."
 $MD5 $ZIP
 
 print_info "\nRemember to submit the ZIP file produced by [make zip],\n\
-  rather than attempting to create the ZIP file yourself."
+  rather than attempting to create the ZIP file yourself." 

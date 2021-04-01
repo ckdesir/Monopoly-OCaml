@@ -71,6 +71,21 @@
 </div>
 </div>
 
+<pre><span id="EXCEPTIONUnknownType"><span class="keyword">exception</span> UnknownType</span> <span class="keyword">of</span> <code class="type"><a href="Board.html#TYPEsquare_type">square_type</a></code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when an unknown type is encountered.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONInvalidSquare"><span class="keyword">exception</span> InvalidSquare</span> <span class="keyword">of</span> <code class="type">(<a href="Board.html#TYPEsquare_type">square_type</a> * <a href="Board.html#TYPEsquare_name">square_name</a>)</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when a square doesn't have the right attributes that precedes its
+type, ie no mortgage on a <code class="code">"Street"</code>.</p>
+</div>
+</div>
+
 <pre><span id="VALfrom_json"><span class="keyword">val</span> from_json</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEt">t</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">from_json j</code> is the board that <code class="code">j</code> represents. Requires: <code class="code">j</code> is
@@ -78,19 +93,20 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_square"><span class="keyword">val</span> cost_of_square</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_square"><span class="keyword">val</span> cost_of_square</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_square b s</code> is the cost of square <code class="code">s</code> on board <code class="code">b</code>.
     Cost is associated with buying square / landing on square if applicable.
     Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
     Raises <code class="code">TypeMismatch</code> if the square_type of <code class="code">s</code> is an invalid operation on 
     <code class="code">cost_of_square</code>.
+    Raises <code class="code">InvalidSquare</code> if the valid type doesn't have a cost.
     The following square_types are valid for cost_of_square: 
     <code class="code">["Street", "Income Tax", "Luxury Tax", "Railroad", "Utility"]</code></p>
 </div>
 </div>
 
-<pre><span id="VALmortgage_of_square"><span class="keyword">val</span> mortgage_of_square</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALmortgage_of_square"><span class="keyword">val</span> mortgage_of_square</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">mortgage_of_square b s</code> is the mortgage of square <code class="code">s</code> on board <code class="code">b</code>.
     Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
@@ -101,7 +117,7 @@
 </div>
 </div>
 
-<pre><span id="VALposition_of_square"><span class="keyword">val</span> position_of_square</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALposition_of_square"><span class="keyword">val</span> position_of_square</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">position_of_square b s</code> is the position of square <code class="code">s</code> on board <code class="code">b</code>.
     Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
@@ -109,10 +125,11 @@
 </div>
 </div>
 
-<pre><span id="VALtype_of_square"><span class="keyword">val</span> type_of_square</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> <a href="Board.html#TYPEsquare_type">square_type</a></code></pre><div class="info ">
+<pre><span id="VALtype_of_square"><span class="keyword">val</span> type_of_square</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> <a href="Board.html#TYPEsquare_type">square_type</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">type_of_square b s</code> is the type of square <code class="code">s</code> on board <code class="code">b</code>.
     Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
+    Raises <code class="code">UnknownType s</code> if <code class="code">s</code> is not a valid type in board.
     All squares should have a square_type.
     The following square_types are valid for an instance of board:
     <code class="code">["Go", "Jail/Just Visitng", "Chance", "Community Chest", 
@@ -121,7 +138,24 @@
 </div>
 </div>
 
-<pre><span id="VALupgrade_cost"><span class="keyword">val</span> upgrade_cost</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALset_of_square"><span class="keyword">val</span> set_of_square</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">set_of_square b s</code> is the set of square <code class="code">s</code> on board <code class="code">b</code>.
+    Raises <code class="code">UnknownSquare s</code> if <code class="code">s</code> is not a square in <code class="code">b</code>.
+    Raises <code class="code">TypeMismatch</code> if the square_type of <code class="code">s</code> is an invalid operation on 
+    <code class="code">set_of_square</code>.
+    The following square_types are valid for set_of_square: 
+    <code class="code">["Street", "Railroad", "Utility"]</code></p>
+</div>
+</div>
+
+<pre><span id="VALcontains"><span class="keyword">val</span> contains</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">contains b s</code> returns true if square <code class="code">s</code> is on board <code class="code">b</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALupgrade_cost"><span class="keyword">val</span> upgrade_cost</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">upgrade_cost b s</code> is the upgrade cost of square <code class="code">s</code> on board <code class="code">b</code>.
     Upgrade cost is the amount of money required to pay for a house/hotel.
@@ -133,7 +167,7 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_tier_0_rent"><span class="keyword">val</span> cost_of_tier_0_rent</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_tier_0_rent"><span class="keyword">val</span> cost_of_tier_0_rent</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_tier_0_rent b s</code> is the cost of tier 0 rent of
     square <code class="code">s</code> on board <code class="code">b</code>.</p>
@@ -154,7 +188,7 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_tier_1_rent"><span class="keyword">val</span> cost_of_tier_1_rent</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_tier_1_rent"><span class="keyword">val</span> cost_of_tier_1_rent</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_tier_1_rent b s</code> is the cost of tier 1 rent of
     square <code class="code">s</code> on board <code class="code">b</code>.</p>
@@ -173,7 +207,7 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_tier_2_rent"><span class="keyword">val</span> cost_of_tier_2_rent</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_tier_2_rent"><span class="keyword">val</span> cost_of_tier_2_rent</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_tier_2_rent b s</code> is the cost of tier 2 rent of
     square <code class="code">s</code> on board <code class="code">b</code>.</p>
@@ -192,7 +226,7 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_tier_3_rent"><span class="keyword">val</span> cost_of_tier_3_rent</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_tier_3_rent"><span class="keyword">val</span> cost_of_tier_3_rent</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_tier_3_rent b s</code> is the cost of tier 3 rent of
     square <code class="code">s</code> on board <code class="code">b</code>.</p>
@@ -211,7 +245,7 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_tier_4_rent"><span class="keyword">val</span> cost_of_tier_4_rent</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_tier_4_rent"><span class="keyword">val</span> cost_of_tier_4_rent</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_tier_4_rent b s</code> is the cost of tier 4 rent of
     square <code class="code">s</code> on board <code class="code">b</code>.</p>
@@ -227,7 +261,7 @@
 </div>
 </div>
 
-<pre><span id="VALcost_of_tier_5_rent"><span class="keyword">val</span> cost_of_tier_5_rent</span> : <code class="type">Yojson.Basic.t -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
+<pre><span id="VALcost_of_tier_5_rent"><span class="keyword">val</span> cost_of_tier_5_rent</span> : <code class="type"><a href="Board.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">square_name</a> -> int</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">cost_of_tier_5_rent b s</code> is the cost of tier 5 rent of
     square <code class="code">s</code> on board <code class="code">b</code>.</p>
