@@ -71,7 +71,7 @@ let rec rolling n st =
   | "2" -> ()
   | "3" -> ()
   | "4" -> print_endline (Board.next_twelve (State.get_board st) (Player.current_square (State.get_current_player st)));
-  | "5" -> "Checks the stats of a property (aka current houses built, who owns, set, prices, etc)"; ()
+  | "5" -> "Checks the stats of a property (aka current houses built, who owns, set, prices, etc) Pretty-prints a property basically"; ()
   | "q" | "Q" -> (
       ANSITerminal.print_string [ ANSITerminal.yellow ]
         "\nAre you sure you want to quit? [Y/N]\n";
