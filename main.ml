@@ -85,6 +85,7 @@ let rec rolling n st =
           print_newline ();
           rolling n st )
   | _ ->
+      ANSITerminal.print_string [ ANSITerminal.red ] "\nCheck input\n";
       turn_printer st;
       print_newline ();
       rolling n st
