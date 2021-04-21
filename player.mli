@@ -19,8 +19,8 @@ val name : t -> player_id
     be valid values of [piece t] on a traditional monopoly board*)
 val piece : t -> string
 
-(** [current_square t] is the square that player [t] occupies. *)
-val current_square : t -> Board.square_name
+(** [current_square t] is the square position that player [t] occupies. *)
+val current_square : t -> int
 
 (** [balance t] is the value of the mutable balance of player [t]*)
 val balance : t -> int
@@ -33,9 +33,8 @@ val properties : t -> Board.square_name list
    and thus determines if they are still in the game*)
 val bankrupt : t -> bool
 
-(** [is_in_jail t] is whether or not the player represented by [t] is
-    currently in jail. *)
-val is_in_jail : t -> bool
+(* (** [is_in_jail t] is whether or not the player represented by [t] is
+   currently in jail. *) val is_in_jail : t -> bool *)
 
 (** [create n p] instantiates a player of type [t] with name [n], piece
     [p], current_square of "GO", balance of 1500, properties [],
@@ -65,10 +64,9 @@ val pass_go : t -> unit
     the player will be sent to jail if prompted*)
 val jail_cards : t -> int
 
-(** [send_to_jail t] returns an identical player as [t] excdpt their
-    current square is located at "Jail", representing the action of
-    moving a piece to jail in Monopoly. *)
-val send_to_jail : t -> t
+(* (** [send_to_jail t] returns an identical player as [t] excdpt their
+   current square is located at "Jail", representing the action of
+   moving a piece to jail in Monopoly. *) val send_to_jail : t -> t *)
 
 (** [acquire t s] returns an identical player as [t] except the square s
     is added [t]'s list of properties*)

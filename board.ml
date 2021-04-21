@@ -125,6 +125,8 @@ let contains board s =
   let square_finder (square : square) = square.name = s in
   List.exists square_finder board.squares
 
+let nth_square_name board pos = (List.nth board.squares pos).name
+
 let position_of_square board s =
   let rec accumulate_positions (squares : square list) =
     match squares with

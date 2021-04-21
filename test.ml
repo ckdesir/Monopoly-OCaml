@@ -83,6 +83,16 @@ let type_of_square_error test_name board name excption =
   test_name >:: fun _ ->
   assert_raises excption (fun () -> type_of_square board name)
 
+let nth_square_name_test test_name board pos expected_output =
+  test_name >:: fun _ ->
+  assert_equal expected_output
+    (nth_square_name board pos)
+    ~printer:String.escaped
+
+let nth_square_name_error test_name board pos excption =
+  test_name >:: fun _ ->
+  assert_raises excption (fun () -> nth_square_name board pos)
+
 let contains_test test_name board name expected_output =
   test_name >:: fun _ ->
   assert_equal expected_output (contains board name)
@@ -284,6 +294,14 @@ let type_of_square_test_compilation =
       (UnknownSquare "go");
     type_of_square_error "invalid square" faulty_board
       "Pennsylvania Railroad" (UnknownType "Not Railroad");
+  ]
+
+let nth_square_name_test_compilation =
+  [
+    nth_square_name_test "valid square" basic_board 0 "Go";
+    nth_square_name_error "failure exp" basic_board 100 (Failure "nth");
+    nth_square_name_error "invalid arg" basic_board (-10)
+      (Invalid_argument "List.nth");
   ]
 
 let mortgage_of_square_compilation =
@@ -920,6 +938,7 @@ let suite =
            mortgage_of_square_compilation;
            set_of_square_compilation;
            upgrade_cost_compilation;
+           nth_square_name_test_compilation;
            cost_of_tier_0_compilation;
            cost_of_tier_1_compilation;
            cost_of_tier_2_compilation;
