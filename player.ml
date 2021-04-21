@@ -5,7 +5,7 @@ exception InsufficientFunds
 type player = {
   name : player_id;
   piece : string;
-  current_square : Board.square_name;
+  current_square : int;
   mutable balance : int;
   properties : Board.square_name list;
   is_bankrupt : bool;
@@ -26,16 +26,14 @@ let properties t = t.properties
 
 let bankrupt (player : player) : bool = player.is_bankrupt
 
-let is_in_jail t =
-  match t.current_square with
-  | "Jail/Just Visiting" -> true
-  | _ -> false
+(* let is_in_jail t = match t.current_square with | "Jail/Just Visiting"
+   -> true | _ -> false *)
 
 let create n p =
   {
     name = n;
     piece = p;
-    current_square = "Go";
+    current_square = 0 (*"Go"*);
     balance = 1500;
     properties = [];
     is_bankrupt = false;
@@ -57,28 +55,14 @@ let pass_go player = bank_transaction 200 player
 
 let jail_cards (player : player) : int = player.get_out_of_jail_cards
 
-let send_to_jail (player : player) : player =
-  match jail_cards player with
-  | 0 ->
-      {
-        name = player.name;
-        piece = player.piece;
-        current_square = "Jail/Just Visiting";
-        balance = player.balance;
-        properties = player.properties;
-        is_bankrupt = player.is_bankrupt;
-        get_out_of_jail_cards = 0;
-      }
-  | x ->
-      {
-        name = player.name;
-        piece = player.piece;
-        current_square = player.current_square;
-        balance = player.balance;
-        properties = player.properties;
-        is_bankrupt = player.is_bankrupt;
-        get_out_of_jail_cards = x - 1;
-      }
+(* let send_to_jail (player : player) : player = match jail_cards player
+   with | 0 -> { name = player.name; piece = player.piece;
+   current_square = "Jail/Just Visiting"; balance = player.balance;
+   properties = player.properties; is_bankrupt = player.is_bankrupt;
+   get_out_of_jail_cards = 0; } | x -> { name = player.name; piece =
+   player.piece; current_square = player.current_square; balance =
+   player.balance; properties = player.properties; is_bankrupt =
+   player.is_bankrupt; get_out_of_jail_cards = x - 1; } *)
 
 let owns player square = List.mem square player.properties
 
