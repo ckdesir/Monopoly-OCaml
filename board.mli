@@ -62,15 +62,14 @@ val contains : t -> square_name -> bool
 
 (** [nth_square_name b s] returns the name of the square at the nth
     position on the board. The first square on the board is at position
-    0. Raises [Failure] if the amount of squares is too short. Raises
-    [Invalid_argument] if s is negative *)
+    0. Raises [Invalid_argument] if s is negative *)
 val nth_square_name : t -> int -> square_name
 
-(** [next_twelve b n] returns the next 12 squares as a string starting 
-		at the nth position on the board. The first square on the board is at
-		position 0. Assumes that there are 40 squares on the board.
-		Raises [Failure] if the amount of squares is too short. Raises
-    [Invalid_argument] if s is negative. *)
+(** [next_twelve b n] returns the next 12 squares as a string starting
+    at the nth position on the board. The first square on the board is
+    at position 0. Raises [Failure] if the amount of squares is too
+    short. Raises [Invalid_argument] if s is negative. Requires: [n] is
+    greater than 0 and less than 40.*)
 val next_twelve : t -> int -> string
 
 (** [position_of_square b s] is all the positions of square [s] on board
@@ -83,9 +82,9 @@ val position_of_square : t -> square_name -> int list
     [UnknownType s] if [s] is not a valid type in board. All squares
     should have a square_type. The following square_types are valid for
     an instance of board:
-    [\["Go", "Jail/Just Visitng", "Chance", "Community Chest", 
-      "Street", "Income Tax", "Luxury Tax", "Railroad", "Utility", 
-      "Free Parking", "Go to Jail"\]] *)
+    [\["Go", "Jail/Just Visitng", "Chance", "Community Chest", "Street",
+    "Income Tax", "Luxury Tax", "Railroad", "Utility", "Free Parking",
+    "Go to Jail"\]] *)
 val type_of_square : t -> square_name -> square_type
 
 (** [cost_of_square b s] is the cost of square [s] on board [b]. Cost is
