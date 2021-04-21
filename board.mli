@@ -66,6 +66,13 @@ val contains : t -> square_name -> bool
     [Invalid_argument] if s is negative *)
 val nth_square_name : t -> int -> square_name
 
+(** [next_twelve b n] returns the next 12 squares as a string starting 
+		at the nth position on the board. The first square on the board is at
+		position 0. Assumes that there are 40 squares on the board.
+		Raises [Failure] if the amount of squares is too short. Raises
+    [Invalid_argument] if s is negative. *)
+val next_twelve : t -> int -> string
+
 (** [position_of_square b s] is all the positions of square [s] on board
     [b]. Raises [UnknownSquare s] if [s] is not a square in [b]. All
     square_types should have a valid position on the board *)

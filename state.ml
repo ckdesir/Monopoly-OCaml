@@ -1,6 +1,6 @@
 type t = {
   (* players : Player.t list; *)
-  players : Player.t list;
+  players : Player.t array;
   num_players : int;
   current_player : int;
   board : Board.t;
@@ -9,18 +9,23 @@ type t = {
 let init_state player_list board =
   {
     players = player_list;
-    num_players = List.length player_list;
+    num_players = Array.length player_list;
     current_player = 0;
     board;
   }
 
-let get_player n st = List.nth st.players n
+let change_player_at n st new_player = 
+  st.players.(n) <- new_player
+
+let get_player n st = st.players.(n)
 
 let get_current_player st = get_player st.current_player st
 
 let get_turn st = st.current_player
 
 let get_num_players st = st.num_players
+
+let get_board st = st.board
 
 let switch_turns s =
   {

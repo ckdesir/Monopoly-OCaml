@@ -2,6 +2,7 @@ type player_id = string
 
 exception InsufficientFunds
 
+(** Need a mutable field to keep track of amount of doubles *)
 type player = {
   name : player_id;
   piece : string;
