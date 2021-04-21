@@ -2,7 +2,6 @@ type player_id = string
 
 exception InsufficientFunds
 
-(** Need a mutable field to keep track of amount of doubles *)
 type player = {
   name : player_id;
   piece : string;
@@ -11,6 +10,7 @@ type player = {
   properties : Board.square_name list;
   is_bankrupt : bool;
   get_out_of_jail_cards : int;
+  mutable doubles : int;
 }
 
 type t = player
@@ -24,6 +24,8 @@ let current_square t = t.current_square
 let balance t = t.balance
 
 let properties t = t.properties
+
+let doubles t = t.doubles
 
 let bankrupt (player : player) : bool = player.is_bankrupt
 
@@ -39,6 +41,7 @@ let create n p =
     properties = [];
     is_bankrupt = false;
     get_out_of_jail_cards = 0;
+    doubles = 0;
   }
 
 let pay amt giver recip =
@@ -76,6 +79,7 @@ let incr_cards player =
     properties = player.properties;
     is_bankrupt = player.is_bankrupt;
     get_out_of_jail_cards = player.get_out_of_jail_cards + 1;
+    doubles = player.doubles;
   }
 
 let acquire player square =
@@ -87,6 +91,7 @@ let acquire player square =
     properties = square :: player.properties;
     is_bankrupt = player.is_bankrupt;
     get_out_of_jail_cards = player.get_out_of_jail_cards;
+    doubles = player.doubles;
   }
 
 let trade
@@ -108,6 +113,7 @@ let trade
       properties = new_lst;
       is_bankrupt = player.is_bankrupt;
       get_out_of_jail_cards = player.get_out_of_jail_cards;
+      doubles = player.doubles;
     }
   in
 
@@ -123,6 +129,7 @@ let trade
       properties = new_lst;
       is_bankrupt = player.is_bankrupt;
       get_out_of_jail_cards = player.get_out_of_jail_cards;
+      doubles = player.doubles;
     }
   in
 
@@ -143,6 +150,7 @@ let trade_cards giver recip amt =
       properties = giver.properties;
       is_bankrupt = giver.is_bankrupt;
       get_out_of_jail_cards = giver.get_out_of_jail_cards - amt;
+      doubles = giver.doubles;
     }
   in
   let recip =
@@ -154,6 +162,7 @@ let trade_cards giver recip amt =
       properties = recip.properties;
       is_bankrupt = recip.is_bankrupt;
       get_out_of_jail_cards = recip.get_out_of_jail_cards + amt;
+      doubles = recip.doubles;
     }
   in
   (giver, recip)

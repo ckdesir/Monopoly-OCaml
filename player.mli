@@ -89,3 +89,6 @@ val incr_cards : t -> t
 (**[trade_cards p1 p2 amt] is a pair of players [p1] and [p2] that have
    exchanged [amt] get-out-of-jail cards, with [p1] giving [amt] to [p2]*)
 val trade_cards : t -> t -> int -> t * t
+
+(** [doubles t] returns the amount of consecutive doubles [t] has rolled*)
+val doubles : t -> int
