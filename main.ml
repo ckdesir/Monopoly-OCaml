@@ -113,7 +113,14 @@ let rec rolling n st =
          turn, otherwise carry out respective roll *)
       (* If in jail, check to see if double then move them out, and
          carry out respective roll, make sure they do not roll again. *)
-      if Player.doubles (State.get_current_player st) >= 3 then (
+      if State.is_in_jail st then
+        if Player.doubles (State.get_current_player st) = 1 then (
+          ANSITerminal.print_string [ ANSITerminal.green ]
+            "You're free!\n";
+          Player.change_jail_status (State.get_current_player st)
+          |> State.change_current_player st)
+        else ()
+      else if Player.doubles (State.get_current_player st) >= 3 then (
         ANSITerminal.print_string [ ANSITerminal.red ]
           "Sorry, you've rolled three doubles in a row!";
         failwith "Implement sending to jail")

@@ -48,14 +48,14 @@ let switch_turns s =
 
 let move_current_player st roll =
   ANSITerminal.print_string [ ANSITerminal.cyan ]
-    ("Moving " ^ string_of_int roll ^ " squares");
+    ("Moving " ^ string_of_int roll ^ " squares\n");
 
   let plyr = get_current_player st in
   let new_position = (Player.current_square plyr + roll) mod 40 in
   let new_player = Player.set_position plyr new_position in
   if new_position < Player.current_square plyr then (
     ANSITerminal.print_string [ ANSITerminal.green ]
-      "Pass Go, collect $200!";
+      "Pass Go, collect $200!\n";
 
     Player.pass_go new_player)
   else ();
