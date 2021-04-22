@@ -73,11 +73,6 @@ let rec check_property st =
           "\nCheck input, invalid square. Try again. \n";
       check_property st
 
-(* let check_property st = *)
-
-(* let get_bad () = match read_line () with | exception End_of_file ->
-   "Choose a piece" | piece -> piece *)
-
 (* If not in jail *)
 (* Check to see if third double, send immediately to jail and end turn,
    otherwise carry out respective roll *)
@@ -99,13 +94,21 @@ let rec roll play n st =
     ^ (second_roll |> string_of_int)
     ^ "\n" );
 
-  if Player.is_in_jail (State.get_current_player st) then ()
+  let was_in_jail = State.is_in_jail st in
+
+  if State.is_in_jail st then
+    if Player.doubles (State.get_current_player st) = 1 then (
+      ANSITerminal.print_string [ ANSITerminal.green ] "You're free!\n";
+      Player.change_jail_status (State.get_current_player st)
+      |> State.change_current_player st )
+    else ()
   else if Player.doubles (State.get_current_player st) >= 3 then (
     ANSITerminal.print_string [ ANSITerminal.red ]
       "Sorry, you've rolled three doubles in a row! You are now being \
        sent to jail criminal!";
-    failwith "Implement sending to jail" )
-  else begin
+    failwith "Implement sending to jail" );
+
+  if not (State.is_in_jail st) then begin
     State.move_current_player st total_roll;
     match
       Board.type_of_square board
@@ -124,14 +127,17 @@ let rec roll play n st =
     | _ -> ()
   end;
 
+  (** Not to sure of the jail rules, need to research. Not sure if you can 
+    roll again if you pay to get out and roll a dobule. *)
   if
-    (not (Player.is_in_jail (State.get_current_player st)))
+    (not (State.is_in_jail st))
     && first_roll = second_roll
+    && not was_in_jail
   then begin
     print_newline ();
     turn_printer st;
     print_newline ();
-    play n st
+    roll play n st
   end
   else begin
     print_newline ();

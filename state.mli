@@ -16,6 +16,8 @@ val change_player_at : int -> t -> Player.t -> unit
 
 val get_turn : t -> int
 
+val change_current_player : t -> Player.t -> unit
+
 (** [get_current_player st] returns the player representing whoever's
     turn it currently is in state [st]*)
 val get_current_player : t -> Player.t
