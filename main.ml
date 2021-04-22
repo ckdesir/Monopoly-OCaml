@@ -1,7 +1,7 @@
 open ANSITerminal
 open Board
 
-let play board_json =
+let make_board board_json =
   board_json |> Yojson.Basic.from_file |> Board.from_json
 
 let get_num_player () =
@@ -34,6 +34,9 @@ let turn_printer st =
     player 2's turn or vice versa. *)
 let take_turn st = State.switch_turns st
 
+(** Extend this to cover railroads/utiltiis eventually, pattern match
+    against the type and carry out respective operations, exhaustive
+    pattern match is a recheck of input*)
 let rec check_property st =
   match read_line () with
   | exception End_of_file -> ()
@@ -47,32 +50,118 @@ let rec check_property st =
         ANSITerminal.print_string [ ANSITerminal.red ]
           ("Name: " ^ prop ^ "\n");
         ANSITerminal.print_string [ ANSITerminal.green ]
-          ("Initial cost: "
+          ( "Initial cost: "
           ^ string_of_int (Board.cost_of_square board prop)
-          ^ "\n");
+          ^ "\n" );
         ANSITerminal.print_string [ ANSITerminal.yellow ]
           ("Set: " ^ Board.set_of_square board prop ^ "\n");
         ANSITerminal.print_string [ ANSITerminal.blue ]
-          ("Cost of house/hotel: "
+          ( "Cost of house/hotel: "
           ^ string_of_int (Board.upgrade_cost board prop)
-          ^ "\n");
-        (* match State.get_who_owns st with | None ->
-           ANSITerminal.print_string [ ANSITerminal.magenta ]
-           ("Unowned"); | Some person -> ANSITerminal.print_string [
-           ANSITerminal.magenta ] ("Owned by: " ^ person); *)
-        print_endline "----------------------------------------"
+          ^ "\n" );
+        match State.get_who_owns st prop with
+        | Some person ->
+            ANSITerminal.print_string
+              [ ANSITerminal.magenta ]
+              ("Owned by: " ^ person)
+        | None ->
+            ANSITerminal.print_string [ ANSITerminal.magenta ] "Unowned";
+            print_endline "----------------------------------------"
       end
       else
         ANSITerminal.print_string [ ANSITerminal.red ]
           "\nCheck input, invalid square. Try again. \n";
       check_property st
 
-(* let check_property st = *)
+(* If not in jail *)
+(* Check to see if third double, send immediately to jail and end turn,
+   otherwise carry out respective roll *)
+(* If in jail, check to see if double then move them out, and carry out
+   respective roll, make sure they do not roll again. *)
+let rec roll play n st =
+  let board = State.get_board st in
+  let first_roll = Roll.dice () in
+  let second_roll = Roll.dice () in
+  if first_roll = second_roll then
+    Player.incr_doubles (State.get_current_player st)
+  else Player.clear_doubles (State.get_current_player st);
+  let total_roll = first_roll + second_roll in
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    ( "You have rolled a "
+    ^ (first_roll |> string_of_int)
+    ^ " and a "
+    ^ (second_roll |> string_of_int)
+    ^ "\n" );
 
-(* let get_bad () = match read_line () with | exception End_of_file ->
-   "Choose a piece" | piece -> piece *)
+  let was_in_jail = State.is_in_jail st in
 
-let rec rolling n st =
+  if State.is_in_jail st then
+    if Player.doubles (State.get_current_player st) = 1 then (
+      ANSITerminal.print_string [ ANSITerminal.green ] "You're free!\n";
+      Player.change_jail_status (State.get_current_player st)
+      |> State.change_current_player st )
+    else ()
+  else if Player.doubles (State.get_current_player st) >= 3 then (
+    ANSITerminal.print_string [ ANSITerminal.red ]
+      "Sorry, you've rolled three doubles in a row! You are now being \
+       sent to jail criminal!";
+    failwith "Implement sending to jail" );
+
+  if not (State.is_in_jail st) then begin
+    State.move_current_player st total_roll;
+    match
+      Board.type_of_square board
+        (Board.nth_square_name board
+           (Player.current_square (State.get_current_player st)))
+    with
+    | "Chance" -> ()
+    | "Community Chest" -> ()
+    | "Street" -> ()
+    | "Income Tax" -> ()
+    | "Luxury Tax" -> ()
+    | "Railroad" -> ()
+    | "Go to Jail" -> ()
+    | "Utility" -> ()
+    | "Free Parking" -> ()
+    | _ -> ()
+  end;
+
+  (** Not to sure of the jail rules, need to research. Not sure if you can 
+    roll again if you pay to get out and roll a dobule. *)
+  if
+    (not (State.is_in_jail st))
+    && first_roll = second_roll
+    && not was_in_jail
+  then begin
+    print_newline ();
+    turn_printer st;
+    print_newline ();
+    roll play n st
+  end
+  else begin
+    print_newline ();
+    print_newline ();
+    let new_state = take_turn st in
+    turn_printer new_state;
+    play ((n + 1) mod State.get_num_players st) new_state
+  end
+
+let quit play n st =
+  ANSITerminal.print_string [ ANSITerminal.yellow ]
+    "\nAre you sure you want to quit? [Y/N]\n";
+  match read_line () with
+  | "y" | "Y" ->
+      exit 0;
+      ()
+  | _ ->
+      print_newline ();
+      turn_printer st;
+      print_newline ();
+      Unix.sleep 2;
+      play n st
+
+let rec play n st =
   ANSITerminal.print_string [ ANSITerminal.cyan ] "Would you like to:\n";
   (* if Player.is_in_jail (State.get_current_player st) then
      print_endline "----------------------------------------";
@@ -93,78 +182,36 @@ let rec rolling n st =
   print_endline "\t[Q] - To quit";
   print_endline "----------------------------------------";
   match read_line () with
-  | "r" | "R" ->
-      let first_roll = Roll.dice () in
-      let second_roll = Roll.dice () in
-      if first_roll = second_roll then
-        Player.incr_doubles (State.get_current_player st)
-      else Player.clear_doubles (State.get_current_player st);
-      let total_roll = first_roll + second_roll in
-      ANSITerminal.print_string
-        [ ANSITerminal.magenta ]
-        ("You have rolled a "
-        ^ (first_roll |> string_of_int)
-        ^ " and a "
-        ^ (second_roll |> string_of_int)
-        ^ "\n");
-
-      (* If not in jail *)
-      (* Check to see if third double, send immediately to jail and end
-         turn, otherwise carry out respective roll *)
-      (* If in jail, check to see if double then move them out, and
-         carry out respective roll, make sure they do not roll again. *)
-      if State.is_in_jail st then
-        if Player.doubles (State.get_current_player st) = 1 then (
-          ANSITerminal.print_string [ ANSITerminal.green ]
-            "You're free!\n";
-          Player.change_jail_status (State.get_current_player st)
-          |> State.change_current_player st)
-        else ()
-      else if Player.doubles (State.get_current_player st) >= 3 then (
-        ANSITerminal.print_string [ ANSITerminal.red ]
-          "Sorry, you've rolled three doubles in a row!";
-        failwith "Implement sending to jail")
-      else State.move_current_player st total_roll;
-      let new_state = take_turn st in
-      turn_printer new_state;
-      rolling ((n + 1) mod State.get_num_players st) new_state
+  | "r" | "R" -> roll play n st
   | "1" -> ()
   | "2" -> ()
   | "3" -> ()
   | "4" ->
-      (* print_endline "Your current square is: " ^ ; *)
       let next_twelve =
         Board.next_twelve (State.get_board st)
           (Player.current_square (State.get_current_player st))
       in
-      let length = String.index_from next_twelve 0 '|' in
+      let length = String.index_from next_twelve 1 '|' in
       ANSITerminal.print_string [ ANSITerminal.red ]
-        (String.sub next_twelve 0 length);
+        (String.sub next_twelve 0 (length + 1));
       print_endline
-        (String.sub next_twelve length
-           (String.length next_twelve - length));
-      rolling n st
+        (String.sub next_twelve (length + 1)
+           (String.length next_twelve - length - 1));
+      print_newline ();
+      Unix.sleep 3;
+      turn_printer st;
+      print_newline ();
+      play n st
   | "5" -> check_property st
   | "6" ->
       let current = State.get_current_player st in
       print_endline (string_of_int (get_balance current))
-  | "q" | "Q" -> (
-      ANSITerminal.print_string [ ANSITerminal.yellow ]
-        "\nAre you sure you want to quit? [Y/N]\n";
-      match read_line () with
-      | "y" | "Y" ->
-          exit 0;
-          ()
-      | _ ->
-          print_newline ();
-          turn_printer st;
-          print_newline ();
-          rolling n st)
+  | "q" | "Q" -> quit play n st
   | _ ->
       ANSITerminal.print_string [ ANSITerminal.red ] "\nCheck input\n";
       turn_printer st;
       print_newline ();
-      rolling n st
+      play n st
 
 (** [main ()] prompts the user to input the names of the two players,
     and then starts the game. *)
@@ -180,9 +227,9 @@ let rec main () =
     in
     for i = 0 to num_of_players - 1 do
       print_endline
-        ("Please enter the name of Player "
+        ( "Please enter the name of Player "
         ^ string_of_int (i + 1)
-        ^ ".");
+        ^ "." );
       let player = get_player () in
       ANSITerminal.print_string [ ANSITerminal.blue ]
         ("\nPlayer " ^ string_of_int (i + 1) ^ ": " ^ player ^ "\n");
@@ -193,10 +240,12 @@ let rec main () =
       players.(i) <- Player.create player piece
     done;
     print_newline ();
-    let state = State.init_state players (play "basic_board.json") in
-    rolling 0 state;
+    let state =
+      State.init_state players (make_board "basic_board.json")
+    in
+    play 0 state;
     ()
-  with _ ->
+  with Failure "int_of_string" ->
     ANSITerminal.print_string [ ANSITerminal.red ]
       "\n\
        Bad input! Please make sure to only put letters and numbers \

@@ -28,6 +28,8 @@ val get_num_players : t -> int
 
 val get_board : t -> Board.t
 
+val get_who_owns : t -> Board.square_name -> Player.player_id option
+
 (** [is_in_jail st] returns true if the current player is in jail. *)
 val is_in_jail : t -> bool
 
