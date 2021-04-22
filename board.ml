@@ -129,7 +129,7 @@ let nth_square_name board pos = (List.nth board.squares pos).name
 
 let next_twelve board n =
   let next_twelve_string = ref "| " in
-  for i = n to (n + 12 - 1) do
+  for i = n to n + 12 - 1 do
     next_twelve_string :=
       !next_twelve_string ^ nth_square_name board (i mod 40) ^ " | "
   done;

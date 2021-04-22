@@ -11,6 +11,7 @@ type player = {
   is_bankrupt : bool;
   get_out_of_jail_cards : int;
   mutable doubles : int;
+  is_in_jail : bool;
 }
 
 type t = player
@@ -27,10 +28,35 @@ let properties t = t.properties
 
 let doubles t = t.doubles
 
+let change_jail_status p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = not p.is_in_jail;
+  }
+
+let set_position p x =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = x;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+  }
+
 let bankrupt (player : player) : bool = player.is_bankrupt
 
-(* let is_in_jail t = match t.current_square with | "Jail/Just Visiting"
-   -> true | _ -> false *)
+let is_in_jail t = t.is_in_jail
 
 let create n p =
   {
@@ -42,6 +68,7 @@ let create n p =
     is_bankrupt = false;
     get_out_of_jail_cards = 0;
     doubles = 0;
+    is_in_jail = false;
   }
 
 let pay amt giver recip =
@@ -59,16 +86,15 @@ let pass_go player = bank_transaction 200 player
 
 let jail_cards (player : player) : int = player.get_out_of_jail_cards
 
-(* let send_to_jail (player : player) : player = match jail_cards player
-   with | 0 -> { name = player.name; piece = player.piece;
-   current_square = "Jail/Just Visiting"; balance = player.balance;
-   properties = player.properties; is_bankrupt = player.is_bankrupt;
-   get_out_of_jail_cards = 0; } | x -> { name = player.name; piece =
-   player.piece; current_square = player.current_square; balance =
-   player.balance; properties = player.properties; is_bankrupt =
-   player.is_bankrupt; get_out_of_jail_cards = x - 1; } *)
-
 let owns player square = List.mem square player.properties
+
+let incr_doubles t =
+  t.doubles <- t.doubles + 1;
+  ()
+
+let clear_doubles t =
+  t.doubles <- 0;
+  ()
 
 let incr_cards player =
   {
@@ -80,6 +106,7 @@ let incr_cards player =
     is_bankrupt = player.is_bankrupt;
     get_out_of_jail_cards = player.get_out_of_jail_cards + 1;
     doubles = player.doubles;
+    is_in_jail = player.is_in_jail;
   }
 
 let acquire player square =
@@ -92,6 +119,7 @@ let acquire player square =
     is_bankrupt = player.is_bankrupt;
     get_out_of_jail_cards = player.get_out_of_jail_cards;
     doubles = player.doubles;
+    is_in_jail = player.is_in_jail;
   }
 
 let trade
@@ -114,6 +142,7 @@ let trade
       is_bankrupt = player.is_bankrupt;
       get_out_of_jail_cards = player.get_out_of_jail_cards;
       doubles = player.doubles;
+      is_in_jail = player.is_in_jail;
     }
   in
 
@@ -130,6 +159,7 @@ let trade
       is_bankrupt = player.is_bankrupt;
       get_out_of_jail_cards = player.get_out_of_jail_cards;
       doubles = player.doubles;
+      is_in_jail = player.is_in_jail;
     }
   in
 
@@ -151,6 +181,7 @@ let trade_cards giver recip amt =
       is_bankrupt = giver.is_bankrupt;
       get_out_of_jail_cards = giver.get_out_of_jail_cards - amt;
       doubles = giver.doubles;
+      is_in_jail = giver.is_in_jail;
     }
   in
   let recip =
@@ -163,6 +194,7 @@ let trade_cards giver recip amt =
       is_bankrupt = recip.is_bankrupt;
       get_out_of_jail_cards = recip.get_out_of_jail_cards + amt;
       doubles = recip.doubles;
+      is_in_jail = recip.is_in_jail;
     }
   in
   (giver, recip)

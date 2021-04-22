@@ -33,8 +33,9 @@ val properties : t -> Board.square_name list
    and thus determines if they are still in the game*)
 val bankrupt : t -> bool
 
-(* (** [is_in_jail t] is whether or not the player represented by [t] is
-   currently in jail. *) val is_in_jail : t -> bool *)
+(** [is_in_jail t] is whether or not the player represented by [t] is
+    currently in jail. *)
+val is_in_jail : t -> bool
 
 (** [create n p] instantiates a player of type [t] with name [n], piece
     [p], current_square of "GO", balance of 1500, properties [],
@@ -92,3 +93,19 @@ val trade_cards : t -> t -> int -> t * t
 
 (** [doubles t] returns the amount of consecutive doubles [t] has rolled*)
 val doubles : t -> int
+
+(** [set_position t x] returns a new player object currently at position
+    x*)
+val set_position : t -> int -> t
+
+(** [incr_doubles t] increments the amount of consecutive doubles that t
+    has*)
+val incr_doubles : t -> unit
+
+(** [clear_doubles t] sets the amount of consecutive doubles of player
+    to 0*)
+val clear_doubles : t -> unit
+
+(** [change_jaiL_status t] returns the player [t] that is now freed if
+    [t] was in jail, or is now in jail if [t] was free*)
+val change_jail_status : t -> t
