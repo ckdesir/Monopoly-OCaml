@@ -29,14 +29,25 @@ let get_num_players st = st.num_players
 
 let get_board st = st.board
 
-(* let get_who_owns st property_name = (** Options Some whoever or None
-   *) let rec get_who_owns_helper plyr =
+(* let get_who_owns st property_name = let get_who_owns_helper plyr =
+   List.iter find_piece (Player.properties plyr)
 
    (* let rec get_who_owns_helper st = let current = Array.get
    st.players (st.current_player) in match Player.properties current
    with | [] -> None | h :: t -> begin match get_who_owns_helper t with
-   | None -> Player.create "" "" | Some x -> current end *) try (* *)
+   | None -> Player.create "" "" | Some x -> current end try *)
    Array.iter get_who_owns_helper st.players *)
+
+let get_who_owns st property_name =
+  let find_piece square_name =
+    square_name = property_name
+  in
+  let get_who_helper player =
+    if List.exists find_piece (Player.properties player) then
+      Some (Player.name player)
+    else None
+  in
+  List.find_map get_who_helper (Array.to_list st.players)
 
 let switch_turns s =
   {
@@ -57,7 +68,7 @@ let move_current_player st roll =
     ANSITerminal.print_string [ ANSITerminal.green ]
       "Pass Go, collect $200!";
 
-    Player.pass_go new_player)
+    Player.pass_go new_player )
   else ();
   change_current_player st new_player
 
