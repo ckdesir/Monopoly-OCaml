@@ -161,6 +161,23 @@ let quit play n st =
       Unix.sleep 2;
       play n st
 
+let check_board play n st =
+    let next_twelve =
+    Board.next_twelve (State.get_board st)
+      (Player.current_square (State.get_current_player st))
+  in
+  let length = String.index_from next_twelve 1 '|' in
+  ANSITerminal.print_string [ ANSITerminal.red ]
+    (String.sub next_twelve 0 (length + 1));
+  print_endline
+    (String.sub next_twelve (length + 1)
+        (String.length next_twelve - length - 1));
+  print_newline ();
+  Unix.sleep 3;
+  turn_printer st;
+  print_newline ();
+  play n st
+
 let rec play n st =
   ANSITerminal.print_string [ ANSITerminal.cyan ] "Would you like to:\n";
   (* if Player.is_in_jail (State.get_current_player st) then
@@ -186,22 +203,7 @@ let rec play n st =
   | "1" -> ()
   | "2" -> ()
   | "3" -> ()
-  | "4" ->
-      let next_twelve =
-        Board.next_twelve (State.get_board st)
-          (Player.current_square (State.get_current_player st))
-      in
-      let length = String.index_from next_twelve 1 '|' in
-      ANSITerminal.print_string [ ANSITerminal.red ]
-        (String.sub next_twelve 0 (length + 1));
-      print_endline
-        (String.sub next_twelve (length + 1)
-           (String.length next_twelve - length - 1));
-      print_newline ();
-      Unix.sleep 3;
-      turn_printer st;
-      print_newline ();
-      play n st
+  | "4" -> check_board play n st
   | "5" -> check_property st
   | "6" ->
       let current = State.get_current_player st in
