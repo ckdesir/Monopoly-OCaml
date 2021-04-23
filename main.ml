@@ -37,9 +37,12 @@ let take_turn st = State.switch_turns st
 (** Extend this to cover railroads/utiltiis eventually, pattern match
     against the type and carry out respective operations, exhaustive
     pattern match is a recheck of input*)
-let rec check_property st =
+let rec check_property play n st =
+  ANSITerminal.print_string [ ANSITerminal.cyan ]
+    "\nPlease type the name of a valid property on the board!\n";
   match read_line () with
   | exception End_of_file -> ()
+  | "q" | "Q" -> play n st
   | prop ->
       let board = State.get_board st in
       if
@@ -59,19 +62,28 @@ let rec check_property st =
           ( "Cost of house/hotel: "
           ^ string_of_int (Board.upgrade_cost board prop)
           ^ "\n" );
-        match State.get_who_owns st prop with
+        ( match State.get_who_owns st prop with
         | Some person ->
             ANSITerminal.print_string
               [ ANSITerminal.magenta ]
               ("Owned by: " ^ person)
         | None ->
-            ANSITerminal.print_string [ ANSITerminal.magenta ] "Unowned";
-            print_endline "----------------------------------------"
+            ANSITerminal.print_string [ ANSITerminal.magenta ] "Unowned"
+        );
+        print_newline ();
+        print_endline "----------------------------------------";
+        print_endline "Do you want to check out another property? [Y/N]";
+        match read_line () with
+        | "y" | "Y" -> check_property play n st
+        | _ ->
+            Unix.sleepf 0.5;
+            print_newline ();
+            play n st
       end
       else
         ANSITerminal.print_string [ ANSITerminal.red ]
           "\nCheck input, invalid square. Try again. \n";
-      check_property st
+      check_property play n st
 
 (** Maybe also print out how many they own in the set? *)
 let rec handle_utility st current_square_name board =
@@ -149,8 +161,7 @@ let rec roll play n st =
         (Player.current_square (State.get_current_player st))
     in
     ANSITerminal.print_string [ ANSITerminal.yellow ]
-      ("You have landed on: " ^ current_square_name);
-    print_newline ();
+      ("You have landed on: " ^ current_square_name ^ "\n");
     match Board.type_of_square board current_square_name with
     | "Chance" -> ()
     | "Community Chest" -> ()
@@ -172,6 +183,7 @@ let rec roll play n st =
     print_newline ();
     turn_printer st;
     print_newline ();
+    Unix.sleepf 0.5;
     roll play n st
   end
   else begin
@@ -179,6 +191,7 @@ let rec roll play n st =
     print_newline ();
     let new_state = take_turn st in
     turn_printer new_state;
+    Unix.sleepf 0.5;
     play ((n + 1) mod State.get_num_players st) new_state
   end
 
@@ -233,19 +246,20 @@ let rec play n st =
   print_endline "\t[6] - Check your balance";
   print_endline "\t[Q] - To quit";
   print_endline "----------------------------------------";
+  ANSITerminal.print_string [ ANSITerminal.white ] "Option: ";
   match read_line () with
   | "r" | "R" -> roll play n st
   | "1" -> ()
   | "2" -> ()
   | "3" -> ()
   | "4" -> check_board play n st
-  | "5" -> check_property st
+  | "5" -> check_property play n st
   | "6" ->
       let current = State.get_current_player st in
       print_endline (string_of_int (get_balance current))
   | "q" | "Q" -> quit play n st
   | _ ->
-      ANSITerminal.print_string [ ANSITerminal.red ] "\nCheck input\n";
+      ANSITerminal.print_string [ ANSITerminal.red ] "\nCheck input\n\n";
       turn_printer st;
       print_newline ();
       play n st
