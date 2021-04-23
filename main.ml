@@ -73,11 +73,45 @@ let rec check_property st =
           "\nCheck input, invalid square. Try again. \n";
       check_property st
 
+(** Maybe also print out how many they own in the set? *)
+let rec handle_utility st current_square_name board =
+  let current_player = ref (State.get_current_player st) in
+  match State.get_who_owns st current_square_name with
+  | Some person -> ()
+  | None -> (
+      let cost = Board.cost_of_square board current_square_name in
+      ANSITerminal.print_string [ ANSITerminal.green ]
+        ( "This property is unowned. Would you like to buy it? It has \
+           a cost of " ^ string_of_int cost
+        ^ ". And your current balance is: "
+        ^ string_of_int (Player.balance !current_player) );
+      match read_line () with
+      | "y" | "Y" -> (
+          try
+            Player.bank_transaction (-cost) !current_player;
+            current_player :=
+              Player.acquire !current_player current_square_name;
+            ANSITerminal.print_string [ ANSITerminal.green ]
+              ( "Congrats! You are the brand new owner of "
+              ^ current_square_name ^ "! Your current balance is now: "
+              ^ string_of_int (Player.balance !current_player) );
+            State.change_current_player st !current_player
+          with Player.InsufficientFunds ->
+            ANSITerminal.print_string [ ANSITerminal.red ]
+              ( "Sorry you do not have the sufficient funds. Your \
+                 current balance is: "
+              ^ string_of_int (Player.balance !current_player) ) )
+      | "n" | "N" -> ()
+      | _ -> handle_utility st current_square_name board )
+
 (* If not in jail *)
 (* Check to see if third double, send immediately to jail and end turn,
    otherwise carry out respective roll *)
 (* If in jail, check to see if double then move them out, and carry out
    respective roll, make sure they do not roll again. *)
+
+(** Not to sure of the jail rules, need to research. Not sure if you can
+    roll again if you pay to get out and roll a dobule. *)
 let rec roll play n st =
   let board = State.get_board st in
   let first_roll = Roll.dice () in
@@ -110,11 +144,14 @@ let rec roll play n st =
 
   if not (State.is_in_jail st) then begin
     State.move_current_player st total_roll;
-    match
-      Board.type_of_square board
-        (Board.nth_square_name board
-           (Player.current_square (State.get_current_player st)))
-    with
+    let current_square_name =
+      Board.nth_square_name board
+        (Player.current_square (State.get_current_player st))
+    in
+    ANSITerminal.print_string [ ANSITerminal.yellow ]
+      ("You have landed on: " ^ current_square_name);
+    print_newline ();
+    match Board.type_of_square board current_square_name with
     | "Chance" -> ()
     | "Community Chest" -> ()
     | "Street" -> ()
@@ -122,13 +159,11 @@ let rec roll play n st =
     | "Luxury Tax" -> ()
     | "Railroad" -> ()
     | "Go to Jail" -> ()
-    | "Utility" -> ()
+    | "Utility" -> handle_utility st current_square_name board
     | "Free Parking" -> ()
     | _ -> ()
   end;
 
-  (** Not to sure of the jail rules, need to research. Not sure if you can 
-    roll again if you pay to get out and roll a dobule. *)
   if
     (not (State.is_in_jail st))
     && first_roll = second_roll
@@ -162,7 +197,7 @@ let quit play n st =
       play n st
 
 let check_board play n st =
-    let next_twelve =
+  let next_twelve =
     Board.next_twelve (State.get_board st)
       (Player.current_square (State.get_current_player st))
   in
@@ -171,7 +206,7 @@ let check_board play n st =
     (String.sub next_twelve 0 (length + 1));
   print_endline
     (String.sub next_twelve (length + 1)
-        (String.length next_twelve - length - 1));
+       (String.length next_twelve - length - 1));
   print_newline ();
   Unix.sleep 3;
   turn_printer st;
