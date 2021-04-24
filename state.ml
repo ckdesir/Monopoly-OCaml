@@ -39,9 +39,7 @@ let get_board st = st.board
    Array.iter get_who_owns_helper st.players *)
 
 let get_who_owns st property_name =
-  let find_piece square_name =
-    square_name = property_name
-  in
+  let find_piece square_name = square_name = property_name in
   let get_who_helper player =
     if List.exists find_piece (Player.properties player) then
       Some (Player.name player)
@@ -68,9 +66,22 @@ let move_current_player st roll =
     ANSITerminal.print_string [ ANSITerminal.green ]
       "Pass Go, collect $200!\n";
 
-    Player.pass_go new_player )
+    Player.pass_go new_player)
   else ();
   change_current_player st new_player
+
+let send_curr_jail st =
+  let jail_num =
+    List.hd
+      (Board.position_of_square (get_board st) "Jail/Just Visiting")
+  in
+  let plyr =
+    Player.set_position (get_current_player st) jail_num
+    |> Player.change_jail_status
+  in
+  change_current_player st plyr;
+  ANSITerminal.print_string [ ANSITerminal.red ]
+    (Player.name plyr ^ " is now in jail.")
 
 let is_in_jail st = Player.is_in_jail (get_current_player st)
 

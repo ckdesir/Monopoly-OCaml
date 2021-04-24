@@ -42,3 +42,7 @@ val switch_turns : t -> t
     to be [x] squares forward. If the current player passes go, the
     position wraps around and they collect $200 *)
 val move_current_player : t -> int -> unit
+
+(** [send_curr_jail st] returns an identical position except the current
+    player is now standing on the "jail" square and is now in jail.*)
+val send_curr_jail : t -> unit
