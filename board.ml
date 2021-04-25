@@ -10,6 +10,8 @@ exception UnknownType of square_type
 
 exception InvalidSquare of (square_type * square_name)
 
+exception MaxUpgradeReached
+
 type rent = {
   tier : int option;
   cost : int option;
@@ -24,6 +26,8 @@ type square = {
   set : string option;
   rent_tiers : rent list option;
   mortgage : int option;
+  mutable current_upgrade : int option;
+  max_upgrade : int option;
 }
 
 type chance_card = {
@@ -77,6 +81,8 @@ let squares_of_board json =
     set = json |> member "set" |> to_string_option;
     mortgage = json |> member "mortgage" |> to_int_option;
     rent_tiers = json |> member "rent" |> to_option rent_tiers_of_board;
+    current_upgrade = json |> member "current upgrade" |> to_int_option;
+    max_upgrade = json |> member "max upgrade" |> to_int_option;
   }
 
 let chance_cards_of_board json =
@@ -129,7 +135,7 @@ let nth_square_name board pos = (List.nth board.squares pos).name
 
 let next_twelve board n =
   let next_twelve_string = ref "| " in
-  for i = n to n + 12 - 1 do
+  for i = n to n + 11 do
     next_twelve_string :=
       !next_twelve_string ^ nth_square_name board (i mod 40) ^ " | "
   done;
@@ -215,6 +221,39 @@ let set_of_square board s =
   square_operation_helper board s
     [ "Street"; "Railroad"; "Utility" ]
     matcher
+
+let get_current_upgrade board s =
+  let matcher square excp =
+    match square.current_upgrade with
+    | Some upgrade -> upgrade
+    | None -> raise excp
+  in
+  let valid_types = [ "Street"; "Railroad" ] in
+  square_operation_helper board s valid_types matcher
+
+let incr_upgrade board s =
+  let matcher square excp =
+    match square.current_upgrade with
+    | Some upgrade ->
+        if square.current_upgrade = square.max_upgrade then
+          raise MaxUpgradeReached
+        else square.current_upgrade <- Some (upgrade + 1)
+    | None -> raise excp
+  in
+  let valid_types = [ "Street"; "Railroad" ] in
+  square_operation_helper board s valid_types matcher
+
+let get_all_of_set board set_name =
+  let rec helper accum = function
+    | [] -> accum
+    | h :: t -> (
+        match h.set with
+        | None -> helper accum t
+        | Some set ->
+            if set = set_name then helper (h.name :: accum) t
+            else helper accum t )
+  in
+  helper [] board.squares
 
 let upgrade_cost board s =
   let matcher square excp =
@@ -327,6 +366,23 @@ let cost_of_tier_5_rent board s =
   match square_operation_helper board s [ "Street" ] matcher with
   | Some cost -> cost
   | None -> raise (InvalidSquare (type_of_square board s, s))
+
+let cost_of_rent board s =
+  let square = find_square board s in
+  match square.current_upgrade with
+  | Some upgrade -> (
+      match upgrade with
+      | 0 -> cost_of_tier_0_rent board s
+      | 1 -> cost_of_tier_1_rent board s
+      | 2 -> cost_of_tier_2_rent board s
+      | 3 -> cost_of_tier_3_rent board s
+      | 4 -> cost_of_tier_4_rent board s
+      | 5 -> cost_of_tier_5_rent board s
+      | _ -> raise (InvalidSquare (square.stype, s)) )
+  | None ->
+      if square.stype = "Street" || square.stype = "Railroad" then
+        raise (InvalidSquare (square.stype, s))
+      else raise (TypeMismatch square.stype)
 
 let get_chance_card board =
   match board.chance_cards with

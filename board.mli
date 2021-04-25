@@ -53,6 +53,9 @@ exception UnknownType of square_type
     its type, ie no mortgage on a ["Street"]. *)
 exception InvalidSquare of (square_type * square_name)
 
+(** Raised when a square has reached the max number of upgrades. *)
+exception MaxUpgradeReached
+
 (** [from_json j] is the board that [j] represents. Requires: [j] is a
     valid JSON Monopoly board representation. *)
 val from_json : Yojson.Basic.t -> t
@@ -124,6 +127,29 @@ val set_of_square : t -> square_name -> string
     not a valid type in board. The following square_types are valid for
     upgrade_cost: [\["Street"\]] *)
 val upgrade_cost : t -> square_name -> int
+
+(** [get_all_of_set b s] returns a list containing all the properties on
+    board b belonging to set s, if any. *)
+val get_all_of_set : t -> string -> square_name list
+
+(** [get_current_upgrade b s] is the current upgrade tier of square [s]
+    on board [b]. Raises [UnknownSquare s] if [s] is not a square in
+    [b]. Raises [TypeMismatch] if the square_type of [s] is an invalid
+    operation on [get_current_upgrade]. Raises [InvalidSquare] if the
+    valid type doesn't have a set. Raises [UnknownType s] if [s] is not
+    a valid type in board. The following square_types are valid for
+    get_current_upgrade: [\["Street", "Railroad"\]] *)
+val get_current_upgrade : t -> square_name -> int
+
+(** [incr_upgrade b s] increases the upgrade tier of square [s] on board
+    [b]. Raises [UnknownSquare s] if [s] is not a square in [b]. Raises
+    [TypeMismatch] if the square_type of [s] is an invalid operation on
+    [incr_upgrade]. Raises [InvalidSquare] if the valid type doesn't
+    have a set. Raises [UnknownType s] if [s] is not a valid type in
+    board. Raises [MaxUpgradeReached] if there are no more upgrades to
+    give. The following square_types are valid for incr_upgrade:
+    [\["Street", "Railroad"\]] *)
+val incr_upgrade : t -> square_name -> unit
 
 (** [cost_of_tier_0_rent b s] is the cost of tier 0 rent of square [s]
     on board [b].
@@ -227,6 +253,54 @@ val cost_of_tier_4_rent : t -> square_name -> int
     type in board. The following square_types are valid for
     cost_of_tier_5_rent: [\["Street"\]] *)
 val cost_of_tier_5_rent : t -> square_name -> int
+
+
+(** [cost_of_rent b s] is the cost of rent of square [s] on board [b] given 
+		it's current upgrade status. 
+
+		Tier 0 rent describes, for square_type [\["Street"\]] the rent that
+    must be paid given that there are no houses/hotels on that lot. If a
+    player owns ALL the lots of any set for square_type [\["Street"\]]
+    Tier 0 rent is doubled (up to whoever maintains the state of the
+    game).
+
+    Tier 0 rent describes, for square_type [\["Railroad"\]], the rent
+    that must be paid given that a player owns no other railroad on the
+    board.
+
+		Tier 1 rent describes, for square_type [\["Street"\]] the rent that
+    must be paid given that there is one house on that lot.
+
+    Tier 1 rent describes, for square_type [\["Railroad"\]], the rent
+    that must be paid given that a player owns one other railroad on the
+    board.
+
+		Tier 2 rent describes, for square_type [\["Street"\]] the rent that
+    must be paid given that there are two houses on that lot.
+
+    Tier 2 rent describes, for square_type [\["Railroad"\]], the rent
+    that must be paid given that a player owns two other railroads on
+    the board.
+
+		Tier 3 rent describes, for square_type [\["Street"\]] the rent that
+    must be paid given that there are three houses on that lot.
+
+    Tier 3 rent describes, for square_type [\["Railroad"\]], the rent
+    that must be paid given that a player owns the other three railroads
+    on the board.
+
+		Tier 4 rent describes, for square_type [\["Street"\]] the rent that
+    must be paid given that there are four houses on that lot.
+
+		Tier 5 rent describes, for square_type [\["Street"\]] the rent that
+    must be paid given that there is a hotel on that lot.
+		
+		Raises [UnknownSquare s] if [s] is not a square in [b]. Raises
+    [TypeMismatch] if the square_type of [s] is an invalid operation on
+    [cost_of_rent]. Raises [InvalidSquare] if the valid type
+    doesn't have a cost. Raises [UnknownType s] if [s] is not a valid
+    type in board. *)
+val cost_of_rent : t -> square_name -> int
 
 (** [get_chance_card t] returns a pair containing a chance_card and a
     new board with said chance_card placed however they are represented

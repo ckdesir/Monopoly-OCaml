@@ -2,6 +2,7 @@ type player_id = string
 
 exception InsufficientFunds
 
+(** Maybe like a sets owned field? *)
 type player = {
   name : player_id;
   piece : string;

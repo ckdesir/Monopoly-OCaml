@@ -29,15 +29,6 @@ let get_num_players st = st.num_players
 
 let get_board st = st.board
 
-(* let get_who_owns st property_name = let get_who_owns_helper plyr =
-   List.iter find_piece (Player.properties plyr)
-
-   (* let rec get_who_owns_helper st = let current = Array.get
-   st.players (st.current_player) in match Player.properties current
-   with | [] -> None | h :: t -> begin match get_who_owns_helper t with
-   | None -> Player.create "" "" | Some x -> current end try *)
-   Array.iter get_who_owns_helper st.players *)
-
 let get_who_owns st property_name =
   let find_piece square_name = square_name = property_name in
   let get_who_helper player =
