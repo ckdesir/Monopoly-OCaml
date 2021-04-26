@@ -2,3 +2,8 @@ B _build
 PKG ounit2
 PKG yojson
 PKG ANSITerminal
+PKG str
+PKG unix
+PKG qcheck
+PKG ocamlbuild
+PKG bisect_ppx-ocamlbuild

@@ -1,5 +1,7 @@
+#directory "_build";;
 #require "ounit2";;
 #require "yojson";;
+#require "str";;
+#require "bisect_ppx.runtime";;
 #require "ANSITerminal";;
-#directory "_build";;
 #load "board.cmo";;

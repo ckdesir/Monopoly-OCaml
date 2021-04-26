@@ -254,11 +254,10 @@ val cost_of_tier_4_rent : t -> square_name -> int
     cost_of_tier_5_rent: [\["Street"\]] *)
 val cost_of_tier_5_rent : t -> square_name -> int
 
+(** [cost_of_rent b s] is the cost of rent of square [s] on board [b]
+    given it's current upgrade status.
 
-(** [cost_of_rent b s] is the cost of rent of square [s] on board [b] given 
-		it's current upgrade status. 
-
-		Tier 0 rent describes, for square_type [\["Street"\]] the rent that
+    Tier 0 rent describes, for square_type [\["Street"\]] the rent that
     must be paid given that there are no houses/hotels on that lot. If a
     player owns ALL the lots of any set for square_type [\["Street"\]]
     Tier 0 rent is doubled (up to whoever maintains the state of the
@@ -268,52 +267,51 @@ val cost_of_tier_5_rent : t -> square_name -> int
     that must be paid given that a player owns no other railroad on the
     board.
 
-		Tier 1 rent describes, for square_type [\["Street"\]] the rent that
+    Tier 1 rent describes, for square_type [\["Street"\]] the rent that
     must be paid given that there is one house on that lot.
 
     Tier 1 rent describes, for square_type [\["Railroad"\]], the rent
     that must be paid given that a player owns one other railroad on the
     board.
 
-		Tier 2 rent describes, for square_type [\["Street"\]] the rent that
+    Tier 2 rent describes, for square_type [\["Street"\]] the rent that
     must be paid given that there are two houses on that lot.
 
     Tier 2 rent describes, for square_type [\["Railroad"\]], the rent
     that must be paid given that a player owns two other railroads on
     the board.
 
-		Tier 3 rent describes, for square_type [\["Street"\]] the rent that
+    Tier 3 rent describes, for square_type [\["Street"\]] the rent that
     must be paid given that there are three houses on that lot.
 
     Tier 3 rent describes, for square_type [\["Railroad"\]], the rent
     that must be paid given that a player owns the other three railroads
     on the board.
 
-		Tier 4 rent describes, for square_type [\["Street"\]] the rent that
+    Tier 4 rent describes, for square_type [\["Street"\]] the rent that
     must be paid given that there are four houses on that lot.
 
-		Tier 5 rent describes, for square_type [\["Street"\]] the rent that
+    Tier 5 rent describes, for square_type [\["Street"\]] the rent that
     must be paid given that there is a hotel on that lot.
-		
-		Raises [UnknownSquare s] if [s] is not a square in [b]. Raises
+
+    Raises [UnknownSquare s] if [s] is not a square in [b]. Raises
     [TypeMismatch] if the square_type of [s] is an invalid operation on
-    [cost_of_rent]. Raises [InvalidSquare] if the valid type
-    doesn't have a cost. Raises [UnknownType s] if [s] is not a valid
-    type in board. *)
+    [cost_of_rent]. Raises [InvalidSquare] if the valid type doesn't
+    have a cost. Raises [UnknownType s] if [s] is not a valid type in
+    board. *)
 val cost_of_rent : t -> square_name -> int
 
-(** [get_chance_card t] returns a pair containing a chance_card and a
-    new board with said chance_card placed however they are represented
-    in t such that it isn't chosen until all other chance_cards are
-    chosen.
+(** [get_chance_card t] returns the top chance_card and shuffles
+    chance_cards placed however they are represented in t such that it
+    isn't chosen until all other chance_cards are chosen.
 
     Raises [Failure] if there is no chance_card to obtain. *)
-val get_chance_card : t -> chance_card * t
+val get_chance_card : t -> chance_card
 
-(** [get_community_chest_card t] returns a pair containing a
-    community_chest and a new board with said community_chest placed
-    however they are represented in t such that it isn't chosen until
-    all other community_chest are chosen.
+(** [get_community_chest_card t] returns the top community_chest_card
+    and shuffles the community chests however they are represented in t
+    such that it isn't chosen until all other community_chest are
+    chosen.
 
     Raises [Failure] if there is no community_chest to obtain. *)
-val get_community_chest_card : t -> community_chest * t
+val get_community_chest_card : t -> community_chest

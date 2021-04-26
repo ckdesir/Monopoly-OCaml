@@ -1,1123 +1,1175 @@
 {
-  "squares": [
-    {
-      "name": "Go",
-      "type": "Go",
-      "position": 0
-    },
-    {
-      "name": "Mediterranean Avenue",
-      "type": "Street",
-      "position": 1,
-      "cost": 60,
-      "upgrade cost": 50,
-      "set": "brown",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 2
-        },
-        {
-          "tier": 1,
-          "cost": 10
-        },
-        {
-          "tier": 2,
-          "cost": 30
-        },
-        {
-          "tier": 3,
-          "cost": 90
-        },
-        {
-          "tier": 4,
-          "cost": 160
-        },
-        {
-          "tier": 5,
-          "cost": 250
-        }
-      ],
-      "mortgage": 30
-    },
-    {
-      "name": "Community Chest",
-      "type": "Community Chest",
-      "position": 2
-    },
-    {
-      "name": "Baltic Avenue",
-      "type": "Street",
-      "position": 3,
-      "cost": 60,
-      "upgrade cost": 50,
-      "set": "brown",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 4
-        },
-        {
-          "tier": 1,
-          "cost": 20
-        },
-        {
-          "tier": 2,
-          "cost": 60
-        },
-        {
-          "tier": 3,
-          "cost": 180
-        },
-        {
-          "tier": 4,
-          "cost": 320
-        },
-        {
-          "tier": 5,
-          "cost": 450
-        }
-      ],
-      "mortgage": 30
-    },
-    {
-      "name": "Income Tax",
-      "type": "Income Tax",
-      "position": 4,
-      "cost": 200
-    },
-    {
-      "name": "Reading Railroad",
-      "type": "Railroad",
-      "position": 5,
-      "cost": 200,
-      "set": "Railroad",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 25
-        },
-        {
-          "tier": 1,
-          "cost": 50
-        },
-        {
-          "tier": 2,
-          "cost": 100
-        },
-        {
-          "tier": 3,
-          "cost": 200
-        }
-      ],
-      "mortgage": 100
-    },
-    {
-      "name": "Oriental Avenue",
-      "type": "Street",
-      "position": 6,
-      "cost": 100,
-      "upgrade cost": 50,
-      "set": "light blue",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 6
-        },
-        {
-          "tier": 1,
-          "cost": 30
-        },
-        {
-          "tier": 2,
-          "cost": 90
-        },
-        {
-          "tier": 3,
-          "cost": 270
-        },
-        {
-          "tier": 4,
-          "cost": 400
-        },
-        {
-          "tier": 5,
-          "cost": 550
-        }
-      ],
-      "mortgage": 50
-    },
-    {
-      "name": "Chance",
-      "type": "Chance",
-      "position": 7
-    },
-    {
-      "name": "Vermont Avenue",
-      "type": "Street",
-      "position": 8,
-      "cost": 100,
-      "upgrade cost": 50,
-      "set": "light blue",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 6
-        },
-        {
-          "tier": 1,
-          "cost": 30
-        },
-        {
-          "tier": 2,
-          "cost": 90
-        },
-        {
-          "tier": 3,
-          "cost": 270
-        },
-        {
-          "tier": 4,
-          "cost": 400
-        },
-        {
-          "tier": 5,
-          "cost": 550
-        }
-      ],
-      "mortgage": 50
-    },
-    {
-      "name": "Connecticut Avenue",
-      "type": "Street",
-      "position": 9,
-      "cost": 120,
-      "upgrade cost": 50,
-      "set": "light blue",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 8
-        },
-        {
-          "tier": 1,
-          "cost": 40
-        },
-        {
-          "tier": 2,
-          "cost": 100
-        },
-        {
-          "tier": 3,
-          "cost": 300
-        },
-        {
-          "tier": 4,
-          "cost": 450
-        },
-        {
-          "tier": 5,
-          "cost": 600
-        }
-      ],
-      "mortgage": 60
-    },
-    {
-      "name": "Jail/Just Visiting",
-      "type": "Jail/Just Visiting",
-      "position": 10
-    },
-    {
-      "name": "St. Charles Place",
-      "type": "Street",
-      "position": 11,
-      "cost": 140,
-      "upgrade cost": 100,
-      "set": "pink",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 10
-        },
-        {
-          "tier": 1,
-          "cost": 50
-        },
-        {
-          "tier": 2,
-          "cost": 150
-        },
-        {
-          "tier": 3,
-          "cost": 450
-        },
-        {
-          "tier": 4,
-          "cost": 625
-        },
-        {
-          "tier": 5,
-          "cost": 750
-        }
-      ],
-      "mortgage": 70
-    },
-    {
-      "name": "Electric Company",
-      "type": "Utility",
-      "position": 12,
-      "cost": 150,
-      "set": "Utility",
-      "mortgage": 75
-    },
-    {
-      "name": "States Avenue",
-      "type": "Street",
-      "position": 13,
-      "cost": 140,
-      "upgrade cost": 100,
-      "set": "pink",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 10
-        },
-        {
-          "tier": 1,
-          "cost": 50
-        },
-        {
-          "tier": 2,
-          "cost": 150
-        },
-        {
-          "tier": 3,
-          "cost": 450
-        },
-        {
-          "tier": 4,
-          "cost": 625
-        },
-        {
-          "tier": 5,
-          "cost": 750
-        }
-      ],
-      "mortgage": 70
-    },
-    {
-      "name": "Virgina Avenue",
-      "type": "Street",
-      "position": 14,
-      "cost": 160,
-      "upgrade cost": 100,
-      "set": "pink",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 12
-        },
-        {
-          "tier": 1,
-          "cost": 60
-        },
-        {
-          "tier": 2,
-          "cost": 180
-        },
-        {
-          "tier": 3,
-          "cost": 500
-        },
-        {
-          "tier": 4,
-          "cost": 700
-        },
-        {
-          "tier": 5,
-          "cost": 900
-        }
-      ],
-      "mortgage": 80
-    },
-    {
-      "name": "Pennsylvania Railroad",
-      "type": "Railroad",
-      "position": 15,
-      "cost": 200,
-      "set": "Railroad",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 25
-        },
-        {
-          "tier": 1,
-          "cost": 50
-        },
-        {
-          "tier": 2,
-          "cost": 100
-        },
-        {
-          "tier": 3,
-          "cost": 200
-        }
-      ],
-      "mortgage": 100
-    },
-    {
-      "name": "St. James Place",
-      "type": "Street",
-      "position": 16,
-      "cost": 180,
-      "upgrade cost": 100,
-      "set": "orange",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 14
-        },
-        {
-          "tier": 1,
-          "cost": 70
-        },
-        {
-          "tier": 2,
-          "cost": 200
-        },
-        {
-          "tier": 3,
-          "cost": 550
-        },
-        {
-          "tier": 4,
-          "cost": 750
-        },
-        {
-          "tier": 5,
-          "cost": 950
-        }
-      ],
-      "mortgage": 90
-    },
-    {
-      "name": "Community Chest",
-      "type": "Community Chest",
-      "position": 17
-    },
-    {
-      "name": "Tennessee Avenue",
-      "type": "Street",
-      "position": 18,
-      "cost": 180,
-      "upgrade cost": 100,
-      "set": "orange",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 14
-        },
-        {
-          "tier": 1,
-          "cost": 70
-        },
-        {
-          "tier": 2,
-          "cost": 200
-        },
-        {
-          "tier": 3,
-          "cost": 550
-        },
-        {
-          "tier": 4,
-          "cost": 750
-        },
-        {
-          "tier": 5,
-          "cost": 950
-        }
-      ],
-      "mortgage": 80
-    },
-    {
-      "name": "New York Avenue",
-      "type": "Street",
-      "position": 19,
-      "cost": 200,
-      "upgrade cost": 100,
-      "set": "orange",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 16
-        },
-        {
-          "tier": 1,
-          "cost": 80
-        },
-        {
-          "tier": 2,
-          "cost": 220
-        },
-        {
-          "tier": 3,
-          "cost": 600
-        },
-        {
-          "tier": 4,
-          "cost": 800
-        },
-        {
-          "tier": 5,
-          "cost": 1000
-        }
-      ],
-      "mortgage": 100
-    },
-    {
-      "name": "Free Parking",
-      "type": "Free Parking",
-      "position": 20
-    },
-    {
-      "name": "Kentucky Avenue",
-      "type": "Street",
-      "position": 21,
-      "cost": 220,
-      "upgrade cost": 150,
-      "set": "red",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 18
-        },
-        {
-          "tier": 1,
-          "cost": 90
-        },
-        {
-          "tier": 2,
-          "cost": 250
-        },
-        {
-          "tier": 3,
-          "cost": 700
-        },
-        {
-          "tier": 4,
-          "cost": 875
-        },
-        {
-          "tier": 5,
-          "cost": 1050
-        }
-      ],
-      "mortgage": 110
-    },
-    {
-      "name": "Chance",
-      "type": "Chance",
-      "position": 22
-    },
-    {
-      "name": "Indiana Avenue",
-      "type": "Street",
-      "position": 23,
-      "cost": 220,
-      "upgrade cost": 150,
-      "set": "red",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 18
-        },
-        {
-          "tier": 1,
-          "cost": 90
-        },
-        {
-          "tier": 2,
-          "cost": 250
-        },
-        {
-          "tier": 3,
-          "cost": 700
-        },
-        {
-          "tier": 4,
-          "cost": 875
-        },
-        {
-          "tier": 5,
-          "cost": 1050
-        }
-      ],
-      "mortgage": 110
-    },
-    {
-      "name": "Illinois Avenue",
-      "type": "Street",
-      "position": 24,
-      "cost": 240,
-      "upgrade cost": 150,
-      "set": "red",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 20
-        },
-        {
-          "tier": 1,
-          "cost": 100
-        },
-        {
-          "tier": 2,
-          "cost": 300
-        },
-        {
-          "tier": 3,
-          "cost": 750
-        },
-        {
-          "tier": 4,
-          "cost": 925
-        },
-        {
-          "tier": 5,
-          "cost": 1100
-        }
-      ],
-      "mortgage": 120
-    },
-    {
-      "name": "B. & O. Railroad",
-      "type": "Railroad",
-      "position": 25,
-      "cost": 200,
-      "set": "Railroad",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 25
-        },
-        {
-          "tier": 1,
-          "cost": 50
-        },
-        {
-          "tier": 2,
-          "cost": 100
-        },
-        {
-          "tier": 3,
-          "cost": 200
-        }
-      ],
-      "mortgage": 100
-    },
-    {
-      "name": "Atlantic Avenue",
-      "type": "Street",
-      "position": 26,
-      "cost": 260,
-      "upgrade cost": 150,
-      "set": "yellow",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 22
-        },
-        {
-          "tier": 1,
-          "cost": 110
-        },
-        {
-          "tier": 2,
-          "cost": 330
-        },
-        {
-          "tier": 3,
-          "cost": 800
-        },
-        {
-          "tier": 4,
-          "cost": 975
-        },
-        {
-          "tier": 5,
-          "cost": 1150
-        }
-      ],
-      "mortgage": 130
-    },
-    {
-      "name": "Ventnor Avenue",
-      "type": "Street",
-      "position": 27,
-      "cost": 260,
-      "upgrade cost": 150,
-      "set": "yellow",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 22
-        },
-        {
-          "tier": 1,
-          "cost": 110
-        },
-        {
-          "tier": 2,
-          "cost": 330
-        },
-        {
-          "tier": 3,
-          "cost": 800
-        },
-        {
-          "tier": 4,
-          "cost": 975
-        },
-        {
-          "tier": 5,
-          "cost": 1150
-        }
-      ],
-      "mortgage": 130
-    },
-    {
-      "name": "Water Works",
-      "type": "Utility",
-      "position": 28,
-      "cost": 150,
-      "set": "Utility",
-      "mortgage": 75
-    },
-    {
-      "name": "Marvin Garden",
-      "type": "Street",
-      "position": 29,
-      "cost": 280,
-      "upgrade cost": 150,
-      "set": "yellow",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 24
-        },
-        {
-          "tier": 1,
-          "cost": 120
-        },
-        {
-          "tier": 2,
-          "cost": 360
-        },
-        {
-          "tier": 3,
-          "cost": 850
-        },
-        {
-          "tier": 4,
-          "cost": 1025
-        },
-        {
-          "tier": 5,
-          "cost": 1200
-        }
-      ],
-      "mortgage": 140
-    },
-    {
-      "name": "Go to Jail",
-      "type": "Go to Jail",
-      "position": 30
-    },
-    {
-      "name": "Pacific Avenue",
-      "type": "Street",
-      "position": 31,
-      "cost": 300,
-      "upgrade cost": 200,
-      "set": "green",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 26
-        },
-        {
-          "tier": 1,
-          "cost": 130
-        },
-        {
-          "tier": 2,
-          "cost": 390
-        },
-        {
-          "tier": 3,
-          "cost": 900
-        },
-        {
-          "tier": 4,
-          "cost": 1100
-        },
-        {
-          "tier": 5,
-          "cost": 1275
-        }
-      ],
-      "mortgage": 150
-    },
-    {
-      "name": "North Carolina Avenue",
-      "type": "Street",
-      "position": 32,
-      "cost": 300,
-      "upgrade cost": 200,
-      "set": "green",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 26
-        },
-        {
-          "tier": 1,
-          "cost": 130
-        },
-        {
-          "tier": 2,
-          "cost": 390
-        },
-        {
-          "tier": 3,
-          "cost": 900
-        },
-        {
-          "tier": 4,
-          "cost": 1100
-        },
-        {
-          "tier": 5,
-          "cost": 1275
-        }
-      ],
-      "mortgage": 150
-    },
-    {
-      "name": "Community Chest",
-      "type": "Community Chest",
-      "position": 33
-    },
-    {
-      "name": "Pennsylvania Avenue",
-      "type": "Street",
-      "position": 34,
-      "cost": 300,
-      "upgrade cost": 200,
-      "set": "green",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 28
-        },
-        {
-          "tier": 1,
-          "cost": 150
-        },
-        {
-          "tier": 2,
-          "cost": 450
-        },
-        {
-          "tier": 3,
-          "cost": 1000
-        },
-        {
-          "tier": 4,
-          "cost": 1200
-        },
-        {
-          "tier": 5,
-          "cost": 1400
-        }
-      ],
-      "mortgage": 160
-    },
-    {
-      "name": "Short Line",
-      "type": "Railroad",
-      "position": 35,
-      "cost": 200,
-      "set": "Railroad",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 25
-        },
-        {
-          "tier": 1,
-          "cost": 50
-        },
-        {
-          "tier": 2,
-          "cost": 100
-        },
-        {
-          "tier": 3,
-          "cost": 200
-        }
-      ],
-      "mortgage": 100
-    },
-    {
-      "name": "Chance",
-      "type": "Chance",
-      "position": 36
-    },
-    {
-      "name": "Park Place",
-      "type": "Street",
-      "position": 37,
-      "cost": 350,
-      "upgrade cost": 200,
-      "set": "dark blue",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 35
-        },
-        {
-          "tier": 1,
-          "cost": 175
-        },
-        {
-          "tier": 2,
-          "cost": 500
-        },
-        {
-          "tier": 3,
-          "cost": 1100
-        },
-        {
-          "tier": 4,
-          "cost": 1300
-        },
-        {
-          "tier": 5,
-          "cost": 1500
-        }
-      ],
-      "mortgage": 175
-    },
-    {
-      "name": "Luxury Tax",
-      "type": "Luxury Tax",
-      "position": 38,
-      "cost": 75
-    },
-    {
-      "name": "Boardwalk",
-      "type": "Street",
-      "position": 39,
-      "cost": 400,
-      "upgrade cost": 200,
-      "set": "dark blue",
-      "rent": [
-        {
-          "tier": 0,
-          "cost": 50
-        },
-        {
-          "tier": 1,
-          "cost": 200
-        },
-        {
-          "tier": 2,
-          "cost": 600
-        },
-        {
-          "tier": 3,
-          "cost": 1400
-        },
-        {
-          "tier": 4,
-          "cost": 1700
-        },
-        {
-          "tier": 5,
-          "cost": 2000
-        }
-      ],
-      "mortgage": 200
-    }
-  ],
-  "chance": [
-    {
-      "title": "Advance to Go (Collect $200)",
-      "action": "move",
-      "squarename": "Go",
-      "position": 0
-    },
-    {
-      "title": "Advance to Illinois Avenue - If you pass Go, collect $200",
-      "action": "move",
-      "squarename": "Illinois Avenue",
-      "position": 24
-    },
-    {
-      "title": "Advance to St. Charles Place - If you pass Go, collect $200",
-      "action": "move",
-      "squarename": "St. Charles Place",
-      "position": 11
-    },
-    {
-      "title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
-      "action": "movenearest",
-      "type": "Utility",
-      "rentmultiplier": 10
-    },
-    {
-      "title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
-      "action": "movenearest",
-      "type": "Railroad",
-      "rentmultiplier": 2
-    },
-    {
-      "title": "Bank pays you dividend of $50",
-      "action": "addfunds",
-      "amount": 50
-    },
-    {
-      "title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
-      "action": "jail",
-      "subaction": "getout"
-    },
-    {
-      "title": "Go Back 3 Spaces",
-      "action": "move",
-      "count": -3
-    },
-    {
-      "title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
-      "action": "jail",
-      "subaction": "goto"
-    },
-    {
-      "title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
-      "action": "propertycharges",
-      "house": 25,
-      "hotels": 100
-    },
-    {
-      "title": "Pay poor tax of $15",
-      "action": "removefunds",
-      "amount": 15
-    },
-    {
-      "title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
-      "action": "move",
-      "squarename": "Reading Railroad"
-    },
-    {
-      "title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
-      "action": "move",
-      "squarename": "Boardwalk"
-    },
-    {
-      "title": "You have been elected Chairman of the Board - Pay each player $50",
-      "action": "removefundstoplayers",
-      "amount": 50
-    },
-    {
-      "title": "Your building loan matures - Collect $150",
-      "action": "addfunds",
-      "amount": 50
-    }
-  ],
-  "community": [
-    {
-      "title": "Advance to Go (Collect $200)",
-      "action": "move",
-      "squarename": "Go",
-      "position": 0
-    },
-    {
-      "title": "Bank error in your favor - Collect $200 ",
-      "action": "addfunds",
-      "amount": 200
-    },
-    {
-      "title": "Doctor fee - Pay $50",
-      "action": "removefunds",
-      "amount": 50
-    },
-    {
-      "title": "From sale of stock you get $50",
-      "action": "addfunds",
-      "amount": 50
-    },
-    {
-      "title": "Get Out of Jail Free",
-      "action": "jail",
-      "subaction": "getout"
-    },
-    {
-      "title": "Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200",
-      "action": "jail",
-      "subaction": "goto"
-    },
-    {
-      "title": "Grand Opera Night - Collect $50 from every player for opening night seats",
-      "action": "addfundsfromplayers",
-      "amount": 50
-    },
-    {
-      "title": "Holiday Fund matures - Receive $100",
-      "action": "addfunds",
-      "amount": 100
-    },
-    {
-      "title": "Income tax refund - Collect $20",
-      "action": "addfunds",
-      "amount": 20
-    },
-    {
-      "title": "Life insurance matures - Collect $100",
-      "action": "addfunds",
-      "amount": 100
-    },
-    {
-      "title": "Pay hospital fees of $100",
-      "action": "removefunds",
-      "amount": 100
-    },
-    {
-      "title": "Pay school fees of $150",
-      "action": "removefunds",
-      "amount": 150
-    },
-    {
-      "title": "Receive $25 consultancy fee",
-      "action": "addfunds",
-      "amount": 25
-    },
-    {
-      "title": "You are assessed for street repairs - $40 per house - $115 per hotel",
-      "action": "propertycharges",
-      "house": 40,
-      "hotels": 115
-    },
-    {
-      "title": "You have won second prize in a beauty contest - Collect $10",
-      "action": "addfunds",
-      "amount": 10
-    },
-    {
-      "title": "You inherit $100",
-      "action": "addfunds",
-      "amount": 100
-    }
-  ]
+	"squares": [
+		{
+			"name": "Go",
+			"type": "Go",
+			"position": 0
+		},
+		{
+			"name": "Mediterranean Avenue",
+			"type": "Street",
+			"position": 1,
+			"cost": 60,
+			"upgrade cost": 50,
+			"set": "Brown",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 2
+				},
+				{
+					"tier": 1,
+					"cost": 10
+				},
+				{
+					"tier": 2,
+					"cost": 30
+				},
+				{
+					"tier": 3,
+					"cost": 90
+				},
+				{
+					"tier": 4,
+					"cost": 160
+				},
+				{
+					"tier": 5,
+					"cost": 250
+				}
+			],
+			"mortgage": 30
+		},
+		{
+			"name": "Community Chest",
+			"type": "Community Chest",
+			"position": 2
+		},
+		{
+			"name": "Baltic Avenue",
+			"type": "Street",
+			"position": 3,
+			"cost": 60,
+			"upgrade cost": 50,
+			"set": "Brown",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 4
+				},
+				{
+					"tier": 1,
+					"cost": 20
+				},
+				{
+					"tier": 2,
+					"cost": 60
+				},
+				{
+					"tier": 3,
+					"cost": 180
+				},
+				{
+					"tier": 4,
+					"cost": 320
+				},
+				{
+					"tier": 5,
+					"cost": 450
+				}
+			],
+			"mortgage": 30
+		},
+		{
+			"name": "Income Tax",
+			"type": "Income Tax",
+			"position": 4,
+			"cost": 200
+		},
+		{
+			"name": "Reading Railroad",
+			"type": "Railroad",
+			"position": 5,
+			"cost": 200,
+			"set": "Railroad",
+			"current upgrade": 0,
+			"max upgrade": 3,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 25
+				},
+				{
+					"tier": 1,
+					"cost": 50
+				},
+				{
+					"tier": 2,
+					"cost": 100
+				},
+				{
+					"tier": 3,
+					"cost": 200
+				}
+			],
+			"mortgage": 100
+		},
+		{
+			"name": "Oriental Avenue",
+			"type": "Street",
+			"position": 6,
+			"cost": 100,
+			"upgrade cost": 50,
+			"set": "Light blue",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 6
+				},
+				{
+					"tier": 1,
+					"cost": 30
+				},
+				{
+					"tier": 2,
+					"cost": 90
+				},
+				{
+					"tier": 3,
+					"cost": 270
+				},
+				{
+					"tier": 4,
+					"cost": 400
+				},
+				{
+					"tier": 5,
+					"cost": 550
+				}
+			],
+			"mortgage": 50
+		},
+		{
+			"name": "Chance",
+			"type": "Chance",
+			"position": 7
+		},
+		{
+			"name": "Vermont Avenue",
+			"type": "Street",
+			"position": 8,
+			"cost": 100,
+			"upgrade cost": 50,
+			"set": "Light blue",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 6
+				},
+				{
+					"tier": 1,
+					"cost": 30
+				},
+				{
+					"tier": 2,
+					"cost": 90
+				},
+				{
+					"tier": 3,
+					"cost": 270
+				},
+				{
+					"tier": 4,
+					"cost": 400
+				},
+				{
+					"tier": 5,
+					"cost": 550
+				}
+			],
+			"mortgage": 50
+		},
+		{
+			"name": "Connecticut Avenue",
+			"type": "Street",
+			"position": 9,
+			"cost": 120,
+			"upgrade cost": 50,
+			"set": "Light blue",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 8
+				},
+				{
+					"tier": 1,
+					"cost": 40
+				},
+				{
+					"tier": 2,
+					"cost": 100
+				},
+				{
+					"tier": 3,
+					"cost": 300
+				},
+				{
+					"tier": 4,
+					"cost": 450
+				},
+				{
+					"tier": 5,
+					"cost": 600
+				}
+			],
+			"mortgage": 60
+		},
+		{
+			"name": "Jail/Just Visiting",
+			"type": "Jail/Just Visiting",
+			"position": 10
+		},
+		{
+			"name": "St. Charles Place",
+			"type": "Street",
+			"position": 11,
+			"cost": 140,
+			"upgrade cost": 100,
+			"set": "Pink",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 10
+				},
+				{
+					"tier": 1,
+					"cost": 50
+				},
+				{
+					"tier": 2,
+					"cost": 150
+				},
+				{
+					"tier": 3,
+					"cost": 450
+				},
+				{
+					"tier": 4,
+					"cost": 625
+				},
+				{
+					"tier": 5,
+					"cost": 750
+				}
+			],
+			"mortgage": 70
+		},
+		{
+			"name": "Electric Company",
+			"type": "Utility",
+			"position": 12,
+			"cost": 150,
+			"set": "Utility",
+			"mortgage": 75
+		},
+		{
+			"name": "States Avenue",
+			"type": "Street",
+			"position": 13,
+			"cost": 140,
+			"upgrade cost": 100,
+			"set": "Pink",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 10
+				},
+				{
+					"tier": 1,
+					"cost": 50
+				},
+				{
+					"tier": 2,
+					"cost": 150
+				},
+				{
+					"tier": 3,
+					"cost": 450
+				},
+				{
+					"tier": 4,
+					"cost": 625
+				},
+				{
+					"tier": 5,
+					"cost": 750
+				}
+			],
+			"mortgage": 70
+		},
+		{
+			"name": "Virgina Avenue",
+			"type": "Street",
+			"position": 14,
+			"cost": 160,
+			"upgrade cost": 100,
+			"set": "Pink",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 12
+				},
+				{
+					"tier": 1,
+					"cost": 60
+				},
+				{
+					"tier": 2,
+					"cost": 180
+				},
+				{
+					"tier": 3,
+					"cost": 500
+				},
+				{
+					"tier": 4,
+					"cost": 700
+				},
+				{
+					"tier": 5,
+					"cost": 900
+				}
+			],
+			"mortgage": 80
+		},
+		{
+			"name": "Pennsylvania Railroad",
+			"type": "Railroad",
+			"position": 15,
+			"cost": 200,
+			"set": "Railroad",
+			"current upgrade": 0,
+			"max upgrade": 3,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 25
+				},
+				{
+					"tier": 1,
+					"cost": 50
+				},
+				{
+					"tier": 2,
+					"cost": 100
+				},
+				{
+					"tier": 3,
+					"cost": 200
+				}
+			],
+			"mortgage": 100
+		},
+		{
+			"name": "St. James Place",
+			"type": "Street",
+			"position": 16,
+			"cost": 180,
+			"upgrade cost": 100,
+			"set": "Orange",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 14
+				},
+				{
+					"tier": 1,
+					"cost": 70
+				},
+				{
+					"tier": 2,
+					"cost": 200
+				},
+				{
+					"tier": 3,
+					"cost": 550
+				},
+				{
+					"tier": 4,
+					"cost": 750
+				},
+				{
+					"tier": 5,
+					"cost": 950
+				}
+			],
+			"mortgage": 90
+		},
+		{
+			"name": "Community Chest",
+			"type": "Community Chest",
+			"position": 17
+		},
+		{
+			"name": "Tennessee Avenue",
+			"type": "Street",
+			"position": 18,
+			"cost": 180,
+			"upgrade cost": 100,
+			"set": "Orange",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 14
+				},
+				{
+					"tier": 1,
+					"cost": 70
+				},
+				{
+					"tier": 2,
+					"cost": 200
+				},
+				{
+					"tier": 3,
+					"cost": 550
+				},
+				{
+					"tier": 4,
+					"cost": 750
+				},
+				{
+					"tier": 5,
+					"cost": 950
+				}
+			],
+			"mortgage": 80
+		},
+		{
+			"name": "New York Avenue",
+			"type": "Street",
+			"position": 19,
+			"cost": 200,
+			"upgrade cost": 100,
+			"set": "Orange",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 16
+				},
+				{
+					"tier": 1,
+					"cost": 80
+				},
+				{
+					"tier": 2,
+					"cost": 220
+				},
+				{
+					"tier": 3,
+					"cost": 600
+				},
+				{
+					"tier": 4,
+					"cost": 800
+				},
+				{
+					"tier": 5,
+					"cost": 1000
+				}
+			],
+			"mortgage": 100
+		},
+		{
+			"name": "Free Parking",
+			"type": "Free Parking",
+			"position": 20
+		},
+		{
+			"name": "Kentucky Avenue",
+			"type": "Street",
+			"position": 21,
+			"cost": 220,
+			"upgrade cost": 150,
+			"set": "Red",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 18
+				},
+				{
+					"tier": 1,
+					"cost": 90
+				},
+				{
+					"tier": 2,
+					"cost": 250
+				},
+				{
+					"tier": 3,
+					"cost": 700
+				},
+				{
+					"tier": 4,
+					"cost": 875
+				},
+				{
+					"tier": 5,
+					"cost": 1050
+				}
+			],
+			"mortgage": 110
+		},
+		{
+			"name": "Chance",
+			"type": "Chance",
+			"position": 22
+		},
+		{
+			"name": "Indiana Avenue",
+			"type": "Street",
+			"position": 23,
+			"cost": 220,
+			"upgrade cost": 150,
+			"set": "Red",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 18
+				},
+				{
+					"tier": 1,
+					"cost": 90
+				},
+				{
+					"tier": 2,
+					"cost": 250
+				},
+				{
+					"tier": 3,
+					"cost": 700
+				},
+				{
+					"tier": 4,
+					"cost": 875
+				},
+				{
+					"tier": 5,
+					"cost": 1050
+				}
+			],
+			"mortgage": 110
+		},
+		{
+			"name": "Illinois Avenue",
+			"type": "Street",
+			"position": 24,
+			"cost": 240,
+			"upgrade cost": 150,
+			"set": "Red",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 20
+				},
+				{
+					"tier": 1,
+					"cost": 100
+				},
+				{
+					"tier": 2,
+					"cost": 300
+				},
+				{
+					"tier": 3,
+					"cost": 750
+				},
+				{
+					"tier": 4,
+					"cost": 925
+				},
+				{
+					"tier": 5,
+					"cost": 1100
+				}
+			],
+			"mortgage": 120
+		},
+		{
+			"name": "B. & O. Railroad",
+			"type": "Railroad",
+			"position": 25,
+			"cost": 200,
+			"set": "Railroad",
+			"current upgrade": 0,
+			"max upgrade": 3,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 25
+				},
+				{
+					"tier": 1,
+					"cost": 50
+				},
+				{
+					"tier": 2,
+					"cost": 100
+				},
+				{
+					"tier": 3,
+					"cost": 200
+				}
+			],
+			"mortgage": 100
+		},
+		{
+			"name": "Atlantic Avenue",
+			"type": "Street",
+			"position": 26,
+			"cost": 260,
+			"upgrade cost": 150,
+			"set": "Yellow",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 22
+				},
+				{
+					"tier": 1,
+					"cost": 110
+				},
+				{
+					"tier": 2,
+					"cost": 330
+				},
+				{
+					"tier": 3,
+					"cost": 800
+				},
+				{
+					"tier": 4,
+					"cost": 975
+				},
+				{
+					"tier": 5,
+					"cost": 1150
+				}
+			],
+			"mortgage": 130
+		},
+		{
+			"name": "Ventnor Avenue",
+			"type": "Street",
+			"position": 27,
+			"cost": 260,
+			"upgrade cost": 150,
+			"set": "Yellow",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 22
+				},
+				{
+					"tier": 1,
+					"cost": 110
+				},
+				{
+					"tier": 2,
+					"cost": 330
+				},
+				{
+					"tier": 3,
+					"cost": 800
+				},
+				{
+					"tier": 4,
+					"cost": 975
+				},
+				{
+					"tier": 5,
+					"cost": 1150
+				}
+			],
+			"mortgage": 130
+		},
+		{
+			"name": "Water Works",
+			"type": "Utility",
+			"position": 28,
+			"cost": 150,
+			"set": "Utility",
+			"mortgage": 75
+		},
+		{
+			"name": "Marvin Garden",
+			"type": "Street",
+			"position": 29,
+			"cost": 280,
+			"upgrade cost": 150,
+			"set": "Yellow",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 24
+				},
+				{
+					"tier": 1,
+					"cost": 120
+				},
+				{
+					"tier": 2,
+					"cost": 360
+				},
+				{
+					"tier": 3,
+					"cost": 850
+				},
+				{
+					"tier": 4,
+					"cost": 1025
+				},
+				{
+					"tier": 5,
+					"cost": 1200
+				}
+			],
+			"mortgage": 140
+		},
+		{
+			"name": "Go to Jail",
+			"type": "Go to Jail",
+			"position": 30
+		},
+		{
+			"name": "Pacific Avenue",
+			"type": "Street",
+			"position": 31,
+			"cost": 300,
+			"upgrade cost": 200,
+			"set": "Green",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 26
+				},
+				{
+					"tier": 1,
+					"cost": 130
+				},
+				{
+					"tier": 2,
+					"cost": 390
+				},
+				{
+					"tier": 3,
+					"cost": 900
+				},
+				{
+					"tier": 4,
+					"cost": 1100
+				},
+				{
+					"tier": 5,
+					"cost": 1275
+				}
+			],
+			"mortgage": 150
+		},
+		{
+			"name": "North Carolina Avenue",
+			"type": "Street",
+			"position": 32,
+			"cost": 300,
+			"upgrade cost": 200,
+			"set": "Green",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 26
+				},
+				{
+					"tier": 1,
+					"cost": 130
+				},
+				{
+					"tier": 2,
+					"cost": 390
+				},
+				{
+					"tier": 3,
+					"cost": 900
+				},
+				{
+					"tier": 4,
+					"cost": 1100
+				},
+				{
+					"tier": 5,
+					"cost": 1275
+				}
+			],
+			"mortgage": 150
+		},
+		{
+			"name": "Community Chest",
+			"type": "Community Chest",
+			"position": 33
+		},
+		{
+			"name": "Pennsylvania Avenue",
+			"type": "Street",
+			"position": 34,
+			"cost": 300,
+			"upgrade cost": 200,
+			"set": "Green",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 28
+				},
+				{
+					"tier": 1,
+					"cost": 150
+				},
+				{
+					"tier": 2,
+					"cost": 450
+				},
+				{
+					"tier": 3,
+					"cost": 1000
+				},
+				{
+					"tier": 4,
+					"cost": 1200
+				},
+				{
+					"tier": 5,
+					"cost": 1400
+				}
+			],
+			"mortgage": 160
+		},
+		{
+			"name": "Short Line",
+			"type": "Railroad",
+			"position": 35,
+			"cost": 200,
+			"set": "Railroad",
+			"current upgrade": 0,
+			"max upgrade": 3,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 25
+				},
+				{
+					"tier": 1,
+					"cost": 50
+				},
+				{
+					"tier": 2,
+					"cost": 100
+				},
+				{
+					"tier": 3,
+					"cost": 200
+				}
+			],
+			"mortgage": 100
+		},
+		{
+			"name": "Chance",
+			"type": "Chance",
+			"position": 36
+		},
+		{
+			"name": "Park Place",
+			"type": "Street",
+			"position": 37,
+			"cost": 350,
+			"upgrade cost": 200,
+			"set": "Dark blue",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 35
+				},
+				{
+					"tier": 1,
+					"cost": 175
+				},
+				{
+					"tier": 2,
+					"cost": 500
+				},
+				{
+					"tier": 3,
+					"cost": 1100
+				},
+				{
+					"tier": 4,
+					"cost": 1300
+				},
+				{
+					"tier": 5,
+					"cost": 1500
+				}
+			],
+			"mortgage": 175
+		},
+		{
+			"name": "Luxury Tax",
+			"type": "Luxury Tax",
+			"position": 38,
+			"cost": 75
+		},
+		{
+			"name": "Boardwalk",
+			"type": "Street",
+			"position": 39,
+			"cost": 400,
+			"upgrade cost": 200,
+			"set": "Dark blue",
+			"current upgrade": 0,
+			"max upgrade": 5,
+			"rent": [
+				{
+					"tier": 0,
+					"cost": 50
+				},
+				{
+					"tier": 1,
+					"cost": 200
+				},
+				{
+					"tier": 2,
+					"cost": 600
+				},
+				{
+					"tier": 3,
+					"cost": 1400
+				},
+				{
+					"tier": 4,
+					"cost": 1700
+				},
+				{
+					"tier": 5,
+					"cost": 2000
+				}
+			],
+			"mortgage": 200
+		}
+	],
+	"chance": [
+		{
+			"title": "Advance to Go (Collect $200)",
+			"action": "move",
+			"squarename": "Go",
+			"position": 0
+		},
+		{
+			"title": "Advance to Illinois Avenue - If you pass Go, collect $200",
+			"action": "move",
+			"squarename": "Illinois Avenue",
+			"position": 24
+		},
+		{
+			"title": "Advance to St. Charles Place - If you pass Go, collect $200",
+			"action": "move",
+			"squarename": "St. Charles Place",
+			"position": 11
+		},
+		{
+			"title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
+			"action": "movenearest",
+			"type": "Utility",
+			"rentmultiplier": 10
+		},
+		{
+			"title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
+			"action": "movenearest",
+			"type": "Railroad",
+			"rentmultiplier": 2
+		},
+		{
+			"title": "Bank pays you dividend of $50",
+			"action": "addfunds",
+			"amount": 50
+		},
+		{
+			"title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
+			"action": "jail",
+			"subaction": "getout"
+		},
+		{
+			"title": "Go Back 3 Spaces",
+			"action": "move",
+			"count": -3
+		},
+		{
+			"title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
+			"action": "jail",
+			"subaction": "goto"
+		},
+		{
+			"title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
+			"action": "propertycharges",
+			"house": 25,
+			"hotels": 100
+		},
+		{
+			"title": "Pay poor tax of $15",
+			"action": "removefunds",
+			"amount": 15
+		},
+		{
+			"title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
+			"action": "move",
+			"squarename": "Reading Railroad"
+		},
+		{
+			"title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
+			"action": "move",
+			"squarename": "Boardwalk"
+		},
+		{
+			"title": "You have been elected Chairman of the Board - Pay each player $50",
+			"action": "removefundstoplayers",
+			"amount": 50
+		},
+		{
+			"title": "Your building loan matures - Collect $150",
+			"action": "addfunds",
+			"amount": 50
+		}
+	],
+	"community": [
+		{
+			"title": "Advance to Go (Collect $200)",
+			"action": "move",
+			"squarename": "Go",
+			"position": 0
+		},
+		{
+			"title": "Bank error in your favor - Collect $200 ",
+			"action": "addfunds",
+			"amount": 200
+		},
+		{
+			"title": "Doctor fee - Pay $50",
+			"action": "removefunds",
+			"amount": 50
+		},
+		{
+			"title": "From sale of stock you get $50",
+			"action": "addfunds",
+			"amount": 50
+		},
+		{
+			"title": "Get Out of Jail Free",
+			"action": "jail",
+			"subaction": "getout"
+		},
+		{
+			"title": "Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200",
+			"action": "jail",
+			"subaction": "goto"
+		},
+		{
+			"title": "Grand Opera Night - Collect $50 from every player for opening night seats",
+			"action": "addfundsfromplayers",
+			"amount": 50
+		},
+		{
+			"title": "Holiday Fund matures - Receive $100",
+			"action": "addfunds",
+			"amount": 100
+		},
+		{
+			"title": "Income tax refund - Collect $20",
+			"action": "addfunds",
+			"amount": 20
+		},
+		{
+			"title": "Life insurance matures - Collect $100",
+			"action": "addfunds",
+			"amount": 100
+		},
+		{
+			"title": "Pay hospital fees of $100",
+			"action": "removefunds",
+			"amount": 100
+		},
+		{
+			"title": "Pay school fees of $150",
+			"action": "removefunds",
+			"amount": 150
+		},
+		{
+			"title": "Receive $25 consultancy fee",
+			"action": "addfunds",
+			"amount": 25
+		},
+		{
+			"title": "You are assessed for street repairs - $40 per house - $115 per hotel",
+			"action": "propertycharges",
+			"house": 40,
+			"hotels": 115
+		},
+		{
+			"title": "You have won second prize in a beauty contest - Collect $10",
+			"action": "addfunds",
+			"amount": 10
+		},
+		{
+			"title": "You inherit $100",
+			"action": "addfunds",
+			"amount": 100
+		}
+	]
 }

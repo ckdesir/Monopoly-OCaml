@@ -118,6 +118,25 @@ let upgrade_cost_error test_name board name excption =
   test_name >:: fun _ ->
   assert_raises excption (fun () -> upgrade_cost board name)
 
+let get_current_upgrade_test test_name board name expected_output =
+  test_name >:: fun _ ->
+  assert_equal expected_output
+    (get_current_upgrade board name)
+    ~printer:string_of_int
+
+let get_current_upgrade_error test_name board name excption =
+  test_name >:: fun _ ->
+  assert_raises excption (fun () -> get_current_upgrade board name)
+
+let incr_upgrade_test test_name board name expected_output =
+  test_name >:: fun _ ->
+  incr_upgrade board name;
+  assert_equal expected_output (get_current_upgrade board name)
+
+let incr_upgrade_error test_name board name excption =
+  test_name >:: fun _ ->
+  assert_raises excption (fun () -> incr_upgrade board name)
+
 let set_of_square_test test_name board name expected_output =
   test_name >:: fun _ ->
   assert_equal expected_output
@@ -128,7 +147,7 @@ let get_all_of_set test_name board name expected_output =
   test_name >:: fun _ ->
   assert_equal expected_output
     (get_all_of_set board name)
-    ~printer: (list_printer String.escaped)
+    ~printer:(list_printer String.escaped)
 
 let set_of_square_error test_name board name excption =
   test_name >:: fun _ ->
@@ -194,9 +213,19 @@ let cost_of_tier_5_rent_error test_name board name excption =
   test_name >:: fun _ ->
   assert_raises excption (fun () -> cost_of_tier_5_rent board name)
 
+let cost_of_rent_test test_name board name expected_output =
+  test_name >:: fun _ ->
+  assert_equal expected_output
+    (cost_of_rent board name)
+    ~printer:string_of_int
+
+let cost_of_rent_error test_name board name excption =
+  test_name >:: fun _ ->
+  assert_raises excption (fun () -> cost_of_rent board name)
+
 let get_chance_card_test test_name board expected_output =
   test_name >:: fun ctxt ->
-  let card = fst (get_chance_card board) in
+  let card = get_chance_card board in
   assert_equal expected_output card.title ~printer:String.escaped
 
 let get_chance_card_error test_name board excption =
@@ -205,7 +234,7 @@ let get_chance_card_error test_name board excption =
 
 let get_community_chest_card_test test_name board expected_output =
   test_name >:: fun ctxt ->
-  let card = fst (get_community_chest_card board) in
+  let card = get_community_chest_card board in
   assert_equal expected_output card.title ~printer:String.escaped
 
 let get_community_chest_card_error test_name board excption =
@@ -390,7 +419,13 @@ let mortgage_of_square_compilation =
 
 let set_of_square_compilation =
   [
-    get_all_of_set "Railroad set" basic_board "Railroad" ["Short Line"; "B. & O. Railroad"; "Pennsylvania Railroad"; "Reading Railroad";];
+    get_all_of_set "Railroad set" basic_board "Railroad"
+      [
+        "Short Line";
+        "B. & O. Railroad";
+        "Pennsylvania Railroad";
+        "Reading Railroad";
+      ];
     set_of_square_test "valid railroad" basic_board
       "Pennsylvania Railroad" "Railroad";
     set_of_square_error "invalid railroad" basic_board
@@ -404,7 +439,7 @@ let set_of_square_compilation =
       "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
     set_of_square_test "valid street" basic_board "Mediterranean Avenue"
-      "brown";
+      "Brown";
     set_of_square_error "valid street, mismatch type" faulty_board
       "Mediterranean Avenue" (UnknownType "Streets");
     set_of_square_error "valid street, no set" faulty_board
@@ -440,7 +475,7 @@ let set_of_square_compilation =
       "Income Tax" (TypeMismatch "Income Tax");
   ]
 
-let upgrade_cost_compilation =
+let upgrade_compilation =
   [
     upgrade_cost_test "valid street" basic_board "Mediterranean Avenue"
       50;
@@ -470,7 +505,138 @@ let upgrade_cost_compilation =
       "Income Tax" (TypeMismatch "Income Tax");
     upgrade_cost_error "invalid type - railroad" basic_board
       "Reading Railroad" (TypeMismatch "Railroad");
-    upgrade_cost_error "invalid type - go" basic_board "Water Works"
+    upgrade_cost_error "invalid type - utility" basic_board
+      "Water Works" (TypeMismatch "Utility");
+    get_current_upgrade_test "valid street" basic_board
+      "Mediterranean Avenue" 0;
+    get_current_upgrade_test "valid railroad" basic_board
+      "Reading Railroad" 0;
+    get_current_upgrade_error "valid street, mismatch type" faulty_board
+      "Mediterranean Avenue" (UnknownType "Streets");
+    get_current_upgrade_error "valid street, no upgrade number"
+      faulty_board "Baltic Avenue - Bad"
+      (InvalidSquare ("Street", "Baltic Avenue - Bad"));
+    get_current_upgrade_error "valid railroad, no upgrade number"
+      faulty_board "Reading Railroad - Bad"
+      (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
+    get_current_upgrade_error "valid street, null upgrade number"
+      faulty_board "Park Place"
+      (InvalidSquare ("Street", "Park Place"));
+    get_current_upgrade_error "invalid type - go" basic_board "Go"
+      (TypeMismatch "Go");
+    get_current_upgrade_error "invalid type - jail/just visiting"
+      basic_board "Jail/Just Visiting"
+      (TypeMismatch "Jail/Just Visiting");
+    get_current_upgrade_error "invalid type - chance" basic_board
+      "Chance" (TypeMismatch "Chance");
+    get_current_upgrade_error "invalid type - community chest"
+      basic_board "Community Chest" (TypeMismatch "Community Chest");
+    get_current_upgrade_error "invalid type - free parking" basic_board
+      "Free Parking" (TypeMismatch "Free Parking");
+    get_current_upgrade_error "invalid type - go to jail" basic_board
+      "Go to Jail" (TypeMismatch "Go to Jail");
+    get_current_upgrade_error "invalid type - luxury tax" basic_board
+      "Luxury Tax" (TypeMismatch "Luxury Tax");
+    get_current_upgrade_error "invalid type - income tax" basic_board
+      "Income Tax" (TypeMismatch "Income Tax");
+    get_current_upgrade_error "invalid type - utility" basic_board
+      "Water Works" (TypeMismatch "Utility");
+    incr_upgrade_test "valid street" basic_board "Mediterranean Avenue"
+      1;
+    incr_upgrade_test "valid railroad" basic_board "Reading Railroad" 1;
+    incr_upgrade_error "valid street, mismatch type" faulty_board
+      "Mediterranean Avenue" (UnknownType "Streets");
+    incr_upgrade_error "valid street, no upgrade number" faulty_board
+      "Baltic Avenue - Bad"
+      (InvalidSquare ("Street", "Baltic Avenue - Bad"));
+    incr_upgrade_error "valid railroad, no upgrade number" faulty_board
+      "Reading Railroad - Bad"
+      (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
+    incr_upgrade_error "valid street, null upgrade number" faulty_board
+      "Park Place"
+      (InvalidSquare ("Street", "Park Place"));
+    incr_upgrade_error "maxupgradereached" faulty_board
+      "Short Line" MaxUpgradeReached;
+    incr_upgrade_error "invalid type - go" basic_board "Go"
+      (TypeMismatch "Go");
+    incr_upgrade_error "invalid type - jail/just visiting" basic_board
+      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
+    incr_upgrade_error "invalid type - chance" basic_board "Chance"
+      (TypeMismatch "Chance");
+    incr_upgrade_error "invalid type - community chest" basic_board
+      "Community Chest" (TypeMismatch "Community Chest");
+    incr_upgrade_error "invalid type - free parking" basic_board
+      "Free Parking" (TypeMismatch "Free Parking");
+    incr_upgrade_error "invalid type - go to jail" basic_board
+      "Go to Jail" (TypeMismatch "Go to Jail");
+    incr_upgrade_error "invalid type - luxury tax" basic_board
+      "Luxury Tax" (TypeMismatch "Luxury Tax");
+    incr_upgrade_error "invalid type - income tax" basic_board
+      "Income Tax" (TypeMismatch "Income Tax");
+    incr_upgrade_error "invalid type - go" basic_board "Water Works"
+      (TypeMismatch "Utility");
+  ]
+
+let cost_of_rent_compilation =
+  [
+    cost_of_rent_test "valid railroad" basic_board
+      "Pennsylvania Railroad" 25;
+    cost_of_rent_test "valid street" basic_board "Virgina Avenue" 12;
+    cost_of_rent_error "invalid railroad" basic_board
+      "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
+    cost_of_rent_error "valid railroad, mismatch type" faulty_board
+      "Pennsylvania Railroad" (UnknownType "Not Railroad");
+    cost_of_rent_error "valid railroad, no rent tiers period"
+      faulty_board "Short Line"
+      (InvalidSquare ("Railroad", "Short Line"));
+    cost_of_rent_error "valid railroad, no cost period" faulty_board
+      "Big Bertha"
+      (InvalidSquare ("Railroad", "Big Bertha"));
+    cost_of_rent_error "valid railroad, no tier period" faulty_board
+      "Thomas"
+      (InvalidSquare ("Railroad", "Thomas"));
+    cost_of_rent_error "valid railroad, null tier" faulty_board
+      "B. & O. Railroad"
+      (InvalidSquare ("Railroad", "B. & O. Railroad"));
+    cost_of_rent_error "valid railroad, null cost" faulty_board
+      "Reading Railroad"
+      (InvalidSquare ("Railroad", "Reading Railroad"));
+    cost_of_rent_test "valid street" basic_board "Mediterranean Avenue"
+      10;
+    cost_of_rent_error "valid street, mismatch type" faulty_board
+      "Mediterranean Avenue" (UnknownType "Streets");
+    cost_of_rent_error "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
+      (InvalidSquare ("Street", "Connecticut Avenue"));
+    cost_of_rent_error "valid street, no cost period" faulty_board
+      "Oriental Avenue"
+      (InvalidSquare ("Street", "Oriental Avenue"));
+    cost_of_rent_error "valid street, no tier period" faulty_board
+      "Vermont Avenue"
+      (InvalidSquare ("Street", "Vermont Avenue"));
+    cost_of_rent_error "valid street, null tier" faulty_board
+      "Boardwalk"
+      (InvalidSquare ("Street", "Boardwalk"));
+    cost_of_rent_error "valid street, null cost" faulty_board
+      "Park Place"
+      (InvalidSquare ("Street", "Park Place"));
+    cost_of_rent_error "invalid type - go" basic_board "Go"
+      (TypeMismatch "Go");
+    cost_of_rent_error "invalid type - jail/just visiting" basic_board
+      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
+    cost_of_rent_error "invalid type - chance" basic_board "Chance"
+      (TypeMismatch "Chance");
+    cost_of_rent_error "invalid type - community chest" basic_board
+      "Community Chest" (TypeMismatch "Community Chest");
+    cost_of_rent_error "invalid type - free parking" basic_board
+      "Free Parking" (TypeMismatch "Free Parking");
+    cost_of_rent_error "invalid type - go to jail" basic_board
+      "Go to Jail" (TypeMismatch "Go to Jail");
+    cost_of_rent_error "invalid type - luxury tax" basic_board
+      "Luxury Tax" (TypeMismatch "Luxury Tax");
+    cost_of_rent_error "invalid type - income tax" basic_board
+      "Income Tax" (TypeMismatch "Income Tax");
+    cost_of_rent_error "invalid type - go" basic_board "Water Works"
       (TypeMismatch "Utility");
   ]
 
@@ -940,9 +1106,10 @@ let suite =
            type_of_square_test_compilation;
            mortgage_of_square_compilation;
            set_of_square_compilation;
-           upgrade_cost_compilation;
+           upgrade_compilation;
            nth_square_name_test_compilation;
            next_twelve_test_compilation;
+           cost_of_rent_compilation;
            cost_of_tier_0_compilation;
            cost_of_tier_1_compilation;
            cost_of_tier_2_compilation;

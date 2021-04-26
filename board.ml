@@ -12,6 +12,21 @@ exception InvalidSquare of (square_type * square_name)
 
 exception MaxUpgradeReached
 
+let universal_valid_types =
+  [
+    "Go";
+    "Jail/Just Visiting";
+    "Chance";
+    "Community Chest";
+    "Street";
+    "Income Tax";
+    "Luxury Tax";
+    "Railroad";
+    "Utility";
+    "Free Parking";
+    "Go to Jail";
+  ]
+
 type rent = {
   tier : int option;
   cost : int option;
@@ -56,8 +71,8 @@ type community_chest = {
 
 type t = {
   squares : square list;
-  chance_cards : chance_card list;
-  community_chest_cards : community_chest list;
+  mutable chance_cards : chance_card list;
+  mutable community_chest_cards : community_chest list;
 }
 
 open Yojson.Basic.Util
@@ -156,23 +171,8 @@ let position_of_square board s =
 let type_of_square board s =
   try
     let square = find_square board s in
-    let valid_types =
-      [
-        "Go";
-        "Jail/Just Visiting";
-        "Chance";
-        "Community Chest";
-        "Street";
-        "Income Tax";
-        "Luxury Tax";
-        "Railroad";
-        "Utility";
-        "Free Parking";
-        "Go to Jail";
-      ]
-    in
     let find valid_type = square.stype = valid_type in
-    try List.find find valid_types
+    try List.find find universal_valid_types
     with Not_found -> raise (UnknownType square.stype)
   with
   | Not_found -> raise (UnknownSquare s)
@@ -231,17 +231,24 @@ let get_current_upgrade board s =
   let valid_types = [ "Street"; "Railroad" ] in
   square_operation_helper board s valid_types matcher
 
-let incr_upgrade board s =
+let upgrade_helper board s num condition_excp condition =
   let matcher square excp =
     match square.current_upgrade with
     | Some upgrade ->
-        if square.current_upgrade = square.max_upgrade then
-          raise MaxUpgradeReached
-        else square.current_upgrade <- Some (upgrade + 1)
+        if condition square then raise condition_excp
+        else square.current_upgrade <- Some (upgrade + num)
     | None -> raise excp
   in
   let valid_types = [ "Street"; "Railroad" ] in
   square_operation_helper board s valid_types matcher
+
+let incr_upgrade board s =
+  let condition square = square.current_upgrade = square.max_upgrade in
+  upgrade_helper board s 1 MaxUpgradeReached condition
+
+(* let decr_upgrade board s = let condition square =
+   square.current_upgrade = Some 0 in upgrade_helper board s (-1)
+   MinUpgradeReached condition *)
 
 let get_all_of_set board set_name =
   let rec helper accum = function
@@ -368,7 +375,9 @@ let cost_of_tier_5_rent board s =
   | None -> raise (InvalidSquare (type_of_square board s, s))
 
 let cost_of_rent board s =
-  let square = find_square board s in
+  let square =
+    try find_square board s with Not_found -> raise (UnknownSquare s)
+  in
   match square.current_upgrade with
   | Some upgrade -> (
       match upgrade with
@@ -382,26 +391,22 @@ let cost_of_rent board s =
   | None ->
       if square.stype = "Street" || square.stype = "Railroad" then
         raise (InvalidSquare (square.stype, s))
-      else raise (TypeMismatch square.stype)
+      else
+        let find square_type = square_type = square.stype in
+        if List.exists find universal_valid_types then
+          raise (TypeMismatch square.stype)
+        else raise (UnknownType square.stype)
 
 let get_chance_card board =
   match board.chance_cards with
   | [] -> raise (Failure "No Chance Cards left")
   | h :: t ->
-      ( h,
-        {
-          squares = board.squares;
-          chance_cards = t @ [ h ];
-          community_chest_cards = board.community_chest_cards;
-        } )
+      board.chance_cards <- t @ [ h ];
+      h
 
 let get_community_chest_card board =
   match board.community_chest_cards with
   | [] -> raise (Failure "No Community Chests left")
   | h :: t ->
-      ( h,
-        {
-          squares = board.squares;
-          chance_cards = board.chance_cards;
-          community_chest_cards = t @ [ h ];
-        } )
+      board.community_chest_cards <- t @ [ h ];
+      h

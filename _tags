@@ -1,1 +1,4 @@
-true: package(ounit2),package(yojson),package(ANSITerminal)
+<{board,player}.ml>: coverage
+<test_sorts.{byte,native}>: coverage
+
+true: package(ounit2),package(yojson),package(ANSITerminal),package(bisect_ppx)
