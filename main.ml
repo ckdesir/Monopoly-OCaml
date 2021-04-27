@@ -63,10 +63,10 @@ let rec check_property play n st =
           ^ string_of_int (Board.upgrade_cost board prop)
           ^ "\n" );
         ( match State.get_who_owns st prop with
-        | Some person ->
+        | Some player ->
             ANSITerminal.print_string
               [ ANSITerminal.magenta ]
-              ("Owned by: " ^ person)
+              ("Owned by: " ^ Player.name player)
         | None ->
             ANSITerminal.print_string [ ANSITerminal.magenta ] "Unowned"
         );
@@ -90,17 +90,27 @@ let rec check_property play n st =
 let rec handle_property st current_square_name board =
   let current_player = ref (State.get_current_player st) in
   match State.get_who_owns st current_square_name with
-  | Some person -> (
-    let cost = Board.get_current_upgrade board current_square_name in
-    ()
-  )
+  | Some player -> (
+      if player <> !current_player then
+        let cost =
+          Board.get_current_upgrade board current_square_name
+        in
+        try
+          ANSITerminal.print_string [ ANSITerminal.cyan ]
+            ( "You owe " ^ Player.name player ^ " " ^ string_of_int cost);
+          Player.pay cost !current_player player;
+          ANSITerminal.print_string [ ANSITerminal.cyan ]
+            ( "Your current balance is now: "
+            ^ string_of_int (Player.balance !current_player) )
+        with Player.InsufficientFunds -> () )
   | None -> (
       let cost = Board.cost_of_square board current_square_name in
       ANSITerminal.print_string [ ANSITerminal.green ]
         ( "This property is unowned. Would you like to buy it? It has \
            a cost of " ^ string_of_int cost
-        ^ ". And your current balance is: "
-        ^ string_of_int (Player.balance !current_player) ^ ".\n" );
+        ^ " and your current balance is: "
+        ^ string_of_int (Player.balance !current_player)
+        ^ ". [Y/N]\n" );
       match read_line () with
       | "y" | "Y" -> (
           try
@@ -251,11 +261,11 @@ let check_board play n st =
   print_newline ();
   play n st
 
-(** Check to see if they own any sets, print out the sets they own or kick them out 
-  of this option if not, match read_line() of set name, print out streets,
-    another match_readline() for appropriate street, upgrade according to *)
-let buy_sell_buildings play n st = 
-  play n st
+(** Check to see if they own any sets, print out the sets they own or
+    kick them out of this option if not, match read_line() of set name,
+    print out streets, another match_readline() for appropriate street,
+    upgrade according to *)
+let buy_sell_buildings play n st = play n st
 
 let rec play n st =
   ANSITerminal.print_string [ ANSITerminal.cyan ] "Would you like to:\n";
@@ -282,7 +292,7 @@ let rec play n st =
   | "r" | "R" -> roll play n st
   | "1" -> ()
   | "2" -> ()
-  | "3" -> buy_sell_buildings play n st 
+  | "3" -> buy_sell_buildings play n st
   | "4" -> check_board play n st
   | "5" -> check_property play n st
   | "6" ->
