@@ -13,6 +13,7 @@ type player = {
   get_out_of_jail_cards : int;
   mutable doubles : int;
   is_in_jail : bool;
+  sets : string list;
 }
 
 type t = player
@@ -40,6 +41,7 @@ let change_jail_status p =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = not p.is_in_jail;
+    sets = p.sets;
   }
 
 let set_position p x =
@@ -53,11 +55,28 @@ let set_position p x =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    sets = p.sets;
   }
 
 let bankrupt (player : player) : bool = player.is_bankrupt
 
 let is_in_jail t = t.is_in_jail
+
+let sets t = t.sets
+
+let add_to_sets p set =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = set :: p.sets;
+  }
 
 let create n p =
   {
@@ -70,6 +89,7 @@ let create n p =
     get_out_of_jail_cards = 0;
     doubles = 0;
     is_in_jail = false;
+    sets = [];
   }
 
 let pay amt giver recip =
@@ -108,6 +128,7 @@ let incr_cards player =
     get_out_of_jail_cards = player.get_out_of_jail_cards + 1;
     doubles = player.doubles;
     is_in_jail = player.is_in_jail;
+    sets = player.sets;
   }
 
 let acquire player square =
@@ -121,6 +142,7 @@ let acquire player square =
     get_out_of_jail_cards = player.get_out_of_jail_cards;
     doubles = player.doubles;
     is_in_jail = player.is_in_jail;
+    sets = player.sets;
   }
 
 let trade
@@ -144,6 +166,7 @@ let trade
       get_out_of_jail_cards = player.get_out_of_jail_cards;
       doubles = player.doubles;
       is_in_jail = player.is_in_jail;
+      sets = player.sets;
     }
   in
 
@@ -161,6 +184,7 @@ let trade
       get_out_of_jail_cards = player.get_out_of_jail_cards;
       doubles = player.doubles;
       is_in_jail = player.is_in_jail;
+      sets = player.sets;
     }
   in
 
@@ -183,6 +207,7 @@ let trade_cards giver recip amt =
       get_out_of_jail_cards = giver.get_out_of_jail_cards - amt;
       doubles = giver.doubles;
       is_in_jail = giver.is_in_jail;
+      sets = giver.sets;
     }
   in
   let recip =
@@ -196,6 +221,7 @@ let trade_cards giver recip amt =
       get_out_of_jail_cards = recip.get_out_of_jail_cards + amt;
       doubles = recip.doubles;
       is_in_jail = recip.is_in_jail;
+      sets = recip.sets;
     }
   in
   (giver, recip)

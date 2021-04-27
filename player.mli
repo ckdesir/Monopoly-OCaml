@@ -33,6 +33,13 @@ val properties : t -> Board.square_name list
    and thus determines if they are still in the game*)
 val bankrupt : t -> bool
 
+(** [sets t] returns the list of the sets owned by player [t] *)
+val sets : t -> string list
+
+(** [add_to_sets t set] returns an identical player as [t] except they
+    now own the property set [set]*)
+val add_to_sets : t -> string -> t
+
 (** [is_in_jail t] is whether or not the player represented by [t] is
     currently in jail. *)
 val is_in_jail : t -> bool
