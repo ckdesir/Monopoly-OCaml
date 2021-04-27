@@ -33,7 +33,7 @@ let get_who_owns st property_name =
   let find_piece square_name = square_name = property_name in
   let get_who_helper player =
     if List.exists find_piece (Player.properties player) then
-      Some (Player.name player)
+      Some player
     else None
   in
   List.find_map get_who_helper (Array.to_list st.players)
