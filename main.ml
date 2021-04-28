@@ -87,57 +87,71 @@ let rec check_property play n st =
 
 
 (** Maybe also print out how many they own in the set? + Add in mortgage
-    process / bankrupcy process. Make sure to account for double rent on unimprovised + interactions with utility *)
+    process / bankrupcy process. *)
 let rec handle_property st current_square_name board roll =
-  let rec expon n e = if e = 0 then 1 else if e = 1 then n else n * expon n (e - 1) in
+  let rec expon n e =
+    if e = 0 then 1 else if e = 1 then n else n * expon n (e - 1)
+  in
   let current_player = ref (State.get_current_player st) in
-  let cost = ref (0) in
+  let cost = ref 0 in
   match State.get_who_owns st current_square_name with
-  | Some player -> ()
-      (* if player <> !current_player then
-        if Board.type_of_square board current_square_name = "Street" then
-            let set_name = Board.set_of_square board current_square_name in
-            if (State.is_set_owned st set_name) && (Board.get_current_upgrade board current_square_name) = 0
-              then cost := 2 * (Board.cost_of_rent board current_square_name);
-        else if Board.type_of_square current_square_name = "Railroad" then 
-          cost := 25 * expon 2 (Player.railroads player - 1);
-        else cost := (List.nth [4; 10] ((Player.utilities player) - 1)) * roll;
+  | Some player ->
+      if player <> !current_player then (
+        if Board.type_of_square board current_square_name = "Street"
+        then (
+          let set_name =
+            Board.set_of_square board current_square_name
+          in
+          if
+            State.is_set_owned st set_name
+            && Board.get_current_upgrade board current_square_name = 0
+          then cost := 2 * Board.cost_of_rent board current_square_name
+          )
+        else if
+          Board.type_of_square board current_square_name = "Railroad"
+        then cost := 25 * expon 2 (Player.railroads player - 1)
+        else
+          cost :=
+            List.nth [ 4; 10 ] (Player.utilities player - 1) * roll;
+        ANSITerminal.print_string [ ANSITerminal.cyan ]
+          ("You owe " ^ Player.name player ^ " " ^ string_of_int !cost);
         try
+          Player.pay !cost !current_player player;
           ANSITerminal.print_string [ ANSITerminal.cyan ]
-            ("You owe " ^ Player.name player ^ " " ^ string_of_int !cost);
-          Player.pay cost !current_player player;
-          ANSITerminal.print_string [ ANSITerminal.cyan ]
-            ("Your current balance is now: "
-            ^ string_of_int (Player.balance !current_player))
-        with Player.InsufficientFunds -> ()) *)
+            ( "Your current balance is now: "
+            ^ string_of_int (Player.balance !current_player) )
+        with Player.InsufficientFunds -> () )
   | None -> (
       let cost = Board.cost_of_square board current_square_name in
       ANSITerminal.print_string [ ANSITerminal.green ]
-        ("This property is unowned. Would you like to buy it? It has a \
-          cost of " ^ string_of_int cost
-       ^ " and your current balance is: "
+        ( "This property is unowned. Would you like to buy it? It has \
+           a cost of " ^ string_of_int cost
+        ^ " and your current balance is: "
         ^ string_of_int (Player.balance !current_player)
-        ^ ". [Y/N]\n");
+        ^ ". [Y/N]\n" );
       match read_line () with
       | "y" | "Y" -> (
           try
             Player.bank_transaction (-cost) !current_player;
-            (* current_player :=
-              State.acquire !current_player current_square_name; *)
+            State.acquire st current_square_name;
             print_newline ();
             ANSITerminal.print_string [ ANSITerminal.green ]
-              ("Congrats! You are the brand new owner of "
-             ^ current_square_name ^ "! Your current balance is now: "
-              ^ string_of_int (Player.balance !current_player));
+              ( "Congrats! You are the brand new owner of "
+              ^ current_square_name ^ "! Your current balance is now: "
+              ^ string_of_int (Player.balance !current_player) );
             State.change_current_player st !current_player
           with Player.InsufficientFunds ->
             ANSITerminal.print_string [ ANSITerminal.red ]
-              ("Sorry you do not have the sufficient funds. Your \
-                current balance is: "
-              ^ string_of_int (Player.balance !current_player)))
+              ( "Sorry you do not have the sufficient funds. Your \
+                 current balance is: "
+              ^ string_of_int (Player.balance !current_player) ) )
       | "n" | "N" -> ()
-      | _ -> handle_property st current_square_name board roll)
+      | _ -> handle_property st current_square_name board roll )
 
+let handle_go_to_jail st =
+  ANSITerminal.print_string [ ANSITerminal.red ]
+    "Sorry! You are now being sent straight to jail, criminal!";
+  State.send_curr_jail st
 let handle_go_to_jail st =
   ANSITerminal.print_string [ ANSITerminal.red ]
     "Sorry! You are now being sent straight to jail, criminal!";
@@ -304,29 +318,87 @@ let check_board play n st =
   play n st
 
 
-(** Check to see if they own any sets, print out the sets they own or
-    kick them out of this option if not, match read_line() of set name,
-    print out streets, another match_readline() for appropriate street,
-    upgrade according to *)
-let rec buy_sell_buildings play n st = ()
-  (* let fold_left_property_printer accu a = (accu ^ fst a ^ " | ") in
+(** 
+    This is just for buying so far, have some mechanism to sell?
+    *)
+let buy_sell_buildings play n st =
+  let printer accu a = accu ^ a ^ " | " in
   let current_player = ref (State.get_current_player st) in
   let sets = Player.sets !current_player in
   let color_sets = fst (List.split sets) in
-  if List.length sets = 0 then (ANSITerminal.print_string [ ANSITerminal.red ] "You have no sets you can buy buildings on.")
-  else 
-    (ANSITerminal.print_string [ ANSITerminal.green ] ("You currently own these sets: " ^ (List.fold_left fold_left_property_printer "|" sets) ^ ".\nEnter the set you wish to buy buildings for!"));
+  let board = State.get_board st in
+
+  let rec property_helper properties min_upgrade back =
     match read_line () with
     | "q" | "Q" -> play n st
-    | set_name -> if List.mem color_sets set_name then 
-      let properties = Board.get_all_of_set (State.get_board st) set_name in 
-      ()
-    else
-      (ANSITerminal.print_string [ ANSITerminal.red ] "The set name you entered does not correlate to any sets you own right now. Please try again.");
-      buy_sell_buildings play n st; *)
-  
+    | "r" | "R" -> back ()
+    | property_name ->
+        if List.mem property_name properties then
+          if Board.get_current_upgrade board property_name > min_upgrade
+          then (
+            ANSITerminal.print_string [ ANSITerminal.red ]
+              "You cannot upgrade this street. Make sure you upgrade \
+               your streets evenly! Enter the name of another street \
+               or Q to quit! You can also type R to try upgrading for \
+               another set.";
+            property_helper properties min_upgrade back )
+          else if Board.get_current_upgrade board property_name = 5 then (
+            ANSITerminal.print_string [ ANSITerminal.red ]
+              "You cannot upgrade this street. It has reached it's max \
+               upgrades. Enter the name of another street or Q to \
+               quit! You can also type R to try upgrading for another \
+               set.";
+            property_helper properties min_upgrade back )
+          else
+            let cost = Board.upgrade_cost board property_name in
+            if cost > Player.balance !current_player then (
+              ANSITerminal.print_string [ ANSITerminal.red ] ("With a balance of $" ^ string_of_int (Player.balance !current_player) ^", you do not have enough to upgrade this street.");
+              play n st; )
+            else
+              ANSITerminal.print_string [ ANSITerminal.green ] ("Upgrading costs" ^ string_of_int cost);
+              Player.bank_transaction (-cost) !current_player;
+              State.upgrade st property_name;
+              Unix.sleepf 0.8;
+              ANSITerminal.print_string [ ANSITerminal.green ] ("You have upgraded " ^ property_name ^ ". You now have a balance of $" ^ string_of_int (Player.balance !current_player) ^".");
+  in
 
+  let rec buy_sell_buildings_helper () =
+    ANSITerminal.print_string [ ANSITerminal.green ]
+      ( "You currently own these sets: "
+      ^ List.fold_left printer "|" color_sets
+      ^ ".\n\
+         Enter the set you wish to buy buildings for or press Q to \
+         quit!" );
+    match read_line () with
+    | "q" | "Q" -> play n st
+    | set_name ->
+        if List.mem set_name color_sets then (
+          let min_upgrade =
+            snd (Player.get_set_by_name !current_player set_name)
+          in
+          let properties =
+            Board.get_all_of_set (State.get_board st) set_name
+          in
+          ANSITerminal.print_string [ ANSITerminal.green ]
+            ( "You currently own these streets: "
+            ^ List.fold_left printer "|" properties
+            ^ ".\nEnter the street you wish to buy buildings for!" );
+          property_helper properties min_upgrade
+            buy_sell_buildings_helper )
+        else
+          ANSITerminal.print_string [ ANSITerminal.red ]
+            "The set name you entered does not correlate to any sets \
+             you own right now. Please try again.";
+        buy_sell_buildings_helper ()
+  in
 
+  if List.length sets = 0 then (
+    ANSITerminal.print_string [ ANSITerminal.red ]
+      "You have no sets you can buy buildings on, sorry.";
+    play n st )
+  else buy_sell_buildings_helper ()
+
+(* Will eventually need a check_self type operation to check progress of sets / properties *)
 let rec play n st =
   ANSITerminal.print_string [ ANSITerminal.cyan ] "Would you like to:\n";
   (* if Player.is_in_jail (State.get_current_player st) then

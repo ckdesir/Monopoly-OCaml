@@ -188,6 +188,10 @@ let remove_utility p =
     utilities = p.utilities - 1;
   }
 
+let get_set_by_name t set_name = 
+  let find_helper set = fst (set) = set_name in
+  List.find find_helper t.sets
+
 let create n p =
   {
     name = n;

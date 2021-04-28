@@ -47,6 +47,12 @@ val add_railroad : t -> t
 
 val add_utility : t -> t
 
+val railroads : t -> int
+
+val utilities : t -> int
+
+val get_set_by_name : t -> string -> string * int
+
 (** [is_in_jail t] is whether or not the player represented by [t] is
     currently in jail. *)
 val is_in_jail : t -> bool

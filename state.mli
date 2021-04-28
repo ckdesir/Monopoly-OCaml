@@ -53,3 +53,9 @@ val move_current_player : t -> int -> unit
 (** [send_curr_jail st] returns an identical position except the current
     player is now standing on the "jail" square and is now in jail.*)
 val send_curr_jail : t -> unit
+
+val acquire : t -> Board.square_name -> unit
+
+val upgrade : t -> Board.square_name -> unit
+
+val is_set_owned : t -> string -> bool
