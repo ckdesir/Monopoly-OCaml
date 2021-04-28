@@ -99,13 +99,14 @@ let rec handle_property st current_square_name board roll =
       if player <> !current_player then (
         if Board.type_of_square board current_square_name = "Street"
         then (
+          cost := Board.cost_of_rent board current_square_name;
           let set_name =
             Board.set_of_square board current_square_name
           in
           if
             State.is_set_owned st set_name
             && Board.get_current_upgrade board current_square_name = 0
-          then cost := 2 * Board.cost_of_rent board current_square_name
+          then cost := 2 * !cost
           )
         else if
           Board.type_of_square board current_square_name = "Railroad"
