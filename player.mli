@@ -40,6 +40,13 @@ val sets : t -> (string * int) list
     now own the property set [set]*)
 val add_to_sets : t -> string * int -> t
 
+(** *)
+val add_to_properties : t -> Board.square_name -> t
+
+val add_railroad : t -> t
+
+val add_utility : t -> t
+
 (** [is_in_jail t] is whether or not the player represented by [t] is
     currently in jail. *)
 val is_in_jail : t -> bool

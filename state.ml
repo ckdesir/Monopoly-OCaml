@@ -84,32 +84,54 @@ let send_curr_jail st =
 
 let is_in_jail st = Player.is_in_jail (get_current_player st)
 
-(* let completes_set st square = let player = get_current_player st in
-   let rec props_of_the_set plyr sq = match Player.properties plyr with
-   | [] -> [] | h :: t -> if h.set = the wanted set then add it to list
-   in props_of_the_set player square let squares_set =
-   Board.set_of_square square in
+let completes_set st square =
+  let player = get_current_player st in
+  let board = st.board in
+  let rec owned_of_the_set plyr sq_lst =
+    (* determine the set of that square *)
+    let sq_set = Board.set_of_square board square in
+    (* how many properties does the player own that are of the same set
+       as sq_set? *)
+    let commons = [] in
+    match sq_lst with
+    | [] -> []
+    | h :: t ->
+        if Board.set_of_square board h = sq_set then h :: commons
+        else owned_of_the_set plyr t
+  in
+  let player_owned_of_set =
+    List.length (owned_of_the_set player (Player.properties player))
+  in
 
-   if (List.length (Board.get_all_of_set squares_set) =) *)
-(* let set = Board.get_all_of_set (st.board) (set_square) in if List.mem
-   set (Player.properties player)
+  (* how many properties are there that are of the set that is the set
+     of sq_set? *)
+  let size_of_set_in_board =
+    List.length (Board.get_all_of_set board square)
+  in
 
-   Player.properties player = set then *)
+  if player_owned_of_set = size_of_set_in_board then true else false
 
-(* let acquire st square = let player = ref (get_current_player st) in
-   let board = get_board st in let square_type = Board.type_of_square
-   board square in player := Player.add_to_properties !player square;
-   match square_type with | "Street" -> begin if completes_set then
-   Player.add_to_sets player (Board.set_of_square board square; 0) else
-   () end | "Railroad" -> Player.add_railroad player | "Utility" ->
-   Player.add_utility player | _ -> raise (Failure "can't acquire") *)
+let acquire st square =
+  let player = ref (get_current_player st) in
+  let board = get_board st in
+  let square_type = Board.type_of_square board square in
+  player := Player.add_to_properties !player square;
+  match square_type with
+  | "Street" ->
+      if completes_set st square then
+        Player.add_to_sets (get_current_player st)
+          (Board.set_of_square board square;
+           (square, 0))
+      else get_current_player st
+  | "Railroad" -> Player.add_railroad (get_current_player st)
+  | "Utility" -> Player.add_utility (get_current_player st)
+  | _ -> raise (Failure "can't acquire")
 
-(* let can_build_hotels st color_group = let helper set = fst set =
-   color_group in let plyr = get_current_player st in let sets =
-   Player.sets plyr in (snd (List.find helper sets)) = 4 *)
-
-(* let hotel_upgrade st = let num_houses = Player.get_sets
-   (get_current_player st) in | 0 | 1 | 2 | 3 | 4 -> *)
+let can_build_hotels st color_group =
+  let helper set = fst set = color_group in
+  let plyr = get_current_player st in
+  let sets = Player.sets plyr in
+  snd (List.find helper sets) = 4
 
 (* match Board.nth_square_name st.board (Player.current_square
    (get_current_player st)) with | "Jail/Just Visting" ->
