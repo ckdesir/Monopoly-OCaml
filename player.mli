@@ -57,13 +57,24 @@ val get_set_by_name : t -> string -> string * int
     currently in jail. *)
 val is_in_jail : t -> bool
 
+(** [turns_in_jail t] returns the amount of consecutive turns the player
+    [t] has spent in jail*)
+val turns_in_jail : t -> int
+
+(** [incr_turns_in_jail t] returns a copy of the player [t] but having
+    spent another turn in jail*)
+val incr_turns_in_jail : t -> t
+
+(** [clear_turns_in_jail t] returns a copy of the player [t] but having
+    spent no turns in jail*)
+val clear_turns_in_jail : t -> t
+
 (** [create n p] instantiates a player of type [t] with name [n], piece
     [p], current_square of "GO", balance of 1500, properties [],
     is_bankrupt false, and get_out_of_jail_cards of 0. *)
 val create : player_id -> string -> t
 
-
-val replace_a_set : t -> string -> (string * int) -> t
+val replace_a_set : t -> string -> string * int -> t
 
 (** [pay int t p] alters two player's mutable balances to perform the
     physical action of paying in Monopoly. For example, if [t] had $600

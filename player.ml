@@ -12,6 +12,7 @@ type player = {
   get_out_of_jail_cards : int;
   mutable doubles : int;
   is_in_jail : bool;
+  turns_in_jail : int;
   sets : (string * int) list;
   railroads : int;
   utilities : int;
@@ -41,6 +42,8 @@ let bankrupt t = t.is_bankrupt
 
 let is_in_jail t = t.is_in_jail
 
+let turns_in_jail t = t.turns_in_jail
+
 let change_jail_status p =
   {
     name = p.name;
@@ -52,6 +55,41 @@ let change_jail_status p =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = not p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
+    sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
+  }
+
+let incr_turns_in_jail p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail + 1;
+    sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
+  }
+
+let clear_turns_in_jail p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    turns_in_jail = 0;
     sets = p.sets;
     railroads = p.railroads;
     utilities = p.utilities;
@@ -68,6 +106,7 @@ let set_position p x =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = p.sets;
     railroads = p.railroads;
     utilities = p.utilities;
@@ -84,6 +123,7 @@ let add_to_properties p property =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = p.sets;
     railroads = p.railroads;
     utilities = p.utilities;
@@ -100,6 +140,7 @@ let add_to_sets p set =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = set :: p.sets;
     railroads = p.railroads;
     utilities = p.utilities;
@@ -107,8 +148,11 @@ let add_to_sets p set =
 
 let replace_a_set p set_name new_set =
   let rec replace_set_helper = function
-  | [] -> []
-  | h :: t -> if fst h = set_name then new_set :: t else h :: replace_set_helper t in
+    | [] -> []
+    | h :: t ->
+        if fst h = set_name then new_set :: t
+        else h :: replace_set_helper t
+  in
   {
     name = p.name;
     piece = p.piece;
@@ -119,6 +163,7 @@ let replace_a_set p set_name new_set =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = replace_set_helper p.sets;
     railroads = p.railroads;
     utilities = p.utilities;
@@ -135,6 +180,7 @@ let add_railroad p =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = p.sets;
     railroads = p.railroads + 1;
     utilities = p.utilities;
@@ -151,6 +197,7 @@ let remove_railroad p =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = p.sets;
     railroads = p.railroads - 1;
     utilities = p.utilities;
@@ -167,6 +214,7 @@ let add_utility p =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = p.sets;
     railroads = p.railroads;
     utilities = p.utilities + 1;
@@ -183,13 +231,14 @@ let remove_utility p =
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
     sets = p.sets;
     railroads = p.railroads;
     utilities = p.utilities - 1;
   }
 
-let get_set_by_name t set_name = 
-  let find_helper set = fst (set) = set_name in
+let get_set_by_name t set_name =
+  let find_helper set = fst set = set_name in
   List.find find_helper t.sets
 
 let create n p =
@@ -203,6 +252,7 @@ let create n p =
     get_out_of_jail_cards = 0;
     doubles = 0;
     is_in_jail = false;
+    turns_in_jail = 0;
     sets = [];
     railroads = 0;
     utilities = 0;
@@ -244,6 +294,7 @@ let incr_cards player =
     get_out_of_jail_cards = player.get_out_of_jail_cards + 1;
     doubles = player.doubles;
     is_in_jail = player.is_in_jail;
+    turns_in_jail = player.turns_in_jail;
     sets = player.sets;
     railroads = player.railroads;
     utilities = player.utilities;
@@ -260,6 +311,7 @@ let decr_cards player =
     get_out_of_jail_cards = player.get_out_of_jail_cards - 1;
     doubles = player.doubles;
     is_in_jail = player.is_in_jail;
+    turns_in_jail = player.turns_in_jail;
     sets = player.sets;
     railroads = player.railroads;
     utilities = player.utilities;
@@ -286,6 +338,7 @@ let trade
       get_out_of_jail_cards = player.get_out_of_jail_cards;
       doubles = player.doubles;
       is_in_jail = player.is_in_jail;
+      turns_in_jail = player.turns_in_jail;
       sets = player.sets;
       railroads = player.railroads;
       utilities = player.utilities;
@@ -306,6 +359,7 @@ let trade
       get_out_of_jail_cards = player.get_out_of_jail_cards;
       doubles = player.doubles;
       is_in_jail = player.is_in_jail;
+      turns_in_jail = player.turns_in_jail;
       sets = player.sets;
       railroads = player.railroads;
       utilities = player.utilities;
@@ -331,6 +385,7 @@ let trade_cards giver recip amt =
       get_out_of_jail_cards = giver.get_out_of_jail_cards - amt;
       doubles = giver.doubles;
       is_in_jail = giver.is_in_jail;
+      turns_in_jail = giver.turns_in_jail;
       sets = giver.sets;
       railroads = giver.railroads;
       utilities = giver.utilities;
@@ -347,6 +402,7 @@ let trade_cards giver recip amt =
       get_out_of_jail_cards = recip.get_out_of_jail_cards + amt;
       doubles = recip.doubles;
       is_in_jail = recip.is_in_jail;
+      turns_in_jail = giver.turns_in_jail;
       sets = recip.sets;
       railroads = recip.railroads;
       utilities = recip.utilities;

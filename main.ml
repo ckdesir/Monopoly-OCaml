@@ -171,22 +171,22 @@ let jail_on_turn st =
                 they are still in jail*)
 
   let plyr = State.get_current_player st in 
-  if (**Third turn*) false then (ANSITerminal.print_string [ANSITerminal.red] ("It is your third turn in jail. You must pay the $50 fine.\n"); 
+  if (Player.turns_in_jail plyr = 3) then (ANSITerminal.print_string [ANSITerminal.red] ("It is your third turn in jail. You must pay the $50 fine.\n"); 
     if Player.balance plyr < 50 then failwith"Implement bankruptcy" 
       else 
-        (Player.bank_transaction 50 plyr; plyr |> Player.change_jail_status |> State.change_current_player st;) (**Clear turns in jail*))
+        (Player.bank_transaction 50 plyr; plyr |> Player.clear_turns_in_jail |> Player.change_jail_status |> State.change_current_player st;))
   else 
     let jail_cards = Player.jail_cards plyr in
   if jail_cards > 0 then ((ANSITerminal.print_string [ANSITerminal.red] ("You have " ^ (string_of_int jail_cards) ^ ". Would you like to use one?\n"));
     match read_line () with 
-    | "y" |"Y" -> plyr |> Player.decr_cards |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
-    | "n"|"N" -> () (**Increment turns in jail*)
+    | "y" |"Y" -> plyr |> Player.clear_turns_in_jail |> Player.decr_cards |> Player.change_jail_status |> State.change_current_player st; 
+    | "n"|"N" -> plyr |> Player.incr_turns_in_jail |> State.change_current_player st;
     | _ -> failwith"Bad input") else (); 
   
     ANSITerminal.print_string [ANSITerminal.red] "Would you like to pay the $50 fine and be free?\n"; 
     match read_line () with
-    | "y" |"Y" -> Player.bank_transaction 50 plyr; plyr |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
-    | "n" |"N" -> () (**Increment turns in jail*)
+    | "y" |"Y" -> Player.bank_transaction 50 plyr; plyr |> Player.clear_turns_in_jail |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
+    | "n" |"N" -> plyr |> Player.incr_turns_in_jail |> State.change_current_player st;
     | _ -> failwith"Bad input"
 
 
@@ -232,21 +232,21 @@ let rec roll play n st =
 
   let was_in_jail = State.is_in_jail st in
 
-  if was_in_jail then
+  if was_in_jail then (
     if Player.doubles (State.get_current_player st) = 1 then (
       ANSITerminal.print_string [ ANSITerminal.green ] "You're free!\n";
-      Player.change_jail_status (State.get_current_player st) (**Clear turns in jail here*)
+      Player.clear_turns_in_jail (Player.change_jail_status (State.get_current_player st)) 
       |> State.change_current_player st)
   else 
-  (ANSITerminal.print_string [ ANSITerminal.red ] "Sorry, you're still in jail\n"; jail_on_turn st;)
+  (ANSITerminal.print_string [ ANSITerminal.red ] "Sorry, you're still in jail\n"; jail_on_turn st;))
 
   else if Player.doubles (State.get_current_player st) >= 3 then (
     ANSITerminal.print_string [ ANSITerminal.red ]
       "Sorry, you've rolled three doubles in a row! You are now being \
-       sent to jail criminal!"; (** Increment turns in jail here*)
+       sent to jail criminal!"; Player.clear_turns_in_jail (State.get_current_player st) |> State.change_current_player st;
     State.send_curr_jail st);
 
-  if not (was_in_jail) then begin
+  if not (State.is_in_jail st) then begin
     State.move_current_player st total_roll;
     let current_square_name =
       Board.nth_square_name board
