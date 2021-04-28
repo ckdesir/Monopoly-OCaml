@@ -78,6 +78,7 @@ val jail_cards : t -> int
 
 (** [acquire t s] returns an identical player as [t] except the square s
     is added [t]'s list of properties*)
+
 (* val acquire : t -> Board.square_name -> t *)
 
 (**[trade p1 p2 p1_props p2_props] is a pair of players [p1] and [p2]
@@ -93,6 +94,14 @@ val owns : t -> Board.square_name -> bool
 (** [incr cards p] returns the a player identical to [p] with one more
     get-out-of-jail-free card*)
 val incr_cards : t -> t
+
+val railroads : t -> int
+
+val sets : t -> (string * int) list
+
+val utilities : t -> int
+
+val get_set_by_name : t -> string -> string * int
 
 (** [incr cards p] returns the a player identical to [p] with one less
     get-out-of-jail-free card*)

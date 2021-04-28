@@ -210,6 +210,10 @@ let clear_doubles t =
   t.doubles <- 0;
   ()
 
+let get_set_by_name t set_name = 
+  let find_helper set = fst (set) = set_name in
+  List.find find_helper t.sets
+
 let incr_cards player =
   {
     name = player.name;

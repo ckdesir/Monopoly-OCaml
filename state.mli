@@ -18,6 +18,8 @@ val change_player_at : int -> t -> Player.t -> unit
     it currently is in state [st]. *)
 val get_turn : t -> int
 
+val is_set_owned : t -> string -> bool
+
 (** [change_current_player st new_plyr] changes [st] so that [new_plyr]
     becomes the player whose turn it currently is. *)
 val change_current_player : t -> Player.t -> unit

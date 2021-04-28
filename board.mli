@@ -139,7 +139,7 @@ val get_all_of_set : t -> string -> square_name list
     valid type doesn't have a set. Raises [UnknownType s] if [s] is not
     a valid type in board. The following square_types are valid for
     get_current_upgrade: [\["Street", "Railroad"\]] *)
-val get_current_upgrade : t -> square_name -> int
+val get_current_upgrade : t -> square_name -> int * int
 
 (** [incr_upgrade b s] increases the upgrade tier of square [s] on board
     [b]. Raises [UnknownSquare s] if [s] is not a square in [b]. Raises
