@@ -4,9 +4,10 @@ open Board
 let make_board board_json =
   board_json |> Yojson.Basic.from_file |> Board.from_json
 
-let get_num_player () =
+let rec get_num_player () =
   match read_int () with
   | exception End_of_file -> 0
+  | 0 -> ANSITerminal.print_string [ ANSITerminal.red ] "Please enter a number larger than 0.\n"; get_num_player ()
   | num_of_players ->
       print_newline ();
       num_of_players

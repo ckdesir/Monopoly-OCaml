@@ -65,7 +65,7 @@ let move_current_player st roll =
     ANSITerminal.print_string [ ANSITerminal.green ]
       "Pass Go, collect $200!\n";
 
-    Player.pass_go new_player)
+    Player.pass_go new_player )
   else ();
   change_current_player st new_player
 
@@ -82,50 +82,64 @@ let send_curr_jail st =
   ANSITerminal.print_string [ ANSITerminal.red ]
     (Player.name plyr ^ " is now in jail.")
 
-let is_in_jail st = Player.is_in_jail (get_current_player st)
-
-let completes_set st square =
-  let player = get_current_player st in
+let upgrade st square =
+  let player = ref (get_current_player st) in
   let board = st.board in
-  let rec owned_of_the_set plyr sq_lst =
-    (* determine the set of that square *)
-    let sq_set = Board.set_of_square board square in
-    (* how many properties does the player own that are of the same set
-       as sq_set? *)
-    let commons = [] in
-    match sq_lst with
-    | [] -> []
+  let sq_set = Board.set_of_square board square in
+  Board.incr_upgrade board square;
+  let current_upgrade = Board.get_current_upgrade board square in
+  let all_properties_in_set = Board.get_all_of_set board square in
+
+  let rec find_smallest min = function
+    | [] -> min
     | h :: t ->
-        if Board.set_of_square board h = sq_set then h :: commons
-        else owned_of_the_set plyr t
-  in
-  let player_owned_of_set =
-    List.length (owned_of_the_set player (Player.properties player))
+        let upgrade_num = Board.get_current_upgrade board h in
+        if upgrade_num < min then find_smallest upgrade_num t
+        else find_smallest min t
   in
 
-  (* how many properties are there that are of the set that is the set
-     of sq_set? *)
-  let size_of_set_in_board =
-    List.length (Board.get_all_of_set board square)
+  let new_min_upgrade =
+    find_smallest current_upgrade all_properties_in_set
   in
 
-  if player_owned_of_set = size_of_set_in_board then true else false
+  let new_set = (sq_set, new_min_upgrade) in
+  change_current_player st (Player.replace_a_set !player sq_set new_set)
+
+let is_in_jail st = Player.is_in_jail (get_current_player st)
 
 let acquire st square =
   let player = ref (get_current_player st) in
-  let board = get_board st in
+  let board = st.board in
   let square_type = Board.type_of_square board square in
+  let sq_set = Board.set_of_square board square in
+  let completes_set st square =
+    let rec owned_of_the_set = function
+      | [] -> []
+      | h :: t ->
+          if Board.set_of_square board h = sq_set then
+            h :: owned_of_the_set t
+          else owned_of_the_set t
+    in
+    let player_owned_of_set =
+      List.length (owned_of_the_set (Player.properties !player))
+    in
+    let size_of_set_in_board =
+      List.length (Board.get_all_of_set board square)
+    in
+    player_owned_of_set = size_of_set_in_board
+  in
+
   player := Player.add_to_properties !player square;
-  match square_type with
+  ( match square_type with
   | "Street" ->
       if completes_set st square then
-        Player.add_to_sets (get_current_player st)
-          (Board.set_of_square board square;
-           (square, 0))
-      else get_current_player st
-  | "Railroad" -> Player.add_railroad (get_current_player st)
-  | "Utility" -> Player.add_utility (get_current_player st)
-  | _ -> raise (Failure "can't acquire")
+        player :=
+          Player.add_to_sets !player
+            (Board.set_of_square board square, 0)
+  | "Railroad" -> player := Player.add_railroad !player
+  | "Utility" -> player := Player.add_utility !player
+  | _ -> raise (Failure "can't acquire") );
+  change_current_player st !player
 
 let can_build_hotels st color_group =
   let helper set = fst set = color_group in

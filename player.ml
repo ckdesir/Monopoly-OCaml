@@ -105,6 +105,25 @@ let add_to_sets p set =
     utilities = p.utilities;
   }
 
+let replace_a_set p set_name new_set =
+  let rec replace_set_helper = function
+  | [] -> []
+  | h :: t -> if fst h = set_name then new_set :: t else h :: replace_set_helper t in
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = replace_set_helper p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
+  }
+
 let add_railroad p =
   {
     name = p.name;
