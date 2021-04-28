@@ -38,6 +38,14 @@ let get_who_owns st property_name =
   in
   List.find_map get_who_helper (Array.to_list st.players)
 
+let is_set_owned st set_name =
+  let find_set color = color = set_name in
+  let set_owned_helper player =
+    let color_sets = fst (List.split (Player.sets player)) in
+    List.exists find_set color_sets
+  in
+  List.exists set_owned_helper (Array.to_list st.players)
+
 let switch_turns s =
   {
     players = s.players;
@@ -75,6 +83,33 @@ let send_curr_jail st =
     (Player.name plyr ^ " is now in jail.")
 
 let is_in_jail st = Player.is_in_jail (get_current_player st)
+
+(* let completes_set st square = let player = get_current_player st in
+   let rec props_of_the_set plyr sq = match Player.properties plyr with
+   | [] -> [] | h :: t -> if h.set = the wanted set then add it to list
+   in props_of_the_set player square let squares_set =
+   Board.set_of_square square in
+
+   if (List.length (Board.get_all_of_set squares_set) =) *)
+(* let set = Board.get_all_of_set (st.board) (set_square) in if List.mem
+   set (Player.properties player)
+
+   Player.properties player = set then *)
+
+(* let acquire st square = let player = ref (get_current_player st) in
+   let board = get_board st in let square_type = Board.type_of_square
+   board square in player := Player.add_to_properties !player square;
+   match square_type with | "Street" -> begin if completes_set then
+   Player.add_to_sets player (Board.set_of_square board square; 0) else
+   () end | "Railroad" -> Player.add_railroad player | "Utility" ->
+   Player.add_utility player | _ -> raise (Failure "can't acquire") *)
+
+(* let can_build_hotels st color_group = let helper set = fst set =
+   color_group in let plyr = get_current_player st in let sets =
+   Player.sets plyr in (snd (List.find helper sets)) = 4 *)
+
+(* let hotel_upgrade st = let num_houses = Player.get_sets
+   (get_current_player st) in | 0 | 1 | 2 | 3 | 4 -> *)
 
 (* match Board.nth_square_name st.board (Player.current_square
    (get_current_player st)) with | "Jail/Just Visting" ->

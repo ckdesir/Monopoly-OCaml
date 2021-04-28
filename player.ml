@@ -2,7 +2,6 @@ type player_id = string
 
 exception InsufficientFunds
 
-(** Maybe like a sets owned field? *)
 type player = {
   name : player_id;
   piece : string;
@@ -13,7 +12,9 @@ type player = {
   get_out_of_jail_cards : int;
   mutable doubles : int;
   is_in_jail : bool;
-  sets : string list;
+  sets : (string * int) list;
+  railroads : int;
+  utilities : int;
 }
 
 type t = player
@@ -30,6 +31,16 @@ let properties t = t.properties
 
 let doubles t = t.doubles
 
+let sets t = t.sets
+
+let railroads t = t.railroads
+
+let utilities t = t.utilities
+
+let bankrupt t = t.is_bankrupt
+
+let is_in_jail t = t.is_in_jail
+
 let change_jail_status p =
   {
     name = p.name;
@@ -42,6 +53,8 @@ let change_jail_status p =
     doubles = p.doubles;
     is_in_jail = not p.is_in_jail;
     sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
   }
 
 let set_position p x =
@@ -56,13 +69,25 @@ let set_position p x =
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
     sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
   }
 
-let bankrupt (player : player) : bool = player.is_bankrupt
-
-let is_in_jail t = t.is_in_jail
-
-let sets t = t.sets
+let add_to_properties p property =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = property :: p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
+  }
 
 let add_to_sets p set =
   {
@@ -76,6 +101,72 @@ let add_to_sets p set =
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
     sets = set :: p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
+  }
+
+let add_railroad p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = p.sets;
+    railroads = p.railroads + 1;
+    utilities = p.utilities;
+  }
+
+let remove_railroad p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = p.sets;
+    railroads = p.railroads - 1;
+    utilities = p.utilities;
+  }
+
+let add_utility p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities + 1;
+  }
+
+let remove_utility p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = p.balance;
+    properties = p.properties;
+    is_bankrupt = p.is_bankrupt;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities - 1;
   }
 
 let create n p =
@@ -90,6 +181,8 @@ let create n p =
     doubles = 0;
     is_in_jail = false;
     sets = [];
+    railroads = 0;
+    utilities = 0;
   }
 
 let pay amt giver recip =
@@ -129,20 +222,24 @@ let incr_cards player =
     doubles = player.doubles;
     is_in_jail = player.is_in_jail;
     sets = player.sets;
+    railroads = player.railroads;
+    utilities = player.utilities;
   }
 
-let acquire player square =
+let decr_cards player =
   {
     name = player.name;
     piece = player.piece;
     current_square = player.current_square;
     balance = player.balance;
-    properties = square :: player.properties;
+    properties = player.properties;
     is_bankrupt = player.is_bankrupt;
-    get_out_of_jail_cards = player.get_out_of_jail_cards;
+    get_out_of_jail_cards = player.get_out_of_jail_cards - 1;
     doubles = player.doubles;
     is_in_jail = player.is_in_jail;
     sets = player.sets;
+    railroads = player.railroads;
+    utilities = player.utilities;
   }
 
 let trade
@@ -167,6 +264,8 @@ let trade
       doubles = player.doubles;
       is_in_jail = player.is_in_jail;
       sets = player.sets;
+      railroads = player.railroads;
+      utilities = player.utilities;
     }
   in
 
@@ -185,6 +284,8 @@ let trade
       doubles = player.doubles;
       is_in_jail = player.is_in_jail;
       sets = player.sets;
+      railroads = player.railroads;
+      utilities = player.utilities;
     }
   in
 
@@ -208,6 +309,8 @@ let trade_cards giver recip amt =
       doubles = giver.doubles;
       is_in_jail = giver.is_in_jail;
       sets = giver.sets;
+      railroads = giver.railroads;
+      utilities = giver.utilities;
     }
   in
   let recip =
@@ -222,6 +325,8 @@ let trade_cards giver recip amt =
       doubles = recip.doubles;
       is_in_jail = recip.is_in_jail;
       sets = recip.sets;
+      railroads = recip.railroads;
+      utilities = recip.utilities;
     }
   in
   (giver, recip)

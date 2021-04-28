@@ -258,7 +258,7 @@ let get_all_of_set board set_name =
         | None -> helper accum t
         | Some set ->
             if set = set_name then helper (h.name :: accum) t
-            else helper accum t )
+            else helper accum t)
   in
   helper [] board.squares
 
@@ -387,7 +387,7 @@ let cost_of_rent board s =
       | 3 -> cost_of_tier_3_rent board s
       | 4 -> cost_of_tier_4_rent board s
       | 5 -> cost_of_tier_5_rent board s
-      | _ -> raise (InvalidSquare (square.stype, s)) )
+      | _ -> raise (InvalidSquare (square.stype, s)))
   | None ->
       if square.stype = "Street" || square.stype = "Railroad" then
         raise (InvalidSquare (square.stype, s))
@@ -410,3 +410,6 @@ let get_community_chest_card board =
   | h :: t ->
       board.community_chest_cards <- t @ [ h ];
       h
+
+(* let get_card_name c = function | "" -> raise (Failure ("No cards")) |
+   _ -> *)

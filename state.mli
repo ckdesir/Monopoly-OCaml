@@ -1,8 +1,8 @@
 (** The abstract type of values representing the game state. *)
 type t
 
-(** [init_state] is the initial state of the game when playing with a
-    given amount of players. In this state, each player is initialized
+(** [init_state pl b] is the initial state of the game when playing with
+    a given amount of players. In this state, each player is initialized
     to have $1500 and is on "GO" *)
 val init_state : Player.t array -> Board.t -> t
 
@@ -14,8 +14,12 @@ val get_player : int -> t -> Player.t
     [st]*)
 val change_player_at : int -> t -> Player.t -> unit
 
+(** [get_turn st] returns the integer representing the player whose turn
+    it currently is in state [st]. *)
 val get_turn : t -> int
 
+(** [change_current_player st new_plyr] changes [st] so that [new_plyr]
+    becomes the player whose turn it currently is. *)
 val change_current_player : t -> Player.t -> unit
 
 (** [get_current_player st] returns the player representing whoever's
@@ -26,8 +30,11 @@ val get_current_player : t -> Player.t
     [st]*)
 val get_num_players : t -> int
 
+(** [get_board b] returns the board that is being used for gameplay. *)
 val get_board : t -> Board.t
 
+(** [get_who_owns st prop] returns the player who owns [prop] in [st] if
+    it is owned. Otherwise, it returns [None] *)
 val get_who_owns : t -> Board.square_name -> Player.t option
 
 (** [is_in_jail st] returns true if the current player is in jail. *)

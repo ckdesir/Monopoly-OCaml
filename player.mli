@@ -34,11 +34,11 @@ val properties : t -> Board.square_name list
 val bankrupt : t -> bool
 
 (** [sets t] returns the list of the sets owned by player [t] *)
-val sets : t -> string list
+val sets : t -> (string * int) list
 
 (** [add_to_sets t set] returns an identical player as [t] except they
     now own the property set [set]*)
-val add_to_sets : t -> string -> t
+val add_to_sets : t -> string * int -> t
 
 (** [is_in_jail t] is whether or not the player represented by [t] is
     currently in jail. *)
@@ -78,7 +78,7 @@ val jail_cards : t -> int
 
 (** [acquire t s] returns an identical player as [t] except the square s
     is added [t]'s list of properties*)
-val acquire : t -> Board.square_name -> t
+(* val acquire : t -> Board.square_name -> t *)
 
 (**[trade p1 p2 p1_props p2_props] is a pair of players [p1] and [p2]
    with the various exchanged properties, mirroring if players traded
@@ -93,6 +93,10 @@ val owns : t -> Board.square_name -> bool
 (** [incr cards p] returns the a player identical to [p] with one more
     get-out-of-jail-free card*)
 val incr_cards : t -> t
+
+(** [incr cards p] returns the a player identical to [p] with one less
+    get-out-of-jail-free card*)
+val decr_cards : t -> t
 
 (**[trade_cards p1 p2 amt] is a pair of players [p1] and [p2] that have
    exchanged [amt] get-out-of-jail cards, with [p1] giving [amt] to [p2]*)

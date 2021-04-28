@@ -53,23 +53,22 @@ let rec check_property play n st =
         ANSITerminal.print_string [ ANSITerminal.red ]
           ("Name: " ^ prop ^ "\n");
         ANSITerminal.print_string [ ANSITerminal.green ]
-          ( "Initial cost: "
+          ("Initial cost: "
           ^ string_of_int (Board.cost_of_square board prop)
-          ^ "\n" );
+          ^ "\n");
         ANSITerminal.print_string [ ANSITerminal.yellow ]
           ("Set: " ^ Board.set_of_square board prop ^ "\n");
         ANSITerminal.print_string [ ANSITerminal.blue ]
-          ( "Cost of house/hotel: "
+          ("Cost of house/hotel: "
           ^ string_of_int (Board.upgrade_cost board prop)
-          ^ "\n" );
-        ( match State.get_who_owns st prop with
+          ^ "\n");
+        (match State.get_who_owns st prop with
         | Some player ->
             ANSITerminal.print_string
               [ ANSITerminal.magenta ]
               ("Owned by: " ^ Player.name player)
         | None ->
-            ANSITerminal.print_string [ ANSITerminal.magenta ] "Unowned"
-        );
+            ANSITerminal.print_string [ ANSITerminal.magenta ] "Unowned");
         print_newline ();
         print_endline "----------------------------------------";
         print_endline "Do you want to check out another property? [Y/N]";
@@ -85,56 +84,95 @@ let rec check_property play n st =
           "\nCheck input, invalid square. Try again. \n";
       check_property play n st
 
+
 (** Maybe also print out how many they own in the set? + Add in mortgage
-    process / bankrupcy process *)
-let rec handle_property st current_square_name board =
+    process / bankrupcy process. Make sure to account for double rent on unimprovised + interactions with utility *)
+let rec handle_property st current_square_name board roll =
+  let rec expon n e = if e = 0 then 1 else if e = 1 then n else n * expon n (e - 1) in
   let current_player = ref (State.get_current_player st) in
+  let cost = ref (0) in
   match State.get_who_owns st current_square_name with
-  | Some player -> (
-      if player <> !current_player then
-        let cost =
-          Board.get_current_upgrade board current_square_name
-        in
+  | Some player -> ()
+      (* if player <> !current_player then
+        if Board.type_of_square board current_square_name = "Street" then
+            let set_name = Board.set_of_square board current_square_name in
+            if (State.is_set_owned st set_name) && (Board.get_current_upgrade board current_square_name) = 0
+              then cost := 2 * (Board.cost_of_rent board current_square_name);
+        else if Board.type_of_square current_square_name = "Railroad" then 
+          cost := 25 * expon 2 (Player.railroads player - 1);
+        else cost := (List.nth [4; 10] ((Player.utilities player) - 1)) * roll;
         try
           ANSITerminal.print_string [ ANSITerminal.cyan ]
-            ( "You owe " ^ Player.name player ^ " " ^ string_of_int cost);
+            ("You owe " ^ Player.name player ^ " " ^ string_of_int !cost);
           Player.pay cost !current_player player;
           ANSITerminal.print_string [ ANSITerminal.cyan ]
-            ( "Your current balance is now: "
-            ^ string_of_int (Player.balance !current_player) )
-        with Player.InsufficientFunds -> () )
+            ("Your current balance is now: "
+            ^ string_of_int (Player.balance !current_player))
+        with Player.InsufficientFunds -> ()) *)
   | None -> (
       let cost = Board.cost_of_square board current_square_name in
       ANSITerminal.print_string [ ANSITerminal.green ]
-        ( "This property is unowned. Would you like to buy it? It has \
-           a cost of " ^ string_of_int cost
-        ^ " and your current balance is: "
+        ("This property is unowned. Would you like to buy it? It has a \
+          cost of " ^ string_of_int cost
+       ^ " and your current balance is: "
         ^ string_of_int (Player.balance !current_player)
-        ^ ". [Y/N]\n" );
+        ^ ". [Y/N]\n");
       match read_line () with
       | "y" | "Y" -> (
           try
             Player.bank_transaction (-cost) !current_player;
-            current_player :=
-              Player.acquire !current_player current_square_name;
+            (* current_player :=
+              State.acquire !current_player current_square_name; *)
             print_newline ();
             ANSITerminal.print_string [ ANSITerminal.green ]
-              ( "Congrats! You are the brand new owner of "
-              ^ current_square_name ^ "! Your current balance is now: "
-              ^ string_of_int (Player.balance !current_player) );
+              ("Congrats! You are the brand new owner of "
+             ^ current_square_name ^ "! Your current balance is now: "
+              ^ string_of_int (Player.balance !current_player));
             State.change_current_player st !current_player
           with Player.InsufficientFunds ->
             ANSITerminal.print_string [ ANSITerminal.red ]
-              ( "Sorry you do not have the sufficient funds. Your \
-                 current balance is: "
-              ^ string_of_int (Player.balance !current_player) ) )
+              ("Sorry you do not have the sufficient funds. Your \
+                current balance is: "
+              ^ string_of_int (Player.balance !current_player)))
       | "n" | "N" -> ()
-      | _ -> handle_property st current_square_name board )
+      | _ -> handle_property st current_square_name board roll)
 
 let handle_go_to_jail st =
   ANSITerminal.print_string [ ANSITerminal.red ]
     "Sorry! You are now being sent straight to jail, criminal!";
   State.send_curr_jail st
+
+let jail_on_turn st = 
+  (** If it's their third turn in jail, they pay 50. If they can't pay 50, they lose, otherwise pay and move the roll. 
+  If it's not their third turn in jail, 
+      and they did not roll doubles (assumed by this function)
+          they can either pay or use a card
+            if they use a card
+                they are free and move the roll
+            if they pay
+                they are free and move the roll 
+            if neither
+                they are still in jail*)
+
+  let plyr = State.get_current_player st in 
+  if (**Third turn*) false then (ANSITerminal.print_string [ANSITerminal.red] ("It is your third turn in jail. You must pay the $50 fine.\n"); 
+    if Player.balance plyr < 50 then failwith"Implement bankruptcy" 
+      else 
+        (Player.bank_transaction 50 plyr; plyr |> Player.change_jail_status |> State.change_current_player st;) (**Clear turns in jail*))
+  else 
+    let jail_cards = Player.jail_cards plyr in
+  if jail_cards > 0 then ((ANSITerminal.print_string [ANSITerminal.red] ("You have " ^ (string_of_int jail_cards) ^ ". Would you like to use one?\n"));
+    match read_line () with 
+    | "y" |"Y" -> plyr |> Player.decr_cards |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
+    | "n"|"N" -> () (**Increment turns in jail*)
+    | _ -> failwith"Bad input") else (); 
+  
+    ANSITerminal.print_string [ANSITerminal.red] "Would you like to pay the $50 fine and be free?\n"; 
+    match read_line () with
+    | "y" |"Y" -> Player.bank_transaction 50 plyr; plyr |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
+    | "n" |"N" -> () (**Increment turns in jail*)
+    | _ -> failwith"Bad input"
+
 
 (** Add in mortaging process / bakruptcy process etc. *)
 let handle_tax st current_square_name board =
@@ -145,9 +183,12 @@ let handle_tax st current_square_name board =
   try Player.bank_transaction (-cost) !current_player
   with Player.InsufficientFunds ->
     ANSITerminal.print_string [ ANSITerminal.red ]
-      ( "Sorry you do not have the sufficient funds. Your current \
-         balance is: "
-      ^ string_of_int (Player.balance !current_player) )
+      ("Sorry you do not have the sufficient funds. Your current \
+        balance is: "
+      ^ string_of_int (Player.balance !current_player))
+
+(* let community_chest st board = let card =
+   Board.get_community_chest_card in print_endline ("You drew " ^ card) *)
 
 (* If not in jail *)
 (* Check to see if third double, send immediately to jail and end turn,
@@ -167,29 +208,29 @@ let rec roll play n st =
   let total_roll = first_roll + second_roll in
   ANSITerminal.print_string
     [ ANSITerminal.magenta ]
-    ( "You have rolled a "
+    ("You have rolled a "
     ^ (first_roll |> string_of_int)
     ^ " and a "
     ^ (second_roll |> string_of_int)
-    ^ "\n" );
+    ^ "\n");
 
   let was_in_jail = State.is_in_jail st in
 
-  if State.is_in_jail st then
+  if was_in_jail then
     if Player.doubles (State.get_current_player st) = 1 then (
       ANSITerminal.print_string [ ANSITerminal.green ] "You're free!\n";
-      Player.change_jail_status (State.get_current_player st)
-      |> State.change_current_player st )
-    else
-      ANSITerminal.print_string [ ANSITerminal.red ]
-        "Sorry, you're still in jail\n"
+      Player.change_jail_status (State.get_current_player st) (**Clear turns in jail here*)
+      |> State.change_current_player st)
+  else 
+  (ANSITerminal.print_string [ ANSITerminal.red ] "Sorry, you're still in jail\n"; jail_on_turn st;)
+
   else if Player.doubles (State.get_current_player st) >= 3 then (
     ANSITerminal.print_string [ ANSITerminal.red ]
       "Sorry, you've rolled three doubles in a row! You are now being \
-       sent to jail criminal!";
-    State.send_curr_jail st );
+       sent to jail criminal!"; (** Increment turns in jail here*)
+    State.send_curr_jail st);
 
-  if not (State.is_in_jail st) then begin
+  if not (was_in_jail) then begin
     State.move_current_player st total_roll;
     let current_square_name =
       Board.nth_square_name board
@@ -199,13 +240,13 @@ let rec roll play n st =
       ("You have landed on: " ^ current_square_name ^ "\n");
     match Board.type_of_square board current_square_name with
     | "Chance" -> ()
-    | "Community Chest" -> ()
-    | "Street" -> handle_property st current_square_name board
+    | "Community Chest" -> () (*community_chest st board*)
+    | "Street" -> handle_property st current_square_name board total_roll
     | "Income Tax" -> handle_tax st current_square_name board
     | "Luxury Tax" -> handle_tax st current_square_name board
-    | "Railroad" -> handle_property st current_square_name board
+    | "Railroad" -> handle_property st current_square_name board total_roll
     | "Go to Jail" -> handle_go_to_jail st
-    | "Utility" -> handle_property st current_square_name board
+    | "Utility" -> handle_property st current_square_name board total_roll
     | "Free Parking" -> ()
     | _ -> ()
   end;
@@ -261,11 +302,29 @@ let check_board play n st =
   print_newline ();
   play n st
 
+
 (** Check to see if they own any sets, print out the sets they own or
     kick them out of this option if not, match read_line() of set name,
     print out streets, another match_readline() for appropriate street,
     upgrade according to *)
-let buy_sell_buildings play n st = play n st
+let rec buy_sell_buildings play n st = ()
+  (* let fold_left_property_printer accu a = (accu ^ fst a ^ " | ") in
+  let current_player = ref (State.get_current_player st) in
+  let sets = Player.sets !current_player in
+  let color_sets = fst (List.split sets) in
+  if List.length sets = 0 then (ANSITerminal.print_string [ ANSITerminal.red ] "You have no sets you can buy buildings on.")
+  else 
+    (ANSITerminal.print_string [ ANSITerminal.green ] ("You currently own these sets: " ^ (List.fold_left fold_left_property_printer "|" sets) ^ ".\nEnter the set you wish to buy buildings for!"));
+    match read_line () with
+    | "q" | "Q" -> play n st
+    | set_name -> if List.mem color_sets set_name then 
+      let properties = Board.get_all_of_set (State.get_board st) set_name in 
+      ()
+    else
+      (ANSITerminal.print_string [ ANSITerminal.red ] "The set name you entered does not correlate to any sets you own right now. Please try again.");
+      buy_sell_buildings play n st; *)
+  
+
 
 let rec play n st =
   ANSITerminal.print_string [ ANSITerminal.cyan ] "Would you like to:\n";
@@ -319,9 +378,9 @@ let rec main () =
     in
     for i = 0 to num_of_players - 1 do
       print_endline
-        ( "Please enter the name of Player "
+        ("Please enter the name of Player "
         ^ string_of_int (i + 1)
-        ^ "." );
+        ^ ".");
       let player = get_player () in
       ANSITerminal.print_string [ ANSITerminal.blue ]
         ("\nPlayer " ^ string_of_int (i + 1) ^ ": " ^ player ^ "\n");
