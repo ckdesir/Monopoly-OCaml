@@ -4,6 +4,15 @@ open Board
 let make_board board_json =
   board_json |> Yojson.Basic.from_file |> Board.from_json
 
+
+
+(* let rec draw_board lst = function
+  | [] -> ()
+  | h :: t -> begin
+      h |> String.make 1  |> print_endline
+  end *)
+
+
 let rec get_num_player () =
   match read_int () with
   | exception End_of_file -> 0
@@ -153,10 +162,7 @@ let handle_go_to_jail st =
   ANSITerminal.print_string [ ANSITerminal.red ]
     "Sorry! You are now being sent straight to jail, criminal!";
   State.send_curr_jail st
-let handle_go_to_jail st =
-  ANSITerminal.print_string [ ANSITerminal.red ]
-    "Sorry! You are now being sent straight to jail, criminal!";
-  State.send_curr_jail st
+
 
 let jail_on_turn st = 
   (** If it's their third turn in jail, they pay 50. If they can't pay 50, they lose, otherwise pay and move the roll. 

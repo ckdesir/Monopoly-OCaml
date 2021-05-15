@@ -43,6 +43,7 @@ type square = {
   mortgage : int option;
   mutable current_upgrade : int option;
   max_upgrade : int option;
+  player_here : bool;
 }
 
 type chance_card = {
@@ -98,6 +99,7 @@ let squares_of_board json =
     rent_tiers = json |> member "rent" |> to_option rent_tiers_of_board;
     current_upgrade = json |> member "current upgrade" |> to_int_option;
     max_upgrade = json |> member "max upgrade" |> to_int_option;
+    player_here = false;
   }
 
 let chance_cards_of_board json =
@@ -413,3 +415,217 @@ let get_community_chest_card board =
 
 (* let get_card_name c = function | "" -> raise (Failure ("No cards")) |
    _ -> *)
+
+let draw_board =
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -------------------------------------------------------------------------------------------------------------------------\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|   Free   ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "| Kentucky |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "  Chance  ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|  Indiana ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "| Illinois |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "    B&O   ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "| Atlantic ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "| Ventnor  |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "   Water  ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|  Marvin  |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "   Go To  |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "| Parking  ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|    Ave   |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "          ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|    Ave   ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|    Ave   |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "    RR    ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|    Ave   ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|    Ave   |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "   Works  ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|  Gardens |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "   Jail   |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.yellow ] "|          ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -------------------------------------------------------------------------------------------------------------------------\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "| New York |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "| Pacific  |\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|    Ave   |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|    Ave   |\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|Tennessee |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|  North   |\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|    Ave   |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "| Caro Ave |\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|Community |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|Community |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|   Chest  |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|   Chest  |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|          |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "| St James |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|   Penn   |\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|   Place  |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|   Ave    |\n";
+  ANSITerminal.print_string [ ANSITerminal.red ] "|          |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.green ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "|   Penn   \
+     |                                                                                                  \
+     |   Short  |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "|    RR    \
+     |                                                                                                  \
+     |   Line   |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "|          \
+     |                                                                                                  \
+     |          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "| Virginia \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|  Chance  |\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|   Ave    \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|          |\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|          \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|  States  \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.blue ] "|   Park   |\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|   Ave    \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.blue ] "|   Place  |\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|          \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.blue ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "| Electric \
+     |                                                                                                  \
+     |  Luxury  |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "| Company  \
+     |                                                                                                  \
+     |   Tax    |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "|          \
+     |                                                                                                  \
+     |          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -----------                                                                                                  \
+     ------------\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|St \
+     Charles|                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.blue ] "|Boardwalk |\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|  Place   \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.blue ] "|          |\n";
+  ANSITerminal.print_string
+    [ ANSITerminal.magenta ]
+    "|          \
+     |                                                                                                  ";
+  ANSITerminal.print_string [ ANSITerminal.blue ] "|          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -------------------------------------------------------------------------------------------------------------------------\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|Visit|Jail";
+  ANSITerminal.print_string [ ANSITerminal.cyan ]
+    "|   Conn   | Vermont  |";
+  ANSITerminal.print_string [ ANSITerminal.white ] "  Chance  ";
+  ANSITerminal.print_string [ ANSITerminal.cyan ] "| Oriental |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " Reading  |  Income  |  Baltic  |Community |    Med   |   Go     |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|     |    ";
+  ANSITerminal.print_string [ ANSITerminal.cyan ]
+    "|    Ave   |    Ave   |          |    Ave   |";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "    RR    |    Tax   |    Ave   |  Chest   |    Ave   |          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ] "|     |    ";
+  ANSITerminal.print_string [ ANSITerminal.cyan ]
+    "|          |          |          |          |          ";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    "|          |          |          |          |          |\n";
+  ANSITerminal.print_string [ ANSITerminal.white ]
+    " \
+     -------------------------------------------------------------------------------------------------------------------------\n"
