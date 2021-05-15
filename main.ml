@@ -180,7 +180,7 @@ let jail_on_turn st =
   if (Player.turns_in_jail plyr = 3) then (ANSITerminal.print_string [ANSITerminal.red] ("It is your third turn in jail. You must pay the $50 fine.\n"); 
     if Player.balance plyr < 50 then failwith"Implement bankruptcy" 
       else 
-        (Player.bank_transaction 50 plyr; plyr |> Player.clear_turns_in_jail |> Player.change_jail_status |> State.change_current_player st;))
+        (Player.bank_transaction (-50) plyr; plyr |> Player.clear_turns_in_jail |> Player.change_jail_status |> State.change_current_player st;))
   else 
     let jail_cards = Player.jail_cards plyr in
   if jail_cards > 0 then ((ANSITerminal.print_string [ANSITerminal.red] ("You have " ^ (string_of_int jail_cards) ^ ". Would you like to use one?\n"));
@@ -191,7 +191,7 @@ let jail_on_turn st =
   
     ANSITerminal.print_string [ANSITerminal.red] "Would you like to pay the $50 fine and be free?\n"; 
     match read_line () with
-    | "y" |"Y" -> Player.bank_transaction 50 plyr; plyr |> Player.clear_turns_in_jail |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
+    | "y" |"Y" -> Player.bank_transaction (-50) plyr; plyr |> Player.clear_turns_in_jail |> Player.change_jail_status |> State.change_current_player st; (**Clear turns in jail*)
     | "n" |"N" -> plyr |> Player.incr_turns_in_jail |> State.change_current_player st;
     | _ -> failwith"Bad input"
 
