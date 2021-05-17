@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Roll.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Board" rel="Chapter" href="Board.html">
+<link title="Player" rel="Chapter" href="Player.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Author" rel="Chapter" href="Author.html">
+<link title="Roll" rel="Chapter" href="Roll.html">
+<link title="State" rel="Chapter" href="State.html"><title>State</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Roll.html" title="Roll">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_State.html">State</a></h1>
+
+<pre><span id="MODULEState"><span class="keyword">module</span> State</span>: <code class="code">sig</code> <a href="State.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>The abstract type of values representing the game state.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.players">players</span>&nbsp;: <code class="type"><a href="Player.html#TYPEt">Player.t</a> array</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.num_players">num_players</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.current_player">current_player</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.board">board</span>&nbsp;: <code class="type"><a href="Board.html#TYPEt">Board.t</a></code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><span id="VALinit_state"><span class="keyword">val</span> init_state</span> : <code class="type"><a href="Player.html#TYPEt">Player.t</a> array -> <a href="Board.html#TYPEt">Board.t</a> -> <a href="State.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">init_state pl b</code> is the initial state of the game when playing with
+    a given amount of players. In this state, each player is initialized
+    to have $1500 and is on "GO"</p>
+</div>
+</div>
+
+<pre><span id="VALchange_player_at"><span class="keyword">val</span> change_player_at</span> : <code class="type">int -> <a href="State.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">Player.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">change_player_at n st</code> mutates the player at index <code class="code">n</code> in state
+    <code class="code">st</code></p>
+</div>
+</div>
+
+<pre><span id="VALchange_current_player"><span class="keyword">val</span> change_current_player</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">Player.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">change_current_player st new_plyr</code> changes <code class="code">st</code> so that <code class="code">new_plyr</code>
+    becomes the player whose turn it currently is.</p>
+</div>
+</div>
+
+<pre><span id="VALget_player"><span class="keyword">val</span> get_player</span> : <code class="type">int -> <a href="State.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">Player.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_player n st</code> is the player <code class="code">n + 1</code> in state <code class="code">st</code>. For example,
+    <code class="code">get_player 0 st</code> returns Player 1, etc</p>
+</div>
+</div>
+
+<pre><span id="VALget_current_player"><span class="keyword">val</span> get_current_player</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">Player.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_current_player st</code> returns the player representing whoever's
+    turn it currently is in state <code class="code">st</code></p>
+</div>
+</div>
+
+<pre><span id="VALget_turn"><span class="keyword">val</span> get_turn</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_turn st</code> returns the integer representing the player whose turn
+    it currently is in state <code class="code">st</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_num_players"><span class="keyword">val</span> get_num_players</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_num_players st</code> returns the amount of players playing in state
+    <code class="code">st</code></p>
+</div>
+</div>
+
+<pre><span id="VALget_board"><span class="keyword">val</span> get_board</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="Board.html#TYPEt">Board.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_board b</code> returns the board that is being used for gameplay.</p>
+</div>
+</div>
+
+<pre><span id="VALget_who_owns"><span class="keyword">val</span> get_who_owns</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> <a href="Player.html#TYPEt">Player.t</a> option</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_who_owns st prop</code> returns the player who owns <code class="code">prop</code> in <code class="code">st</code> if
+    it is owned. Otherwise, it returns <code class="code">None</code></p>
+</div>
+</div>
+
+<pre><span id="VALis_set_owned"><span class="keyword">val</span> is_set_owned</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> string -> bool</code></pre>
+<pre><span id="VALswitch_turns"><span class="keyword">val</span> switch_turns</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="State.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">switch_turns plyr1 plyr2 b</code> changes the state between being
+    <code class="code">plyr1</code>'s turn or <code class="code">plyr2</code>'s turn depending on the value of boolean
+    <code class="code">b</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALmove_current_player"><span class="keyword">val</span> move_current_player</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">move_current_player st x</code> alters the position of the current player
+    to be <code class="code">x</code> squares forward. If the current player passes go, the
+    position wraps around and they collect $200</p>
+</div>
+</div>
+
+<pre><span id="VALsend_curr_jail"><span class="keyword">val</span> send_curr_jail</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">send_curr_jail st</code> returns an identical position except the current
+    player is now standing on the "jail" square and is now in jail.</p>
+</div>
+</div>
+
+<pre><span id="VALupgrade"><span class="keyword">val</span> upgrade</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> unit</code></pre>
+<pre><span id="VALis_in_jail"><span class="keyword">val</span> is_in_jail</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">is_in_jail st</code> returns true if the current player is in jail.</p>
+</div>
+</div>
+
+<pre><span id="VALacquire"><span class="keyword">val</span> acquire</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> unit</code></pre>
+<pre><span id="VALcan_build_hotels"><span class="keyword">val</span> can_build_hotels</span> : <code class="type"><a href="State.html#TYPEt">t</a> -> string -> bool</code></pre></body></html>

@@ -1,0 +1,71 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Board" rel="Chapter" href="Board.html">
+<link title="Player" rel="Chapter" href="Player.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Author" rel="Chapter" href="Author.html">
+<link title="Roll" rel="Chapter" href="Roll.html">
+<link title="State" rel="Chapter" href="State.html"><title>Board</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;square_type&nbsp;=&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;square_name&nbsp;=&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;chance_card&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;action&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;:&nbsp;<span class="constructor">Board</span>.square_name&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;stype&nbsp;:&nbsp;<span class="constructor">Board</span>.square_type&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rent_multiplier&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;subaction&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amount&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;count&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;house&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hotels&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;community_chest&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;action&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;subaction&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amount&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;house&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hotels&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">TypeMismatch</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Board</span>.square_type<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">UnknownSquare</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Board</span>.square_name<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">UnknownType</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Board</span>.square_type<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">InvalidSquare</span>&nbsp;<span class="keyword">of</span>&nbsp;(<span class="constructor">Board</span>.square_type&nbsp;*&nbsp;<span class="constructor">Board</span>.square_name)<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">MaxUpgradeReached</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;from_json&nbsp;:&nbsp;<span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;contains&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;nth_square_name&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;next_twelve&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;position_of_square&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;type_of_square&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_type<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_square&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mortgage_of_square&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_of_square&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;upgrade_cost&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_all_of_set&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_current_upgrade&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;incr_upgrade&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_tier_0_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_tier_1_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_tier_2_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_tier_3_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_tier_4_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_tier_5_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cost_of_rent&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_chance_card&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.chance_card<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_community_chest_card&nbsp;:&nbsp;<span class="constructor">Board</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.community_chest<br>
+<span class="keyword">end</span></code></body></html>

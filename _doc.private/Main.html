@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Player.html">
+<link rel="next" href="Author.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Board" rel="Chapter" href="Board.html">
+<link title="Player" rel="Chapter" href="Player.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Author" rel="Chapter" href="Author.html">
+<link title="Roll" rel="Chapter" href="Roll.html">
+<link title="State" rel="Chapter" href="State.html"><title>Main</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Player.html" title="Player">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Author.html" title="Author">Next</a>
+</div>
+<h1>Module <a href="type_Main.html">Main</a></h1>
+
+<pre><span id="MODULEMain"><span class="keyword">module</span> Main</span>: <code class="code">sig</code> <a href="Main.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="VALmake_board"><span class="keyword">val</span> make_board</span> : <code class="type">string -> <a href="Board.html#TYPEt">Board.t</a></code></pre>
+<pre><span id="VALget_num_player"><span class="keyword">val</span> get_num_player</span> : <code class="type">unit -> int</code></pre>
+<pre><span id="VALget_player"><span class="keyword">val</span> get_player</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="VALget_piece"><span class="keyword">val</span> get_piece</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="VALget_balance"><span class="keyword">val</span> get_balance</span> : <code class="type"><a href="Player.html#TYPEt">Player.t</a> -> int</code></pre>
+<pre><span id="VALturn_printer"><span class="keyword">val</span> turn_printer</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">turn_printer b st</code> prints the name of <code class="code">player1</code> in <code class="code">st</code> if <code class="code">b</code> is
+    <code class="code">true</code>. If <code class="code">b</code> is <code class="code">false</code>, the name of <code class="code">player2</code> in <code class="code">st</code> will be
+    printed.</p>
+</div>
+</div>
+
+<pre><span id="VALtake_turn"><span class="keyword">val</span> take_turn</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="State.html#TYPEt">State.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">take_turn s</code> switches the state from being player 1's turn to
+    player 2's turn or vice versa.</p>
+</div>
+</div>
+
+<pre><span id="VALcheck_property"><span class="keyword">val</span> check_property</span> : <code class="type">('a -> <a href="State.html#TYPEt">State.t</a> -> unit) -> 'a -> <a href="State.html#TYPEt">State.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Extend this to cover railroads/utiltiis eventually, pattern match
+    against the type and carry out respective operations, exhaustive
+    pattern match is a recheck of input</p>
+</div>
+</div>
+
+<pre><span id="VALhandle_property"><span class="keyword">val</span> handle_property</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> <a href="Board.html#TYPEt">Board.t</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Maybe also print out how many they own in the set? + Add in mortgage
+    process / bankrupcy process.</p>
+</div>
+</div>
+
+<pre><span id="VALhandle_go_to_jail"><span class="keyword">val</span> handle_go_to_jail</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
+<pre><span id="VALjail_on_turn"><span class="keyword">val</span> jail_on_turn</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
+<pre><span id="VALhandle_tax"><span class="keyword">val</span> handle_tax</span> : <code class="type"><a href="State.html#TYPEt">State.t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> <a href="Board.html#TYPEt">Board.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Add in mortaging process / bakruptcy process etc.</p>
+</div>
+</div>
+
+<pre><span id="VALroll"><span class="keyword">val</span> roll</span> : <code class="type">(int -> <a href="State.html#TYPEt">State.t</a> -> 'a) -> int -> <a href="State.html#TYPEt">State.t</a> -> 'a</code></pre><div class="info ">
+<div class="info-desc">
+<p>Not to sure of the jail rules, need to research. Not sure if you can
+    roll again if you pay to get out and roll a dobule.</p>
+</div>
+</div>
+
+<pre><span id="VALquit"><span class="keyword">val</span> quit</span> : <code class="type">('a -> <a href="State.html#TYPEt">State.t</a> -> unit) -> 'a -> <a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
+<pre><span id="VALcheck_board"><span class="keyword">val</span> check_board</span> : <code class="type">('a -> <a href="State.html#TYPEt">State.t</a> -> 'b) -> 'a -> <a href="State.html#TYPEt">State.t</a> -> 'b</code></pre>
+<pre><span id="VALbuy_sell_buildings"><span class="keyword">val</span> buy_sell_buildings</span> : <code class="type">('a -> <a href="State.html#TYPEt">State.t</a> -> unit) -> 'a -> <a href="State.html#TYPEt">State.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>This is just for buying so far, have some mechanism to sell?</p>
+</div>
+</div>
+
+<pre><span id="VALplay"><span class="keyword">val</span> play</span> : <code class="type">int -> <a href="State.html#TYPEt">State.t</a> -> unit</code></pre>
+<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">unit -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">main ()</code> prompts the user to input the names of the two players,
+    and then starts the game.</p>
+</div>
+</div>
+</body></html>

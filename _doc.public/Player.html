@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Board.html">
+<link rel="next" href="Main.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Board" rel="Chapter" href="Board.html">
+<link title="Player" rel="Chapter" href="Player.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Author" rel="Chapter" href="Author.html">
+<link title="Roll" rel="Chapter" href="Roll.html">
+<link title="State" rel="Chapter" href="State.html"><title>Player</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Board.html" title="Board">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Main.html" title="Main">Next</a>
+</div>
+<h1>Module <a href="type_Player.html">Player</a></h1>
+
+<pre><span id="MODULEPlayer"><span class="keyword">module</span> Player</span>: <code class="code">sig</code> <a href="Player.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Representation of dynamic player data.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>The abstract type of a player</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEplayer_id"><span class="keyword">type</span> <code class="type"></code>player_id</span> = <code class="type">string</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of player identifier</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONInsufficientFunds"><span class="keyword">exception</span> InsufficientFunds</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when a player tries to perform an action but has insufficient
+    balance</p>
+</div>
+</div>
+
+<pre><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEplayer_id">player_id</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">name t</code> is the string representing the name of the person playing as
+   the player <code class="code">t</code></p>
+</div>
+</div>
+
+<pre><span id="VALpiece"><span class="keyword">val</span> piece</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">piece t</code> is the token that the player <code class="code">t</code> is represented by on a
+    physical monopoly board. For example, <code class="code">"thimble"</code>, <code class="code">"top hat"</code> would
+    be valid values of <code class="code">piece t</code> on a traditional monopoly board</p>
+</div>
+</div>
+
+<pre><span id="VALcurrent_square"><span class="keyword">val</span> current_square</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">current_square t</code> is the square position that player <code class="code">t</code> occupies.</p>
+</div>
+</div>
+
+<pre><span id="VALbalance"><span class="keyword">val</span> balance</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">balance t</code> is the value of the mutable balance of player <code class="code">t</code></p>
+</div>
+</div>
+
+<pre><span id="VALproperties"><span class="keyword">val</span> properties</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">properties t</code> is the list of properties that are owned by the player
+   represented by <code class="code">t</code></p>
+</div>
+</div>
+
+<pre><span id="VALbankrupt"><span class="keyword">val</span> bankrupt</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">bankrupt t</code> represents whether or not the player <code class="code">t</code> is bankrupt,
+   and thus determines if they are still in the game</p>
+</div>
+</div>
+
+<pre><span id="VALsets"><span class="keyword">val</span> sets</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> (string * int) list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">sets t</code> returns the list of the sets owned by player <code class="code">t</code></p>
+</div>
+</div>
+
+<pre><span id="VALadd_to_sets"><span class="keyword">val</span> add_to_sets</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> string * int -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">add_to_sets t set</code> returns an identical player as <code class="code">t</code> except they
+    now own the property set <code class="code">set</code></p>
+</div>
+</div>
+
+<pre><span id="VALadd_to_properties"><span class="keyword">val</span> add_to_properties</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+</div>
+
+<pre><span id="VALadd_railroad"><span class="keyword">val</span> add_railroad</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre>
+<pre><span id="VALadd_utility"><span class="keyword">val</span> add_utility</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre>
+<pre><span id="VALrailroads"><span class="keyword">val</span> railroads</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALutilities"><span class="keyword">val</span> utilities</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_set_by_name"><span class="keyword">val</span> get_set_by_name</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> string -> string * int</code></pre>
+<pre><span id="VALis_in_jail"><span class="keyword">val</span> is_in_jail</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">is_in_jail t</code> is whether or not the player represented by <code class="code">t</code> is
+    currently in jail.</p>
+</div>
+</div>
+
+<pre><span id="VALturns_in_jail"><span class="keyword">val</span> turns_in_jail</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">turns_in_jail t</code> returns the amount of consecutive turns the player
+    <code class="code">t</code> has spent in jail</p>
+</div>
+</div>
+
+<pre><span id="VALincr_turns_in_jail"><span class="keyword">val</span> incr_turns_in_jail</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">incr_turns_in_jail t</code> returns a copy of the player <code class="code">t</code> but having
+    spent another turn in jail</p>
+</div>
+</div>
+
+<pre><span id="VALclear_turns_in_jail"><span class="keyword">val</span> clear_turns_in_jail</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">clear_turns_in_jail t</code> returns a copy of the player <code class="code">t</code> but having
+    spent no turns in jail</p>
+</div>
+</div>
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type"><a href="Player.html#TYPEplayer_id">player_id</a> -> string -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">create n p</code> instantiates a player of type <code class="code">t</code> with name <code class="code">n</code>, piece
+    <code class="code">p</code>, current_square of "GO", balance of 1500, properties [],
+    is_bankrupt false, and get_out_of_jail_cards of 0.</p>
+</div>
+</div>
+
+<pre><span id="VALreplace_a_set"><span class="keyword">val</span> replace_a_set</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> string -> string * int -> <a href="Player.html#TYPEt">t</a></code></pre>
+<pre><span id="VALpay"><span class="keyword">val</span> pay</span> : <code class="type">int -> <a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">pay int t p</code> alters two player's mutable balances to perform the
+    physical action of paying in Monopoly. For example, if <code class="code">t</code> had $600
+    and <code class="code">p</code> had $400 then <code class="code">pay 100 t p</code> would result in <code class="code">balance t</code>
+    being <code class="code">500</code> and <code class="code">balance p</code> being <code class="code">500</code>. Raises <code class="code">InsufficentFunds</code>
+    if <code class="code">t</code> lacks balance to perform <code class="code">pay</code></p>
+</div>
+</div>
+
+<pre><span id="VALbank_transaction"><span class="keyword">val</span> bank_transaction</span> : <code class="type">int -> <a href="Player.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">pay_bank amt t</code> alters player <code class="code">t</code>'s balance by an amount <code class="code">amt</code>. For
+    example, when passing Go a player would see the equivalent of
+    <code class="code">bank_transaction 200 t</code>. Note: <code class="code">amt</code> may be positive or negative,
+    corresponding to receiving or paying money to the bank respectively.
+    Raises <code class="code">InsufficientFunds</code> if the player lacks funds.</p>
+</div>
+</div>
+
+<pre><span id="VALpass_go"><span class="keyword">val</span> pass_go</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">pass_go t</code> adds 200 to player <code class="code">t</code>'s balance, equivalent to
+    <code class="code">bank_transaction 200 t</code></p>
+</div>
+</div>
+
+<pre><span id="VALjail_cards"><span class="keyword">val</span> jail_cards</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">jail_cards t</code> represents the amount of get-out-of-jail free cards
+    that player <code class="code">t</code> is currently holding. If <code class="code">jail_cards t</code> is 0, then
+    the player will be sent to jail if prompted</p>
+</div>
+</div>
+<p><code class="code">acquire t s</code> returns an identical player as <code class="code">t</code> except the square s
+    is added <code class="code">t</code>'s list of properties</p>
+
+<pre><span id="VALtrade"><span class="keyword">val</span> trade</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -><br>       <a href="Player.html#TYPEt">t</a> -><br>       <a href="Board.html#TYPEsquare_name">Board.square_name</a> list -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> list -> <a href="Player.html#TYPEt">t</a> * <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">trade p1 p2 p1_props p2_props</code> is a pair of players <code class="code">p1</code> and <code class="code">p2</code>
+   with the various exchanged properties, mirroring if players traded
+   squares in real life. Note: cannot trade get_out_of_jail cards.</p>
+</div>
+</div>
+
+<pre><span id="VALowns"><span class="keyword">val</span> owns</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">owns t s</code> returns the boolean of whether or not player <code class="code">t</code> owns the
+    square <code class="code">s</code></p>
+</div>
+</div>
+
+<pre><span id="VALincr_cards"><span class="keyword">val</span> incr_cards</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">incr cards p</code> returns the a player identical to <code class="code">p</code> with one more
+    get-out-of-jail-free card</p>
+</div>
+</div>
+
+<pre><span id="VALdecr_cards"><span class="keyword">val</span> decr_cards</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">incr cards p</code> returns the a player identical to <code class="code">p</code> with one less
+    get-out-of-jail-free card</p>
+</div>
+</div>
+
+<pre><span id="VALtrade_cards"><span class="keyword">val</span> trade_cards</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a> -> int -> <a href="Player.html#TYPEt">t</a> * <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">trade_cards p1 p2 amt</code> is a pair of players <code class="code">p1</code> and <code class="code">p2</code> that have
+   exchanged <code class="code">amt</code> get-out-of-jail cards, with <code class="code">p1</code> giving <code class="code">amt</code> to <code class="code">p2</code></p>
+</div>
+</div>
+
+<pre><span id="VALdoubles"><span class="keyword">val</span> doubles</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">doubles t</code> returns the amount of consecutive doubles <code class="code">t</code> has rolled</p>
+</div>
+</div>
+
+<pre><span id="VALset_position"><span class="keyword">val</span> set_position</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> int -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">set_position t x</code> returns a new player object currently at position
+    x</p>
+</div>
+</div>
+
+<pre><span id="VALincr_doubles"><span class="keyword">val</span> incr_doubles</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">incr_doubles t</code> increments the amount of consecutive doubles that t
+    has</p>
+</div>
+</div>
+
+<pre><span id="VALclear_doubles"><span class="keyword">val</span> clear_doubles</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">clear_doubles t</code> sets the amount of consecutive doubles of player
+    to 0</p>
+</div>
+</div>
+
+<pre><span id="VALchange_jail_status"><span class="keyword">val</span> change_jail_status</span> : <code class="type"><a href="Player.html#TYPEt">t</a> -> <a href="Player.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">change_jaiL_status t</code> returns the player <code class="code">t</code> that is now freed if
+    <code class="code">t</code> was in jail, or is now in jail if <code class="code">t</code> was free</p>
+</div>
+</div>
+</body></html>

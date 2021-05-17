@@ -1,0 +1,59 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Board" rel="Chapter" href="Board.html">
+<link title="Player" rel="Chapter" href="Player.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Author" rel="Chapter" href="Author.html">
+<link title="Roll" rel="Chapter" href="Roll.html">
+<link title="State" rel="Chapter" href="State.html"><title>Player</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;player_id&nbsp;=&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">InsufficientFunds</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;name&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.player_id<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;piece&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;current_square&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;balance&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;properties&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;bankrupt&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sets&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;int)&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_to_sets&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_to_properties&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_railroad&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_utility&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;railroads&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;utilities&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_set_by_name&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;*&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;is_in_jail&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;turns_in_jail&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;incr_turns_in_jail&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clear_turns_in_jail&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;create&nbsp;:&nbsp;<span class="constructor">Player</span>.player_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;replace_a_set&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pay&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;bank_transaction&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;pass_go&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;jail_cards&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;trade&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Board</span>.square_name&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t&nbsp;*&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;owns&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;incr_cards&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;decr_cards&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;trade_cards&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t&nbsp;*&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doubles&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_position&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;incr_doubles&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clear_doubles&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;change_jail_status&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+<span class="keyword">end</span></code></body></html>

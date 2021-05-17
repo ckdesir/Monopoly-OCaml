@@ -1,0 +1,497 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Board" rel="Chapter" href="Board.html">
+<link title="Player" rel="Chapter" href="Player.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Author" rel="Chapter" href="Author.html">
+<link title="Roll" rel="Chapter" href="Roll.html">
+<link title="State" rel="Chapter" href="State.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><div>A</div></td></tr>
+<tr><td><a href="State.html#VALacquire">acquire</a> [<a href="State.html">State</a>]</td>
+<td></td></tr>
+<tr><td><a href="Player.html#VALadd_railroad">add_railroad</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td><a href="Player.html#VALadd_to_properties">add_to_properties</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALadd_to_sets">add_to_sets</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">add_to_sets t set</code> returns an identical player as <code class="code">t</code> except they
+    now own the property set <code class="code">set</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALadd_utility">add_utility</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>B</div></td></tr>
+<tr><td><a href="Player.html#VALbalance">balance</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">balance t</code> is the value of the mutable balance of player <code class="code">t</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALbank_transaction">bank_transaction</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">pay_bank amt t</code> alters player <code class="code">t</code>'s balance by an amount <code class="code">amt</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALbankrupt">bankrupt</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">bankrupt t</code> represents whether or not the player <code class="code">t</code> is bankrupt,
+   and thus determines if they are still in the game</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>C</div></td></tr>
+<tr><td><a href="State.html#VALchange_current_player">change_current_player</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">change_current_player st new_plyr</code> changes <code class="code">st</code> so that <code class="code">new_plyr</code>
+    becomes the player whose turn it currently is.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALchange_jail_status">change_jail_status</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">change_jaiL_status t</code> returns the player <code class="code">t</code> that is now freed if
+    <code class="code">t</code> was in jail, or is now in jail if <code class="code">t</code> was free</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALchange_player_at">change_player_at</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">change_player_at n st</code> mutates the player at index <code class="code">n</code> in state
+    <code class="code">st</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALclear_doubles">clear_doubles</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">clear_doubles t</code> sets the amount of consecutive doubles of player
+    to 0</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALclear_turns_in_jail">clear_turns_in_jail</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">clear_turns_in_jail t</code> returns a copy of the player <code class="code">t</code> but having
+    spent no turns in jail</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcontains">contains</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">contains b s</code> returns true if square <code class="code">s</code> is on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_rent">cost_of_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_rent b s</code> is the cost of rent of square <code class="code">s</code> on board <code class="code">b</code>
+    given it's current upgrade status.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_square">cost_of_square</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_square b s</code> is the cost of square <code class="code">s</code> on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_tier_0_rent">cost_of_tier_0_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_tier_0_rent b s</code> is the cost of tier 0 rent of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_tier_1_rent">cost_of_tier_1_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_tier_1_rent b s</code> is the cost of tier 1 rent of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_tier_2_rent">cost_of_tier_2_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_tier_2_rent b s</code> is the cost of tier 2 rent of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_tier_3_rent">cost_of_tier_3_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_tier_3_rent b s</code> is the cost of tier 3 rent of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_tier_4_rent">cost_of_tier_4_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_tier_4_rent b s</code> is the cost of tier 4 rent of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALcost_of_tier_5_rent">cost_of_tier_5_rent</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">cost_of_tier_5_rent b s</code> is the cost of tier 5 rent of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALcreate">create</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">create n p</code> instantiates a player of type <code class="code">t</code> with name <code class="code">n</code>, piece
+    <code class="code">p</code>, current_square of "GO", balance of 1500, properties [],
+    is_bankrupt false, and get_out_of_jail_cards of 0.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALcurrent_square">current_square</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">current_square t</code> is the square position that player <code class="code">t</code> occupies.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>D</div></td></tr>
+<tr><td><a href="Player.html#VALdecr_cards">decr_cards</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">incr cards p</code> returns the a player identical to <code class="code">p</code> with one less
+    get-out-of-jail-free card</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Roll.html#VALdice">dice</a> [<a href="Roll.html">Roll</a>]</td>
+<td></td></tr>
+<tr><td><a href="Player.html#VALdoubles">doubles</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">doubles t</code> returns the amount of consecutive doubles <code class="code">t</code> has rolled</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>F</div></td></tr>
+<tr><td><a href="Board.html#VALfrom_json">from_json</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">from_json j</code> is the board that <code class="code">j</code> represents.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>G</div></td></tr>
+<tr><td><a href="Board.html#VALget_all_of_set">get_all_of_set</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">get_all_of_set b s</code> returns a list containing all the properties on
+    board b belonging to set s, if any.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALget_board">get_board</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">get_board b</code> returns the board that is being used for gameplay.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALget_chance_card">get_chance_card</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">get_chance_card t</code> returns the top chance_card and shuffles
+    chance_cards placed however they are represented in t such that it
+    isn't chosen until all other chance_cards are chosen.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALget_community_chest_card">get_community_chest_card</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">get_community_chest_card t</code> returns the top community_chest_card
+    and shuffles the community chests however they are represented in t
+    such that it isn't chosen until all other community_chest are
+    chosen.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALget_current_player">get_current_player</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">get_current_player st</code> returns the player representing whoever's
+    turn it currently is in state <code class="code">st</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALget_current_upgrade">get_current_upgrade</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">get_current_upgrade b s</code> is the current upgrade tier of square <code class="code">s</code>
+    on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALget_num_players">get_num_players</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">get_num_players st</code> returns the amount of players playing in state
+    <code class="code">st</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALget_player">get_player</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">get_player n st</code> is the player <code class="code">n + 1</code> in state <code class="code">st</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALget_set_by_name">get_set_by_name</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td><a href="State.html#VALget_turn">get_turn</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">get_turn st</code> returns the integer representing the player whose turn
+    it currently is in state <code class="code">st</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALget_who_owns">get_who_owns</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">get_who_owns st prop</code> returns the player who owns <code class="code">prop</code> in <code class="code">st</code> if
+    it is owned.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>H</div></td></tr>
+<tr><td><a href="Author.html#VALhours_worked">hours_worked</a> [<a href="Author.html">Author</a>]</td>
+<td><div class="info">
+<p><code class="code">hours_worked</code> is the number of hours you worked on this assignment.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>I</div></td></tr>
+<tr><td><a href="Player.html#VALincr_cards">incr_cards</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">incr cards p</code> returns the a player identical to <code class="code">p</code> with one more
+    get-out-of-jail-free card</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALincr_doubles">incr_doubles</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">incr_doubles t</code> increments the amount of consecutive doubles that t
+    has</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALincr_turns_in_jail">incr_turns_in_jail</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">incr_turns_in_jail t</code> returns a copy of the player <code class="code">t</code> but having
+    spent another turn in jail</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALincr_upgrade">incr_upgrade</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">incr_upgrade b s</code> increases the upgrade tier of square <code class="code">s</code> on board
+    <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALinit_state">init_state</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">init_state pl b</code> is the initial state of the game when playing with
+    a given amount of players.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALis_in_jail">is_in_jail</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">is_in_jail st</code> returns true if the current player is in jail.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALis_in_jail">is_in_jail</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">is_in_jail t</code> is whether or not the player represented by <code class="code">t</code> is
+    currently in jail.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALis_set_owned">is_set_owned</a> [<a href="State.html">State</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>J</div></td></tr>
+<tr><td><a href="Player.html#VALjail_cards">jail_cards</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">jail_cards t</code> represents the amount of get-out-of-jail free cards
+    that player <code class="code">t</code> is currently holding.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>M</div></td></tr>
+<tr><td><a href="Board.html#VALmortgage_of_square">mortgage_of_square</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">mortgage_of_square b s</code> is the mortgage of square <code class="code">s</code> on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALmove_current_player">move_current_player</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">move_current_player st x</code> alters the position of the current player
+    to be <code class="code">x</code> squares forward.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>N</div></td></tr>
+<tr><td><a href="Player.html#VALname">name</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">name t</code> is the string representing the name of the person playing as
+   the player <code class="code">t</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALnext_twelve">next_twelve</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">next_twelve b n</code> returns the next 12 squares as a string starting
+    at the nth position on the board.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALnth_square_name">nth_square_name</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">nth_square_name b s</code> returns the name of the square at the nth
+    position on the board.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>O</div></td></tr>
+<tr><td><a href="Player.html#VALowns">owns</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">owns t s</code> returns the boolean of whether or not player <code class="code">t</code> owns the
+    square <code class="code">s</code></p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>P</div></td></tr>
+<tr><td><a href="Player.html#VALpass_go">pass_go</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">pass_go t</code> adds 200 to player <code class="code">t</code>'s balance, equivalent to
+    <code class="code">bank_transaction 200 t</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALpay">pay</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">pay int t p</code> alters two player's mutable balances to perform the
+    physical action of paying in Monopoly.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALpiece">piece</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">piece t</code> is the token that the player <code class="code">t</code> is represented by on a
+    physical monopoly board.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALposition_of_square">position_of_square</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">position_of_square b s</code> is all the positions of square <code class="code">s</code> on board
+    <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALproperties">properties</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">properties t</code> is the list of properties that are owned by the player
+   represented by <code class="code">t</code></p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>R</div></td></tr>
+<tr><td><a href="Player.html#VALrailroads">railroads</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td><a href="Player.html#VALreplace_a_set">replace_a_set</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>S</div></td></tr>
+<tr><td><a href="State.html#VALsend_curr_jail">send_curr_jail</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">send_curr_jail st</code> returns an identical position except the current
+    player is now standing on the "jail" square and is now in jail.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALset_of_square">set_of_square</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">set_of_square b s</code> is the set of square <code class="code">s</code> on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALset_position">set_position</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">set_position t x</code> returns a new player object currently at position
+    x</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALsets">sets</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">sets t</code> returns the list of the sets owned by player <code class="code">t</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="State.html#VALswitch_turns">switch_turns</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">switch_turns plyr1 plyr2 b</code> changes the state between being
+    <code class="code">plyr1</code>'s turn or <code class="code">plyr2</code>'s turn depending on the value of boolean
+    <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="Player.html#VALtrade">trade</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">trade p1 p2 p1_props p2_props</code> is a pair of players <code class="code">p1</code> and <code class="code">p2</code>
+   with the various exchanged properties, mirroring if players traded
+   squares in real life.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALtrade_cards">trade_cards</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">trade_cards p1 p2 amt</code> is a pair of players <code class="code">p1</code> and <code class="code">p2</code> that have
+   exchanged <code class="code">amt</code> get-out-of-jail cards, with <code class="code">p1</code> giving <code class="code">amt</code> to <code class="code">p2</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALturns_in_jail">turns_in_jail</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">turns_in_jail t</code> returns the amount of consecutive turns the player
+    <code class="code">t</code> has spent in jail</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Board.html#VALtype_of_square">type_of_square</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">type_of_square b s</code> is the type of square <code class="code">s</code> on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>U</div></td></tr>
+<tr><td><a href="State.html#VALupgrade">upgrade</a> [<a href="State.html">State</a>]</td>
+<td></td></tr>
+<tr><td><a href="Board.html#VALupgrade_cost">upgrade_cost</a> [<a href="Board.html">Board</a>]</td>
+<td><div class="info">
+<p><code class="code">upgrade_cost b s</code> is the upgrade cost of square <code class="code">s</code> on board <code class="code">b</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALutilities">utilities</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+</table>
+</body>
+</html>
