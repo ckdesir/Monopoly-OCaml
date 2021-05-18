@@ -42,12 +42,6 @@ let pp_player p =
   ^ "\nGet out of jail cards: "
   ^ string_of_int (jail_cards p)
 
-let cost_of_square_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_square board name)
-    ~printer:string_of_int
-
 let field_test
     (name : string)
     (player : Player.t)
@@ -55,182 +49,21 @@ let field_test
     (expected_output : 'a) =
   name >:: fun _ -> assert_equal expected_output (f player)
 
-let balance_test (name : string) (value : int) (expected_output : int) =
-  name >:: fun _ ->
+let general_excp f test_name arg1 arg2 excption =
+  test_name >:: fun _ -> assert_raises excption (fun () -> f arg1 arg2)
+
+let general_test f printer test_name arg1 arg2 expected_output =
+  test_name >:: fun _ ->
+  assert_equal expected_output (f arg1 arg2) ~printer
+
+let balance_test test_name value expected_output = 
+  test_name >:: fun _ -> 
   assert_equal expected_output value ~printer:string_of_int
-
-let cost_of_square_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_square board name)
-
-let mortgage_of_square_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (mortgage_of_square board name)
-    ~printer:string_of_int
-
-let mortgage_of_square_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> mortgage_of_square board name)
-
-let position_of_square_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (position_of_square board name)
-    ~printer:(list_printer string_of_int)
-
-let position_of_square_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> position_of_square board name)
-
-let type_of_square_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (type_of_square board name)
-    ~printer:String.escaped
-
-let type_of_square_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> type_of_square board name)
-
-let nth_square_name_test test_name board pos expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (nth_square_name board pos)
-    ~printer:String.escaped
-
-let nth_square_name_error test_name board pos excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> nth_square_name board pos)
-
-let next_twelve_test test_name board pos expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output (next_twelve board pos)
-    ~printer:String.escaped
-
-let next_twelve_error test_name board pos excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> next_twelve board pos)
-
-let contains_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output (contains board name)
-    ~printer:string_of_bool
-
-let upgrade_cost_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (upgrade_cost board name)
-    ~printer:string_of_int
-
-let upgrade_cost_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> upgrade_cost board name)
-
-let get_current_upgrade_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (get_current_upgrade board name)
-    ~printer:string_of_int
-
-let get_current_upgrade_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> get_current_upgrade board name)
 
 let incr_upgrade_test test_name board name expected_output =
   test_name >:: fun _ ->
   incr_upgrade board name;
   assert_equal expected_output (get_current_upgrade board name)
-
-let incr_upgrade_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> incr_upgrade board name)
-
-let set_of_square_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (set_of_square board name)
-    ~printer:String.escaped
-
-let get_all_of_set test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (get_all_of_set board name)
-    ~printer:(list_printer String.escaped)
-
-let set_of_square_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> set_of_square board name)
-
-let cost_of_tier_0_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_tier_0_rent board name)
-    ~printer:string_of_int
-
-let cost_of_tier_0_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_tier_0_rent board name)
-
-let cost_of_tier_1_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_tier_1_rent board name)
-    ~printer:string_of_int
-
-let cost_of_tier_1_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_tier_1_rent board name)
-
-let cost_of_tier_2_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_tier_2_rent board name)
-    ~printer:string_of_int
-
-let cost_of_tier_2_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_tier_2_rent board name)
-
-let cost_of_tier_3_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_tier_3_rent board name)
-    ~printer:string_of_int
-
-let cost_of_tier_3_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_tier_3_rent board name)
-
-let cost_of_tier_4_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_tier_4_rent board name)
-    ~printer:string_of_int
-
-let cost_of_tier_4_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_tier_4_rent board name)
-
-let cost_of_tier_5_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_tier_5_rent board name)
-    ~printer:string_of_int
-
-let cost_of_tier_5_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_tier_5_rent board name)
-
-let cost_of_rent_test test_name board name expected_output =
-  test_name >:: fun _ ->
-  assert_equal expected_output
-    (cost_of_rent board name)
-    ~printer:string_of_int
-
-let cost_of_rent_error test_name board name excption =
-  test_name >:: fun _ ->
-  assert_raises excption (fun () -> cost_of_rent board name)
 
 let get_chance_card_test test_name board expected_output =
   test_name >:: fun ctxt ->
@@ -261,732 +94,759 @@ let faulty_board =
 
 let contains_compilation =
   [
-    contains_test "valid square" basic_board "Pennsylvania Railroad"
-      true;
-    contains_test "invalid square" basic_board "pennsylvania railroad"
-      false;
+    general_test contains string_of_bool "valid square" basic_board
+      "Pennsylvania Railroad" true;
+    general_test contains string_of_bool "invalid square" basic_board
+      "pennsylvania railroad" false;
   ]
 
 let position_of_square_compilation =
   [
-    position_of_square_test "valid square" basic_board "Go" [ 0 ];
-    position_of_square_test "community chest" basic_board
-      "Community Chest" [ 2; 17; 33 ];
-    position_of_square_error "invalid square" basic_board "go"
+    general_test position_of_square
+      (list_printer string_of_int)
+      "valid square" basic_board "Go" [ 0 ];
+    general_test position_of_square
+      (list_printer string_of_int)
+      "community chest" basic_board "Community Chest" [ 2; 17; 33 ];
+    general_excp position_of_square "invalid square" basic_board "go"
       (UnknownSquare "go");
   ]
 
 let cost_of_square_compilation =
   [
-    cost_of_square_test "valid railroad" basic_board
-      "Pennsylvania Railroad" 200;
-    cost_of_square_error "invalid railroad" basic_board
+    general_test cost_of_square string_of_int "valid railroad"
+      basic_board "Pennsylvania Railroad" 200;
+    general_excp cost_of_square "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    cost_of_square_error "valid railroad, mismatch type" faulty_board
-      "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    cost_of_square_error "valid railroad, no cost" faulty_board
+    general_excp cost_of_square "valid railroad, mismatch type"
+      faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
+    general_excp cost_of_square "valid railroad, no cost" faulty_board
       "Reading Railroad - Bad"
       (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
-    cost_of_square_error "valid railroad, null cost" faulty_board
+    general_excp cost_of_square "valid railroad, null cost" faulty_board
       "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    cost_of_square_test "valid street" basic_board
+    general_test cost_of_square string_of_int "valid street" basic_board
       "Mediterranean Avenue" 60;
-    cost_of_square_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_square_error "valid street, no cost" faulty_board
+    general_excp cost_of_square "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_square "valid street, no cost" faulty_board
       "Baltic Avenue - Bad"
       (InvalidSquare ("Street", "Baltic Avenue - Bad"));
-    cost_of_square_error "valid street, null cost" faulty_board
+    general_excp cost_of_square "valid street, null cost" faulty_board
       "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_square_test "income tax" basic_board "Income Tax" 200;
-    cost_of_square_error "valid income tax, mismatch type" faulty_board
-      "Income Tax" (UnknownType "Income tax");
-    cost_of_square_error "valid income tax, no cost" faulty_board
+    general_test cost_of_square string_of_int "income tax" basic_board
+      "Income Tax" 200;
+    general_excp cost_of_square "valid income tax, mismatch type"
+      faulty_board "Income Tax" (UnknownType "Income tax");
+    general_excp cost_of_square "valid income tax, no cost" faulty_board
       "Income Tax Bad"
       (InvalidSquare ("Income Tax", "Income Tax Bad"));
-    cost_of_square_error "valid income tax, null cost" faulty_board
-      "Income Null"
+    general_excp cost_of_square "valid income tax, null cost"
+      faulty_board "Income Null"
       (InvalidSquare ("Income Tax", "Income Null"));
-    cost_of_square_test "luxury tax" basic_board "Luxury Tax" 75;
-    cost_of_square_error "valid luxury tax, mismatch type" faulty_board
-      "Luxury Tax" (UnknownType "Luxury tax");
-    cost_of_square_error "valid luxury tax, no cost" faulty_board
+    general_test cost_of_square string_of_int "luxury tax" basic_board
+      "Luxury Tax" 75;
+    general_excp cost_of_square "valid luxury tax, mismatch type"
+      faulty_board "Luxury Tax" (UnknownType "Luxury tax");
+    general_excp cost_of_square "valid luxury tax, no cost" faulty_board
       "Luxury Tax - Bad"
       (InvalidSquare ("Luxury Tax", "Luxury Tax - Bad"));
-    cost_of_square_error "valid luxury tax, null cost" faulty_board
-      "Luxury Null"
+    general_excp cost_of_square "valid luxury tax, null cost"
+      faulty_board "Luxury Null"
       (InvalidSquare ("Luxury Tax", "Luxury Null"));
-    cost_of_square_test "water works" basic_board "Water Works" 150;
-    cost_of_square_error "valid water works, mismatch type" faulty_board
-      "Water Works" (UnknownType "utility");
-    cost_of_square_error "valid water works, no cost" faulty_board
-      "Water Works - Bad"
+    general_test cost_of_square string_of_int "water works" basic_board
+      "Water Works" 150;
+    general_excp cost_of_square "valid water works, mismatch type"
+      faulty_board "Water Works" (UnknownType "utility");
+    general_excp cost_of_square "valid water works, no cost"
+      faulty_board "Water Works - Bad"
       (InvalidSquare ("Utility", "Water Works - Bad"));
-    cost_of_square_error "valid water works, null cost" faulty_board
-      "Water Null"
+    general_excp cost_of_square "valid water works, null cost"
+      faulty_board "Water Null"
       (InvalidSquare ("Utility", "Water Null"));
-    cost_of_square_error "invalid type - go" basic_board "Go"
+    general_excp cost_of_square "invalid type - go" basic_board "Go"
       (TypeMismatch "Go");
-    cost_of_square_error "invalid type - jail/just visiting" basic_board
-      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
-    cost_of_square_error "invalid type - chance" basic_board "Chance"
-      (TypeMismatch "Chance");
-    cost_of_square_error "invalid type - community chest" basic_board
-      "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_square_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_square_error "invalid type - go to jail" basic_board
+    general_excp cost_of_square "invalid type - jail/just visiting"
+      basic_board "Jail/Just Visiting"
+      (TypeMismatch "Jail/Just Visiting");
+    general_excp cost_of_square "invalid type - chance" basic_board
+      "Chance" (TypeMismatch "Chance");
+    general_excp cost_of_square "invalid type - community chest"
+      basic_board "Community Chest" (TypeMismatch "Community Chest");
+    general_excp cost_of_square "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_square "invalid type - go to jail" basic_board
       "Go to Jail" (TypeMismatch "Go to Jail");
   ]
 
 let type_of_square_test_compilation =
   [
-    type_of_square_test "valid square" basic_board "Boardwalk" "Street";
-    type_of_square_error "invalid square" basic_board "go"
+    general_test type_of_square String.escaped "valid square"
+      basic_board "Boardwalk" "Street";
+    general_excp type_of_square "invalid square" basic_board "go"
       (UnknownSquare "go");
-    type_of_square_error "invalid square" faulty_board
+    general_excp type_of_square "invalid square" faulty_board
       "Pennsylvania Railroad" (UnknownType "Not Railroad");
   ]
 
 let nth_square_name_test_compilation =
   [
-    nth_square_name_test "valid square" basic_board 0 "Go";
-    nth_square_name_error "failure exp" basic_board 100 (Failure "nth");
-    nth_square_name_error "invalid arg" basic_board (-10)
+    general_test nth_square_name String.escaped "valid square"
+      basic_board 0 "Go";
+    general_excp nth_square_name "failure exp" basic_board 100
+      (Failure "nth");
+    general_excp nth_square_name "invalid arg" basic_board (-10)
       (Invalid_argument "List.nth");
   ]
 
 let next_twelve_test_compilation =
   [
-    next_twelve_test "valid square - 0" basic_board 40
+    general_test next_twelve String.escaped "valid square - 0"
+      basic_board 40
       "| Go | Mediterranean Avenue | Community Chest | Baltic Avenue | \
        Income Tax | Reading Railroad | Oriental Avenue | Chance | \
        Vermont Avenue | Connecticut Avenue | Jail/Just Visiting | St. \
        Charles Place | ";
-    next_twelve_test "valid square - 39" basic_board 39
+    general_test next_twelve String.escaped "valid square - 39"
+      basic_board 39
       "| Boardwalk | Go | Mediterranean Avenue | Community Chest | \
        Baltic Avenue | Income Tax | Reading Railroad | Oriental Avenue \
        | Chance | Vermont Avenue | Connecticut Avenue | Jail/Just \
        Visiting | ";
-    next_twelve_error "invalid arg" basic_board (-10)
+    general_excp next_twelve "invalid arg" basic_board (-10)
       (Invalid_argument "List.nth");
   ]
 
 let mortgage_of_square_compilation =
   [
-    mortgage_of_square_test "valid railroad" basic_board
-      "Pennsylvania Railroad" 100;
-    mortgage_of_square_error "invalid railroad" basic_board
+    general_test mortgage_of_square string_of_int "valid railroad"
+      basic_board "Pennsylvania Railroad" 100;
+    general_excp mortgage_of_square "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    mortgage_of_square_error "valid railroad, mismatch type"
+    general_excp mortgage_of_square "valid railroad, mismatch type"
       faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    mortgage_of_square_error "valid railroad, no mortgage" faulty_board
-      "Reading Railroad - Bad"
+    general_excp mortgage_of_square "valid railroad, no mortgage"
+      faulty_board "Reading Railroad - Bad"
       (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
-    mortgage_of_square_error "valid railroad, null mortgage"
+    general_excp mortgage_of_square "valid railroad, null mortgage"
       faulty_board "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    mortgage_of_square_test "valid street" basic_board
-      "Mediterranean Avenue" 30;
-    mortgage_of_square_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    mortgage_of_square_error "valid street, no mortgage" faulty_board
-      "Baltic Avenue - Bad"
+    general_test mortgage_of_square string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 30;
+    general_excp mortgage_of_square "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp mortgage_of_square "valid street, no mortgage"
+      faulty_board "Baltic Avenue - Bad"
       (InvalidSquare ("Street", "Baltic Avenue - Bad"));
-    mortgage_of_square_error "valid street, null mortgage" faulty_board
-      "Park Place"
+    general_excp mortgage_of_square "valid street, null mortgage"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    mortgage_of_square_test "water works" basic_board "Water Works" 75;
-    mortgage_of_square_error "valid water works, mismatch type"
+    general_test mortgage_of_square string_of_int "water works"
+      basic_board "Water Works" 75;
+    general_excp mortgage_of_square "valid water works, mismatch type"
       faulty_board "Water Works" (UnknownType "utility");
-    mortgage_of_square_error "valid water works, no mortgage"
+    general_excp mortgage_of_square "valid water works, no mortgage"
       faulty_board "Water Works - Bad"
       (InvalidSquare ("Utility", "Water Works - Bad"));
-    mortgage_of_square_error "valid water works, null mortgage"
+    general_excp mortgage_of_square "valid water works, null mortgage"
       faulty_board "Water Null"
       (InvalidSquare ("Utility", "Water Null"));
-    mortgage_of_square_error "invalid type - go" basic_board "Go"
+    general_excp mortgage_of_square "invalid type - go" basic_board "Go"
       (TypeMismatch "Go");
-    mortgage_of_square_error "invalid type - jail/just visiting"
+    general_excp mortgage_of_square "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    mortgage_of_square_error "invalid type - chance" basic_board
+    general_excp mortgage_of_square "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    mortgage_of_square_error "invalid type - community chest"
+    general_excp mortgage_of_square "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    mortgage_of_square_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    mortgage_of_square_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    mortgage_of_square_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    mortgage_of_square_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
+    general_excp mortgage_of_square "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp mortgage_of_square "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp mortgage_of_square "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp mortgage_of_square "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
   ]
 
 let set_of_square_compilation =
   [
-    get_all_of_set "Railroad set" basic_board "Railroad"
+    general_test get_all_of_set
+      (list_printer String.escaped)
+      "Railroad set" basic_board "Railroad"
       [
         "Short Line";
         "B. & O. Railroad";
         "Pennsylvania Railroad";
         "Reading Railroad";
       ];
-    set_of_square_test "valid railroad" basic_board
-      "Pennsylvania Railroad" "Railroad";
-    set_of_square_error "invalid railroad" basic_board
+    general_test set_of_square String.escaped "valid railroad"
+      basic_board "Pennsylvania Railroad" "Railroad";
+    general_excp set_of_square "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    set_of_square_error "valid railroad, mismatch type" faulty_board
-      "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    set_of_square_error "valid railroad, no set" faulty_board
+    general_excp set_of_square "valid railroad, mismatch type"
+      faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
+    general_excp set_of_square "valid railroad, no set" faulty_board
       "Reading Railroad - Bad"
       (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
-    set_of_square_error "valid railroad, null set" faulty_board
+    general_excp set_of_square "valid railroad, null set" faulty_board
       "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
-    set_of_square_test "valid street" basic_board "Mediterranean Avenue"
-      "Brown";
-    set_of_square_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    set_of_square_error "valid street, no set" faulty_board
+    general_test set_of_square String.escaped "valid street" basic_board
+      "Mediterranean Avenue" "Brown";
+    general_excp set_of_square "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp set_of_square "valid street, no set" faulty_board
       "Baltic Avenue - Bad"
       (InvalidSquare ("Street", "Baltic Avenue - Bad"));
-    set_of_square_error "valid street, null set" faulty_board
+    general_excp set_of_square "valid street, null set" faulty_board
       "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    set_of_square_test "water works" basic_board "Water Works" "Utility";
-    set_of_square_error "valid water works, mismatch type" faulty_board
-      "Water Works" (UnknownType "utility");
-    set_of_square_error "valid water works, no set" faulty_board
+    general_test set_of_square String.escaped "water works" basic_board
+      "Water Works" "Utility";
+    general_excp set_of_square "valid water works, mismatch type"
+      faulty_board "Water Works" (UnknownType "utility");
+    general_excp set_of_square "valid water works, no set" faulty_board
       "Water Works - Bad"
       (InvalidSquare ("Utility", "Water Works - Bad"));
-    set_of_square_error "valid water works, null set" faulty_board
-      "Water Null"
+    general_excp set_of_square "valid water works, null set"
+      faulty_board "Water Null"
       (InvalidSquare ("Utility", "Water Null"));
-    set_of_square_error "invalid type - go" basic_board "Go"
+    general_excp set_of_square "invalid type - go" basic_board "Go"
       (TypeMismatch "Go");
-    set_of_square_error "invalid type - jail/just visiting" basic_board
-      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
-    set_of_square_error "invalid type - chance" basic_board "Chance"
-      (TypeMismatch "Chance");
-    set_of_square_error "invalid type - community chest" basic_board
-      "Community Chest" (TypeMismatch "Community Chest");
-    set_of_square_error "invalid type - free parking" basic_board
+    general_excp set_of_square "invalid type - jail/just visiting"
+      basic_board "Jail/Just Visiting"
+      (TypeMismatch "Jail/Just Visiting");
+    general_excp set_of_square "invalid type - chance" basic_board
+      "Chance" (TypeMismatch "Chance");
+    general_excp set_of_square "invalid type - community chest"
+      basic_board "Community Chest" (TypeMismatch "Community Chest");
+    general_excp set_of_square "invalid type - free parking" basic_board
       "Free Parking" (TypeMismatch "Free Parking");
-    set_of_square_error "invalid type - go to jail" basic_board
+    general_excp set_of_square "invalid type - go to jail" basic_board
       "Go to Jail" (TypeMismatch "Go to Jail");
-    set_of_square_error "invalid type - luxury tax" basic_board
+    general_excp set_of_square "invalid type - luxury tax" basic_board
       "Luxury Tax" (TypeMismatch "Luxury Tax");
-    set_of_square_error "invalid type - income tax" basic_board
+    general_excp set_of_square "invalid type - income tax" basic_board
       "Income Tax" (TypeMismatch "Income Tax");
   ]
 
 let upgrade_compilation =
   [
-    upgrade_cost_test "valid street" basic_board "Mediterranean Avenue"
-      50;
-    upgrade_cost_error "valid street, mismatch type" faulty_board
+    general_test upgrade_cost string_of_int "valid street" basic_board
+      "Mediterranean Avenue" 50;
+    general_excp upgrade_cost "valid street, mismatch type" faulty_board
       "Mediterranean Avenue" (UnknownType "Streets");
-    upgrade_cost_error "valid street, no upgrade cost" faulty_board
-      "Baltic Avenue - Bad"
-      (InvalidSquare ("Street", "Baltic Avenue - Bad"));
-    upgrade_cost_error "valid street, null cost" faulty_board
-      "Park Place"
-      (InvalidSquare ("Street", "Park Place"));
-    upgrade_cost_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    upgrade_cost_error "invalid type - jail/just visiting" basic_board
-      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
-    upgrade_cost_error "invalid type - chance" basic_board "Chance"
-      (TypeMismatch "Chance");
-    upgrade_cost_error "invalid type - community chest" basic_board
-      "Community Chest" (TypeMismatch "Community Chest");
-    upgrade_cost_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    upgrade_cost_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    upgrade_cost_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    upgrade_cost_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    upgrade_cost_error "invalid type - railroad" basic_board
-      "Reading Railroad" (TypeMismatch "Railroad");
-    upgrade_cost_error "invalid type - utility" basic_board
-      "Water Works" (TypeMismatch "Utility");
-    get_current_upgrade_test "valid street" basic_board
-      "Mediterranean Avenue" 0;
-    get_current_upgrade_test "valid railroad" basic_board
-      "Reading Railroad" 0;
-    get_current_upgrade_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    get_current_upgrade_error "valid street, no upgrade number"
+    general_excp upgrade_cost "valid street, no upgrade cost"
       faulty_board "Baltic Avenue - Bad"
       (InvalidSquare ("Street", "Baltic Avenue - Bad"));
-    get_current_upgrade_error "valid railroad, no upgrade number"
-      faulty_board "Reading Railroad - Bad"
-      (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
-    get_current_upgrade_error "valid street, null upgrade number"
-      faulty_board "Park Place"
+    general_excp upgrade_cost "valid street, null cost" faulty_board
+      "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    get_current_upgrade_error "invalid type - go" basic_board "Go"
+    general_excp upgrade_cost "invalid type - go" basic_board "Go"
       (TypeMismatch "Go");
-    get_current_upgrade_error "invalid type - jail/just visiting"
+    general_excp upgrade_cost "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    get_current_upgrade_error "invalid type - chance" basic_board
+    general_excp upgrade_cost "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    get_current_upgrade_error "invalid type - community chest"
+    general_excp upgrade_cost "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    get_current_upgrade_error "invalid type - free parking" basic_board
+    general_excp upgrade_cost "invalid type - free parking" basic_board
       "Free Parking" (TypeMismatch "Free Parking");
-    get_current_upgrade_error "invalid type - go to jail" basic_board
+    general_excp upgrade_cost "invalid type - go to jail" basic_board
       "Go to Jail" (TypeMismatch "Go to Jail");
-    get_current_upgrade_error "invalid type - luxury tax" basic_board
+    general_excp upgrade_cost "invalid type - luxury tax" basic_board
       "Luxury Tax" (TypeMismatch "Luxury Tax");
-    get_current_upgrade_error "invalid type - income tax" basic_board
+    general_excp upgrade_cost "invalid type - income tax" basic_board
       "Income Tax" (TypeMismatch "Income Tax");
-    get_current_upgrade_error "invalid type - utility" basic_board
+    general_excp upgrade_cost "invalid type - railroad" basic_board
+      "Reading Railroad" (TypeMismatch "Railroad");
+    general_excp upgrade_cost "invalid type - utility" basic_board
       "Water Works" (TypeMismatch "Utility");
+    general_test get_current_upgrade string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 0;
+    general_test get_current_upgrade string_of_int "valid railroad"
+      basic_board "Reading Railroad" 0;
+    general_excp get_current_upgrade "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp get_current_upgrade "valid street, no upgrade number"
+      faulty_board "Baltic Avenue - Bad"
+      (InvalidSquare ("Street", "Baltic Avenue - Bad"));
+    general_excp get_current_upgrade "valid railroad, no upgrade number"
+      faulty_board "Reading Railroad - Bad"
+      (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
+    general_excp get_current_upgrade "valid street, null upgrade number"
+      faulty_board "Park Place"
+      (InvalidSquare ("Street", "Park Place"));
+    general_excp get_current_upgrade "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp get_current_upgrade "invalid type - jail/just visiting"
+      basic_board "Jail/Just Visiting"
+      (TypeMismatch "Jail/Just Visiting");
+    general_excp get_current_upgrade "invalid type - chance" basic_board
+      "Chance" (TypeMismatch "Chance");
+    general_excp get_current_upgrade "invalid type - community chest"
+      basic_board "Community Chest" (TypeMismatch "Community Chest");
+    general_excp get_current_upgrade "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp get_current_upgrade "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp get_current_upgrade "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp get_current_upgrade "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp get_current_upgrade "invalid type - utility"
+      basic_board "Water Works" (TypeMismatch "Utility");
     incr_upgrade_test "valid street" basic_board "Mediterranean Avenue"
       1;
     incr_upgrade_test "valid railroad" basic_board "Reading Railroad" 1;
-    incr_upgrade_error "valid street, mismatch type" faulty_board
+    general_excp incr_upgrade "valid street, mismatch type" faulty_board
       "Mediterranean Avenue" (UnknownType "Streets");
-    incr_upgrade_error "valid street, no upgrade number" faulty_board
-      "Baltic Avenue - Bad"
+    general_excp incr_upgrade "valid street, no upgrade number"
+      faulty_board "Baltic Avenue - Bad"
       (InvalidSquare ("Street", "Baltic Avenue - Bad"));
-    incr_upgrade_error "valid railroad, no upgrade number" faulty_board
-      "Reading Railroad - Bad"
+    general_excp incr_upgrade "valid railroad, no upgrade number"
+      faulty_board "Reading Railroad - Bad"
       (InvalidSquare ("Railroad", "Reading Railroad - Bad"));
-    incr_upgrade_error "valid street, null upgrade number" faulty_board
-      "Park Place"
+    general_excp incr_upgrade "valid street, null upgrade number"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    incr_upgrade_error "maxupgradereached" faulty_board "Short Line"
-      MaxUpgradeReached;
-    incr_upgrade_error "invalid type - go" basic_board "Go"
+    general_excp incr_upgrade "maxupgradereached" faulty_board
+      "Short Line" MaxUpgradeReached;
+    general_excp incr_upgrade "invalid type - go" basic_board "Go"
       (TypeMismatch "Go");
-    incr_upgrade_error "invalid type - jail/just visiting" basic_board
-      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
-    incr_upgrade_error "invalid type - chance" basic_board "Chance"
-      (TypeMismatch "Chance");
-    incr_upgrade_error "invalid type - community chest" basic_board
-      "Community Chest" (TypeMismatch "Community Chest");
-    incr_upgrade_error "invalid type - free parking" basic_board
+    general_excp incr_upgrade "invalid type - jail/just visiting"
+      basic_board "Jail/Just Visiting"
+      (TypeMismatch "Jail/Just Visiting");
+    general_excp incr_upgrade "invalid type - chance" basic_board
+      "Chance" (TypeMismatch "Chance");
+    general_excp incr_upgrade "invalid type - community chest"
+      basic_board "Community Chest" (TypeMismatch "Community Chest");
+    general_excp incr_upgrade "invalid type - free parking" basic_board
       "Free Parking" (TypeMismatch "Free Parking");
-    incr_upgrade_error "invalid type - go to jail" basic_board
+    general_excp incr_upgrade "invalid type - go to jail" basic_board
       "Go to Jail" (TypeMismatch "Go to Jail");
-    incr_upgrade_error "invalid type - luxury tax" basic_board
+    general_excp incr_upgrade "invalid type - luxury tax" basic_board
       "Luxury Tax" (TypeMismatch "Luxury Tax");
-    incr_upgrade_error "invalid type - income tax" basic_board
+    general_excp incr_upgrade "invalid type - income tax" basic_board
       "Income Tax" (TypeMismatch "Income Tax");
-    incr_upgrade_error "invalid type - go" basic_board "Water Works"
-      (TypeMismatch "Utility");
+    general_excp incr_upgrade "invalid type - go" basic_board
+      "Water Works" (TypeMismatch "Utility");
   ]
 
 let cost_of_rent_compilation =
   [
-    cost_of_rent_test "valid railroad" basic_board
+    general_test cost_of_rent string_of_int "valid railroad" basic_board
       "Pennsylvania Railroad" 25;
-    cost_of_rent_test "valid street" basic_board "Virginia Avenue" 12;
-    cost_of_rent_error "invalid railroad" basic_board
+    general_test cost_of_rent string_of_int "valid street" basic_board
+      "Virginia Avenue" 12;
+    general_excp cost_of_rent "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    cost_of_rent_error "valid railroad, mismatch type" faulty_board
-      "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    cost_of_rent_error "valid railroad, no rent tiers period"
+    general_excp cost_of_rent "valid railroad, mismatch type"
+      faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
+    general_excp cost_of_rent "valid railroad, no rent tiers period"
       faulty_board "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    cost_of_rent_error "valid railroad, no cost period" faulty_board
-      "Big Bertha"
+    general_excp cost_of_rent "valid railroad, no cost period"
+      faulty_board "Big Bertha"
       (InvalidSquare ("Railroad", "Big Bertha"));
-    cost_of_rent_error "valid railroad, no tier period" faulty_board
-      "Thomas"
+    general_excp cost_of_rent "valid railroad, no tier period"
+      faulty_board "Thomas"
       (InvalidSquare ("Railroad", "Thomas"));
-    cost_of_rent_error "valid railroad, null tier" faulty_board
+    general_excp cost_of_rent "valid railroad, null tier" faulty_board
       "B. & O. Railroad"
       (InvalidSquare ("Railroad", "B. & O. Railroad"));
-    cost_of_rent_error "valid railroad, null cost" faulty_board
+    general_excp cost_of_rent "valid railroad, null cost" faulty_board
       "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
-    cost_of_rent_test "valid street" basic_board "Mediterranean Avenue"
-      10;
-    cost_of_rent_error "valid street, mismatch type" faulty_board
+    general_test cost_of_rent string_of_int "valid street" basic_board
+      "Mediterranean Avenue" 10;
+    general_excp cost_of_rent "valid street, mismatch type" faulty_board
       "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_rent_error "valid street, no rent tiers period" faulty_board
-      "Connecticut Avenue"
+    general_excp cost_of_rent "valid street, no rent tiers period"
+      faulty_board "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_rent_error "valid street, no cost period" faulty_board
-      "Oriental Avenue"
+    general_excp cost_of_rent "valid street, no cost period"
+      faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_rent_error "valid street, no tier period" faulty_board
-      "Vermont Avenue"
+    general_excp cost_of_rent "valid street, no tier period"
+      faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_rent_error "valid street, null tier" faulty_board
+    general_excp cost_of_rent "valid street, null tier" faulty_board
       "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_rent_error "valid street, null cost" faulty_board
+    general_excp cost_of_rent "valid street, null cost" faulty_board
       "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_rent_error "invalid type - go" basic_board "Go"
+    general_excp cost_of_rent "invalid type - go" basic_board "Go"
       (TypeMismatch "Go");
-    cost_of_rent_error "invalid type - jail/just visiting" basic_board
-      "Jail/Just Visiting" (TypeMismatch "Jail/Just Visiting");
-    cost_of_rent_error "invalid type - chance" basic_board "Chance"
-      (TypeMismatch "Chance");
-    cost_of_rent_error "invalid type - community chest" basic_board
-      "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_rent_error "invalid type - free parking" basic_board
+    general_excp cost_of_rent "invalid type - jail/just visiting"
+      basic_board "Jail/Just Visiting"
+      (TypeMismatch "Jail/Just Visiting");
+    general_excp cost_of_rent "invalid type - chance" basic_board
+      "Chance" (TypeMismatch "Chance");
+    general_excp cost_of_rent "invalid type - community chest"
+      basic_board "Community Chest" (TypeMismatch "Community Chest");
+    general_excp cost_of_rent "invalid type - free parking" basic_board
       "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_rent_error "invalid type - go to jail" basic_board
+    general_excp cost_of_rent "invalid type - go to jail" basic_board
       "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_rent_error "invalid type - luxury tax" basic_board
+    general_excp cost_of_rent "invalid type - luxury tax" basic_board
       "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_rent_error "invalid type - income tax" basic_board
+    general_excp cost_of_rent "invalid type - income tax" basic_board
       "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_rent_error "invalid type - go" basic_board "Water Works"
-      (TypeMismatch "Utility");
+    general_excp cost_of_rent "invalid type - go" basic_board
+      "Water Works" (TypeMismatch "Utility");
   ]
 
 let cost_of_tier_0_compilation =
   [
-    cost_of_tier_0_rent_test "valid railroad" basic_board
-      "Pennsylvania Railroad" 25;
-    cost_of_tier_0_rent_error "invalid railroad" basic_board
+    general_test cost_of_tier_0_rent string_of_int "valid railroad"
+      basic_board "Pennsylvania Railroad" 25;
+    general_excp cost_of_tier_0_rent "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    cost_of_tier_0_rent_error "valid railroad, mismatch type"
+    general_excp cost_of_tier_0_rent "valid railroad, mismatch type"
       faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    cost_of_tier_0_rent_error "valid railroad, no rent tiers period"
-      faulty_board "Short Line"
+    general_excp cost_of_tier_0_rent
+      "valid railroad, no rent tiers period" faulty_board "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    cost_of_tier_0_rent_error "valid railroad, no cost period"
+    general_excp cost_of_tier_0_rent "valid railroad, no cost period"
       faulty_board "Big Bertha"
       (InvalidSquare ("Railroad", "Big Bertha"));
-    cost_of_tier_0_rent_error "valid railroad, no tier period"
+    general_excp cost_of_tier_0_rent "valid railroad, no tier period"
       faulty_board "Thomas"
       (InvalidSquare ("Railroad", "Thomas"));
-    cost_of_tier_0_rent_error "valid railroad, null tier" faulty_board
-      "B. & O. Railroad"
+    general_excp cost_of_tier_0_rent "valid railroad, null tier"
+      faulty_board "B. & O. Railroad"
       (InvalidSquare ("Railroad", "B. & O. Railroad"));
-    cost_of_tier_0_rent_error "valid railroad, null cost" faulty_board
-      "Reading Railroad"
+    general_excp cost_of_tier_0_rent "valid railroad, null cost"
+      faulty_board "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
-    cost_of_tier_0_rent_test "valid street" basic_board
-      "Mediterranean Avenue" 2;
-    cost_of_tier_0_rent_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_tier_0_rent_error "valid street, no rent tiers period"
-      faulty_board "Connecticut Avenue"
+    general_test cost_of_tier_0_rent string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 2;
+    general_excp cost_of_tier_0_rent "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_tier_0_rent
+      "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_tier_0_rent_error "valid street, no cost period"
+    general_excp cost_of_tier_0_rent "valid street, no cost period"
       faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_tier_0_rent_error "valid street, no tier period"
+    general_excp cost_of_tier_0_rent "valid street, no tier period"
       faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_tier_0_rent_error "valid street, null tier" faulty_board
-      "Boardwalk"
+    general_excp cost_of_tier_0_rent "valid street, null tier"
+      faulty_board "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_tier_0_rent_error "valid street, null cost" faulty_board
-      "Park Place"
+    general_excp cost_of_tier_0_rent "valid street, null cost"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_tier_0_rent_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    cost_of_tier_0_rent_error "invalid type - jail/just visiting"
+    general_excp cost_of_tier_0_rent "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp cost_of_tier_0_rent "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    cost_of_tier_0_rent_error "invalid type - chance" basic_board
+    general_excp cost_of_tier_0_rent "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    cost_of_tier_0_rent_error "invalid type - community chest"
+    general_excp cost_of_tier_0_rent "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_tier_0_rent_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_tier_0_rent_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_tier_0_rent_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_tier_0_rent_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_tier_0_rent_error "invalid type - go" basic_board
+    general_excp cost_of_tier_0_rent "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_tier_0_rent "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp cost_of_tier_0_rent "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp cost_of_tier_0_rent "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp cost_of_tier_0_rent "invalid type - go" basic_board
       "Water Works" (TypeMismatch "Utility");
   ]
 
 let cost_of_tier_1_compilation =
   [
-    cost_of_tier_1_rent_test "valid railroad" basic_board
-      "Pennsylvania Railroad" 50;
-    cost_of_tier_1_rent_error "invalid railroad" basic_board
+    general_test cost_of_tier_1_rent string_of_int "valid railroad"
+      basic_board "Pennsylvania Railroad" 50;
+    general_excp cost_of_tier_1_rent "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    cost_of_tier_1_rent_error "valid railroad, mismatch type"
+    general_excp cost_of_tier_1_rent "valid railroad, mismatch type"
       faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    cost_of_tier_1_rent_error "valid railroad, no rent tiers period"
-      faulty_board "Short Line"
+    general_excp cost_of_tier_1_rent
+      "valid railroad, no rent tiers period" faulty_board "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    cost_of_tier_1_rent_error "valid railroad, no cost period"
+    general_excp cost_of_tier_1_rent "valid railroad, no cost period"
       faulty_board "Big Bertha"
       (InvalidSquare ("Railroad", "Big Bertha"));
-    cost_of_tier_1_rent_error "valid railroad, no tier period"
+    general_excp cost_of_tier_1_rent "valid railroad, no tier period"
       faulty_board "Thomas"
       (InvalidSquare ("Railroad", "Thomas"));
-    cost_of_tier_1_rent_error "valid railroad, null tier" faulty_board
-      "B. & O. Railroad"
+    general_excp cost_of_tier_1_rent "valid railroad, null tier"
+      faulty_board "B. & O. Railroad"
       (InvalidSquare ("Railroad", "B. & O. Railroad"));
-    cost_of_tier_1_rent_error "valid railroad, null cost" faulty_board
-      "Reading Railroad"
+    general_excp cost_of_tier_1_rent "valid railroad, null cost"
+      faulty_board "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
-    cost_of_tier_1_rent_test "valid street" basic_board
-      "Mediterranean Avenue" 10;
-    cost_of_tier_1_rent_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_tier_1_rent_error "valid street, no rent tiers period"
-      faulty_board "Connecticut Avenue"
+    general_test cost_of_tier_1_rent string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 10;
+    general_excp cost_of_tier_1_rent "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_tier_1_rent
+      "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_tier_1_rent_error "valid street, no cost period"
+    general_excp cost_of_tier_1_rent "valid street, no cost period"
       faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_tier_1_rent_error "valid street, no tier period"
+    general_excp cost_of_tier_1_rent "valid street, no tier period"
       faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_tier_1_rent_error "valid street, null tier" faulty_board
-      "Boardwalk"
+    general_excp cost_of_tier_1_rent "valid street, null tier"
+      faulty_board "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_tier_1_rent_error "valid street, null cost" faulty_board
-      "Park Place"
+    general_excp cost_of_tier_1_rent "valid street, null cost"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_tier_1_rent_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    cost_of_tier_1_rent_error "invalid type - jail/just visiting"
+    general_excp cost_of_tier_1_rent "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp cost_of_tier_1_rent "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    cost_of_tier_1_rent_error "invalid type - chance" basic_board
+    general_excp cost_of_tier_1_rent "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    cost_of_tier_1_rent_error "invalid type - community chest"
+    general_excp cost_of_tier_1_rent "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_tier_1_rent_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_tier_1_rent_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_tier_1_rent_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_tier_1_rent_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_tier_1_rent_error "invalid type - go" basic_board
+    general_excp cost_of_tier_1_rent "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_tier_1_rent "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp cost_of_tier_1_rent "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp cost_of_tier_1_rent "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp cost_of_tier_1_rent "invalid type - go" basic_board
       "Water Works" (TypeMismatch "Utility");
   ]
 
 let cost_of_tier_2_compilation =
   [
-    cost_of_tier_2_rent_test "valid railroad" basic_board
-      "Pennsylvania Railroad" 100;
-    cost_of_tier_2_rent_error "invalid railroad" basic_board
+    general_test cost_of_tier_2_rent string_of_int "valid railroad"
+      basic_board "Pennsylvania Railroad" 100;
+    general_excp cost_of_tier_2_rent "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    cost_of_tier_2_rent_error "valid railroad, mismatch type"
+    general_excp cost_of_tier_2_rent "valid railroad, mismatch type"
       faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    cost_of_tier_2_rent_error "valid railroad, no rent tiers period"
-      faulty_board "Short Line"
+    general_excp cost_of_tier_2_rent
+      "valid railroad, no rent tiers period" faulty_board "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    cost_of_tier_2_rent_error "valid railroad, no cost period"
+    general_excp cost_of_tier_2_rent "valid railroad, no cost period"
       faulty_board "Big Bertha"
       (InvalidSquare ("Railroad", "Big Bertha"));
-    cost_of_tier_2_rent_error "valid railroad, no tier period"
+    general_excp cost_of_tier_2_rent "valid railroad, no tier period"
       faulty_board "Thomas"
       (InvalidSquare ("Railroad", "Thomas"));
-    cost_of_tier_2_rent_error "valid railroad, null tier" faulty_board
-      "B. & O. Railroad"
+    general_excp cost_of_tier_2_rent "valid railroad, null tier"
+      faulty_board "B. & O. Railroad"
       (InvalidSquare ("Railroad", "B. & O. Railroad"));
-    cost_of_tier_2_rent_error "valid railroad, null cost" faulty_board
-      "Reading Railroad"
+    general_excp cost_of_tier_2_rent "valid railroad, null cost"
+      faulty_board "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
-    cost_of_tier_2_rent_test "valid street" basic_board
-      "Mediterranean Avenue" 30;
-    cost_of_tier_2_rent_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_tier_2_rent_error "valid street, no rent tiers period"
-      faulty_board "Connecticut Avenue"
+    general_test cost_of_tier_2_rent string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 30;
+    general_excp cost_of_tier_2_rent "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_tier_2_rent
+      "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_tier_2_rent_error "valid street, no cost period"
+    general_excp cost_of_tier_2_rent "valid street, no cost period"
       faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_tier_2_rent_error "valid street, no tier period"
+    general_excp cost_of_tier_2_rent "valid street, no tier period"
       faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_tier_2_rent_error "valid street, null tier" faulty_board
-      "Boardwalk"
+    general_excp cost_of_tier_2_rent "valid street, null tier"
+      faulty_board "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_tier_2_rent_error "valid street, null cost" faulty_board
-      "Park Place"
+    general_excp cost_of_tier_2_rent "valid street, null cost"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_tier_2_rent_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    cost_of_tier_2_rent_error "invalid type - jail/just visiting"
+    general_excp cost_of_tier_2_rent "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp cost_of_tier_2_rent "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    cost_of_tier_2_rent_error "invalid type - chance" basic_board
+    general_excp cost_of_tier_2_rent "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    cost_of_tier_2_rent_error "invalid type - community chest"
+    general_excp cost_of_tier_2_rent "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_tier_2_rent_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_tier_2_rent_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_tier_2_rent_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_tier_2_rent_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_tier_2_rent_error "invalid type - go" basic_board
+    general_excp cost_of_tier_2_rent "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_tier_2_rent "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp cost_of_tier_2_rent "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp cost_of_tier_2_rent "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp cost_of_tier_2_rent "invalid type - go" basic_board
       "Water Works" (TypeMismatch "Utility");
   ]
 
 let cost_of_tier_3_compilation =
   [
-    cost_of_tier_3_rent_test "valid railroad" basic_board
-      "Pennsylvania Railroad" 200;
-    cost_of_tier_3_rent_error "invalid railroad" basic_board
+    general_test cost_of_tier_3_rent string_of_int "valid railroad"
+      basic_board "Pennsylvania Railroad" 200;
+    general_excp cost_of_tier_3_rent "invalid railroad" basic_board
       "pennsylvania railroad" (UnknownSquare "pennsylvania railroad");
-    cost_of_tier_3_rent_error "valid railroad, mismatch type"
+    general_excp cost_of_tier_3_rent "valid railroad, mismatch type"
       faulty_board "Pennsylvania Railroad" (UnknownType "Not Railroad");
-    cost_of_tier_3_rent_error "valid railroad, no rent tiers period"
-      faulty_board "Short Line"
+    general_excp cost_of_tier_3_rent
+      "valid railroad, no rent tiers period" faulty_board "Short Line"
       (InvalidSquare ("Railroad", "Short Line"));
-    cost_of_tier_3_rent_error "valid railroad, no cost period"
+    general_excp cost_of_tier_3_rent "valid railroad, no cost period"
       faulty_board "Big Bertha"
       (InvalidSquare ("Railroad", "Big Bertha"));
-    cost_of_tier_3_rent_error "valid railroad, no tier period"
+    general_excp cost_of_tier_3_rent "valid railroad, no tier period"
       faulty_board "Thomas"
       (InvalidSquare ("Railroad", "Thomas"));
-    cost_of_tier_3_rent_error "valid railroad, null tier" faulty_board
-      "B. & O. Railroad"
+    general_excp cost_of_tier_3_rent "valid railroad, null tier"
+      faulty_board "B. & O. Railroad"
       (InvalidSquare ("Railroad", "B. & O. Railroad"));
-    cost_of_tier_3_rent_error "valid railroad, null cost" faulty_board
-      "Reading Railroad"
+    general_excp cost_of_tier_3_rent "valid railroad, null cost"
+      faulty_board "Reading Railroad"
       (InvalidSquare ("Railroad", "Reading Railroad"));
-    cost_of_tier_3_rent_test "valid street" basic_board
-      "Mediterranean Avenue" 90;
-    cost_of_tier_3_rent_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_tier_3_rent_error "valid street, no rent tiers period"
-      faulty_board "Connecticut Avenue"
+    general_test cost_of_tier_3_rent string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 90;
+    general_excp cost_of_tier_3_rent "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_tier_3_rent
+      "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_tier_3_rent_error "valid street, no cost period"
+    general_excp cost_of_tier_3_rent "valid street, no cost period"
       faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_tier_3_rent_error "valid street, no tier period"
+    general_excp cost_of_tier_3_rent "valid street, no tier period"
       faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_tier_3_rent_error "valid street, null tier" faulty_board
-      "Boardwalk"
+    general_excp cost_of_tier_3_rent "valid street, null tier"
+      faulty_board "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_tier_3_rent_error "valid street, null cost" faulty_board
-      "Park Place"
+    general_excp cost_of_tier_3_rent "valid street, null cost"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_tier_3_rent_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    cost_of_tier_3_rent_error "invalid type - jail/just visiting"
+    general_excp cost_of_tier_3_rent "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp cost_of_tier_3_rent "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    cost_of_tier_3_rent_error "invalid type - chance" basic_board
+    general_excp cost_of_tier_3_rent "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    cost_of_tier_3_rent_error "invalid type - community chest"
+    general_excp cost_of_tier_3_rent "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_tier_3_rent_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_tier_3_rent_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_tier_3_rent_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_tier_3_rent_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_tier_3_rent_error "invalid type - go" basic_board
+    general_excp cost_of_tier_3_rent "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_tier_3_rent "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp cost_of_tier_3_rent "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp cost_of_tier_3_rent "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp cost_of_tier_3_rent "invalid type - go" basic_board
       "Water Works" (TypeMismatch "Utility");
   ]
 
 let cost_of_tier_4_compilation =
   [
-    cost_of_tier_4_rent_test "valid street" basic_board
-      "Mediterranean Avenue" 160;
-    cost_of_tier_4_rent_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_tier_4_rent_error "valid street, no rent tiers period"
-      faulty_board "Connecticut Avenue"
+    general_test cost_of_tier_4_rent string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 160;
+    general_excp cost_of_tier_4_rent "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_tier_4_rent
+      "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_tier_4_rent_error "valid street, no cost period"
+    general_excp cost_of_tier_4_rent "valid street, no cost period"
       faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_tier_4_rent_error "valid street, no tier period"
+    general_excp cost_of_tier_4_rent "valid street, no tier period"
       faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_tier_4_rent_error "valid street, null tier" faulty_board
-      "Boardwalk"
+    general_excp cost_of_tier_4_rent "valid street, null tier"
+      faulty_board "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_tier_4_rent_error "valid street, null cost" faulty_board
-      "Park Place"
+    general_excp cost_of_tier_4_rent "valid street, null cost"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_tier_4_rent_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    cost_of_tier_4_rent_error "invalid type - jail/just visiting"
+    general_excp cost_of_tier_4_rent "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp cost_of_tier_4_rent "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    cost_of_tier_4_rent_error "invalid type - chance" basic_board
+    general_excp cost_of_tier_4_rent "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    cost_of_tier_4_rent_error "invalid type - community chest"
+    general_excp cost_of_tier_4_rent "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_tier_4_rent_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_tier_4_rent_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_tier_4_rent_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_tier_4_rent_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_tier_4_rent_error "invalid type - go" basic_board
+    general_excp cost_of_tier_4_rent "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_tier_4_rent "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp cost_of_tier_4_rent "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp cost_of_tier_4_rent "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp cost_of_tier_4_rent "invalid type - go" basic_board
       "Water Works" (TypeMismatch "Utility");
-    cost_of_tier_4_rent_error "invalid type - railroad" basic_board
-      "Reading Railroad" (TypeMismatch "Railroad");
+    general_excp cost_of_tier_4_rent "invalid type - railroad"
+      basic_board "Reading Railroad" (TypeMismatch "Railroad");
   ]
 
 let cost_of_tier_5_compilation =
   [
-    cost_of_tier_5_rent_test "valid street" basic_board
-      "Mediterranean Avenue" 250;
-    cost_of_tier_5_rent_error "valid street, mismatch type" faulty_board
-      "Mediterranean Avenue" (UnknownType "Streets");
-    cost_of_tier_5_rent_error "valid street, no rent tiers period"
-      faulty_board "Connecticut Avenue"
+    general_test cost_of_tier_5_rent string_of_int "valid street"
+      basic_board "Mediterranean Avenue" 250;
+    general_excp cost_of_tier_5_rent "valid street, mismatch type"
+      faulty_board "Mediterranean Avenue" (UnknownType "Streets");
+    general_excp cost_of_tier_5_rent
+      "valid street, no rent tiers period" faulty_board
+      "Connecticut Avenue"
       (InvalidSquare ("Street", "Connecticut Avenue"));
-    cost_of_tier_5_rent_error "valid street, no cost period"
+    general_excp cost_of_tier_5_rent "valid street, no cost period"
       faulty_board "Oriental Avenue"
       (InvalidSquare ("Street", "Oriental Avenue"));
-    cost_of_tier_5_rent_error "valid street, no tier period"
+    general_excp cost_of_tier_5_rent "valid street, no tier period"
       faulty_board "Vermont Avenue"
       (InvalidSquare ("Street", "Vermont Avenue"));
-    cost_of_tier_5_rent_error "valid street, null tier" faulty_board
-      "Boardwalk"
+    general_excp cost_of_tier_5_rent "valid street, null tier"
+      faulty_board "Boardwalk"
       (InvalidSquare ("Street", "Boardwalk"));
-    cost_of_tier_5_rent_error "valid street, null cost" faulty_board
-      "Park Place"
+    general_excp cost_of_tier_5_rent "valid street, null cost"
+      faulty_board "Park Place"
       (InvalidSquare ("Street", "Park Place"));
-    cost_of_tier_5_rent_error "invalid type - go" basic_board "Go"
-      (TypeMismatch "Go");
-    cost_of_tier_5_rent_error "invalid type - jail/just visiting"
+    general_excp cost_of_tier_5_rent "invalid type - go" basic_board
+      "Go" (TypeMismatch "Go");
+    general_excp cost_of_tier_5_rent "invalid type - jail/just visiting"
       basic_board "Jail/Just Visiting"
       (TypeMismatch "Jail/Just Visiting");
-    cost_of_tier_5_rent_error "invalid type - chance" basic_board
+    general_excp cost_of_tier_5_rent "invalid type - chance" basic_board
       "Chance" (TypeMismatch "Chance");
-    cost_of_tier_5_rent_error "invalid type - community chest"
+    general_excp cost_of_tier_5_rent "invalid type - community chest"
       basic_board "Community Chest" (TypeMismatch "Community Chest");
-    cost_of_tier_5_rent_error "invalid type - free parking" basic_board
-      "Free Parking" (TypeMismatch "Free Parking");
-    cost_of_tier_5_rent_error "invalid type - go to jail" basic_board
-      "Go to Jail" (TypeMismatch "Go to Jail");
-    cost_of_tier_5_rent_error "invalid type - luxury tax" basic_board
-      "Luxury Tax" (TypeMismatch "Luxury Tax");
-    cost_of_tier_5_rent_error "invalid type - income tax" basic_board
-      "Income Tax" (TypeMismatch "Income Tax");
-    cost_of_tier_5_rent_error "invalid type - go" basic_board
+    general_excp cost_of_tier_5_rent "invalid type - free parking"
+      basic_board "Free Parking" (TypeMismatch "Free Parking");
+    general_excp cost_of_tier_5_rent "invalid type - go to jail"
+      basic_board "Go to Jail" (TypeMismatch "Go to Jail");
+    general_excp cost_of_tier_5_rent "invalid type - luxury tax"
+      basic_board "Luxury Tax" (TypeMismatch "Luxury Tax");
+    general_excp cost_of_tier_5_rent "invalid type - income tax"
+      basic_board "Income Tax" (TypeMismatch "Income Tax");
+    general_excp cost_of_tier_5_rent "invalid type - go" basic_board
       "Water Works" (TypeMismatch "Utility");
-    cost_of_tier_5_rent_error "invalid type - railroad" basic_board
-      "Reading Railroad" (TypeMismatch "Railroad");
+    general_excp cost_of_tier_5_rent "invalid type - railroad"
+      basic_board "Reading Railroad" (TypeMismatch "Railroad");
   ]
 
 let chance_community_compilation =
