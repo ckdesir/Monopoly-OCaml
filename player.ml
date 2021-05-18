@@ -317,55 +317,50 @@ let decr_cards player =
     utilities = player.utilities;
   }
 
+let remove_elts elt_lst lst =
+  List.filter (fun x -> not (List.mem x elt_lst)) lst
+
+let remove_props player prop_lst =
+  let new_lst = remove_elts prop_lst player.properties in
+  {
+    name = player.name;
+    piece = player.piece;
+    current_square = player.current_square;
+    balance = player.balance;
+    properties = new_lst;
+    is_bankrupt = player.is_bankrupt;
+    get_out_of_jail_cards = player.get_out_of_jail_cards;
+    doubles = player.doubles;
+    is_in_jail = player.is_in_jail;
+    turns_in_jail = player.turns_in_jail;
+    sets = player.sets;
+    railroads = player.railroads;
+    utilities = player.utilities;
+  }
+
+let get_props player prop_list =
+  let new_lst = List.merge Stdlib.compare player.properties prop_list in
+  {
+    name = player.name;
+    piece = player.piece;
+    current_square = player.current_square;
+    balance = player.balance;
+    properties = new_lst;
+    is_bankrupt = player.is_bankrupt;
+    get_out_of_jail_cards = player.get_out_of_jail_cards;
+    doubles = player.doubles;
+    is_in_jail = player.is_in_jail;
+    turns_in_jail = player.turns_in_jail;
+    sets = player.sets;
+    railroads = player.railroads;
+    utilities = player.utilities;
+  }
+
 let trade
     p1
     p2
     (p1_props : Board.square_name list)
     (p2_props : Board.square_name list) : player * player =
-  let remove_elts elt_lst lst =
-    List.filter (fun x -> not (List.mem x elt_lst)) lst
-  in
-
-  let remove_props player prop_lst =
-    let new_lst = remove_elts prop_lst player.properties in
-    {
-      name = player.name;
-      piece = player.piece;
-      current_square = player.current_square;
-      balance = player.balance;
-      properties = new_lst;
-      is_bankrupt = player.is_bankrupt;
-      get_out_of_jail_cards = player.get_out_of_jail_cards;
-      doubles = player.doubles;
-      is_in_jail = player.is_in_jail;
-      turns_in_jail = player.turns_in_jail;
-      sets = player.sets;
-      railroads = player.railroads;
-      utilities = player.utilities;
-    }
-  in
-
-  let get_props player prop_list =
-    let new_lst =
-      List.merge Stdlib.compare player.properties prop_list
-    in
-    {
-      name = player.name;
-      piece = player.piece;
-      current_square = player.current_square;
-      balance = player.balance;
-      properties = new_lst;
-      is_bankrupt = player.is_bankrupt;
-      get_out_of_jail_cards = player.get_out_of_jail_cards;
-      doubles = player.doubles;
-      is_in_jail = player.is_in_jail;
-      turns_in_jail = player.turns_in_jail;
-      sets = player.sets;
-      railroads = player.railroads;
-      utilities = player.utilities;
-    }
-  in
-
   let p1 = remove_props p1 p1_props in
   let p1 = get_props p1 p2_props in
   let p2 = remove_props p2 p2_props in
