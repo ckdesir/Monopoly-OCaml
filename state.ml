@@ -23,6 +23,13 @@ let get_player n st = st.players.(n)
 
 let get_current_player st = get_player st.current_player st
 
+let bankrupt_current_player st =
+  change_current_player st
+    (Player.make_bankrupt (get_current_player st));
+  ANSITerminal.print_string [ ANSITerminal.cyan ]
+    (Player.name (get_current_player st)
+    ^ " is now bankrupt and is out of the game! ")
+
 let get_turn st = st.current_player
 
 let get_num_players st = st.num_players
@@ -46,13 +53,25 @@ let is_set_owned st set_name =
   in
   List.exists set_owned_helper (Array.to_list st.players)
 
-let switch_turns s =
-  {
-    players = s.players;
-    num_players = s.num_players;
-    current_player = (s.current_player + 1) mod s.num_players;
-    board = s.board;
-  }
+let rec switch_turns s =
+  if
+    Player.bankrupt
+      (get_player ((s.current_player + 1) mod s.num_players) s)
+  then
+    switch_turns
+      {
+        players = s.players;
+        num_players = s.num_players;
+        current_player = (s.current_player + 1) mod s.num_players;
+        board = s.board;
+      }
+  else
+    {
+      players = s.players;
+      num_players = s.num_players;
+      current_player = (s.current_player + 1) mod s.num_players;
+      board = s.board;
+    }
 
 let move_current_player st roll =
   ANSITerminal.print_string [ ANSITerminal.cyan ]
@@ -65,7 +84,7 @@ let move_current_player st roll =
     ANSITerminal.print_string [ ANSITerminal.green ]
       "Pass Go, collect $200!\n";
 
-    Player.pass_go new_player )
+    Player.pass_go new_player)
   else ();
   change_current_player st new_player
 
@@ -130,7 +149,7 @@ let acquire st square =
   in
 
   player := Player.add_to_properties !player square;
-  ( match square_type with
+  (match square_type with
   | "Street" ->
       if completes_set st square then
         player :=
@@ -138,7 +157,7 @@ let acquire st square =
             (Board.set_of_square board square, 0)
   | "Railroad" -> player := Player.add_railroad !player
   | "Utility" -> player := Player.add_utility !player
-  | _ -> raise (Failure "can't acquire") );
+  | _ -> raise (Failure "can't acquire"));
   change_current_player st !player
 
 let can_build_hotels st color_group =

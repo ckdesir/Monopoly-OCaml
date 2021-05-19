@@ -40,6 +40,23 @@ let utilities t = t.utilities
 
 let bankrupt t = t.is_bankrupt
 
+let make_bankrupt p =
+  {
+    name = p.name;
+    piece = p.piece;
+    current_square = p.current_square;
+    balance = 0;
+    properties = p.properties;
+    is_bankrupt = true;
+    get_out_of_jail_cards = p.get_out_of_jail_cards;
+    doubles = p.doubles;
+    is_in_jail = p.is_in_jail;
+    turns_in_jail = p.turns_in_jail;
+    sets = p.sets;
+    railroads = p.railroads;
+    utilities = p.utilities;
+  }
+
 let is_in_jail t = t.is_in_jail
 
 let turns_in_jail t = t.turns_in_jail

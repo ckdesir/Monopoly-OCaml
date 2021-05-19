@@ -26,6 +26,10 @@ val change_current_player : t -> Player.t -> unit
     turn it currently is in state [st]*)
 val get_current_player : t -> Player.t
 
+(** [bankrupt_current_player st] marks the current player as bankrupt
+    and thus designates they are out of the game*)
+val bankrupt_current_player : t -> unit
+
 (** [get_num_players st] returns the amount of players playing in state
     [st]*)
 val get_num_players : t -> int

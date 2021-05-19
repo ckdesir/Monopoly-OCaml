@@ -200,7 +200,7 @@ let handle_doubles plyr st =
   if Player.turns_in_jail plyr = 3 then (
     ANSITerminal.print_string [ ANSITerminal.red ]
       "It is\n   your third turn in jail. You must pay the $50 fine.\n";
-    if Player.balance plyr < 50 then failwith "Implement bankruptcy"
+    if Player.balance plyr < 50 then State.bankrupt_current_player st
     else (
       Player.bank_transaction (-50) plyr;
       free_player st plyr))
@@ -238,7 +238,7 @@ let rec handle_fine st plyr =
 let rec handle_turn_limit st plyr =
   ANSITerminal.print_string [ ANSITerminal.red ]
     "It is\n   your third turn in jail. You must pay the $50 fine.\n";
-  if Player.balance plyr < 50 then failwith "Implement bankruptcy"
+  if Player.balance plyr < 50 then State.bankrupt_current_player st
   else (
     Player.bank_transaction (-50) plyr;
     free_player st plyr)

@@ -33,6 +33,10 @@ val properties : t -> Board.square_name list
    and thus determines if they are still in the game*)
 val bankrupt : t -> bool
 
+(**[make_bankrupt t] returns a copy of player [t] except now they are
+   bankrupt, and thus out of the game*)
+val make_bankrupt : t -> t
+
 (** [sets t] returns the list of the sets owned by player [t] *)
 val sets : t -> (string * int) list
 
