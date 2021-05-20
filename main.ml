@@ -177,8 +177,7 @@ let rec handle_property st current_square_name board roll =
             ANSITerminal.print_string [ ANSITerminal.green ]
               ("Congrats! You are the brand new owner of "
              ^ current_square_name ^ "! Your current balance is now: "
-              ^ string_of_int (Player.balance !current_player));
-            State.change_current_player st !current_player
+              ^ string_of_int (Player.balance !current_player))
           with Player.InsufficientFunds ->
             ANSITerminal.print_string [ ANSITerminal.red ]
               ("Sorry you do not have the sufficient funds. Your \
@@ -188,6 +187,7 @@ let rec handle_property st current_square_name board roll =
       | _ -> handle_property st current_square_name board roll)
 
 let handle_go_to_jail st =
+  print_newline ();
   ANSITerminal.print_string [ ANSITerminal.red ]
     "Sorry! You are now being sent straight to jail, criminal!";
   State.send_curr_jail st
@@ -196,7 +196,7 @@ let free_player st plyr =
   plyr |> Player.clear_turns_in_jail |> Player.change_jail_status
   |> State.change_current_player st
 
-let handle_doubles plyr st =
+let rec handle_doubles plyr st =
   if Player.turns_in_jail plyr = 3 then (
     ANSITerminal.print_string [ ANSITerminal.red ]
       "It is\n   your third turn in jail. You must pay the $50 fine.\n";
@@ -216,7 +216,7 @@ let handle_doubles plyr st =
       | "n" | "N" ->
           plyr |> Player.incr_turns_in_jail
           |> State.change_current_player st
-      | _ -> failwith "Bad input")
+      | _ -> handle_doubles plyr st)
     else ()
 
 let rec handle_fine st plyr =
@@ -243,7 +243,7 @@ let rec handle_turn_limit st plyr =
     Player.bank_transaction (-50) plyr;
     free_player st plyr)
 
-let jail_rules st =
+let rec jail_rules st =
   let plyr = State.get_current_player st in
   if Player.turns_in_jail plyr = 3 then handle_turn_limit st plyr
   else
@@ -258,7 +258,7 @@ let jail_rules st =
       | "n" | "N" ->
           plyr |> Player.incr_turns_in_jail
           |> State.change_current_player st
-      | _ -> failwith "Bad input")
+      | _ -> jail_rules st)
     else ();
     handle_fine st plyr
 
@@ -325,7 +325,8 @@ let rec roll play n st =
   if not (State.is_in_jail st) then begin
     State.move_current_player st total_roll;
     let current_square_name =
-      Board.nth_square_name board (Player.current_square plyr)
+      Board.nth_square_name board
+        (Player.current_square (State.get_current_player st))
     in
     ANSITerminal.print_string [ ANSITerminal.yellow ]
       ("You have landed on: " ^ current_square_name ^ "\n");
@@ -513,12 +514,16 @@ let rec play n st =
   | "5" -> check_property play n st
   | "6" ->
       let current = State.get_current_player st in
-      print_endline (string_of_int (get_balance current))
+      ANSITerminal.print_string [ ANSITerminal.green ]
+        (string_of_int (get_balance current));
+      turn_printer st;
+      print_newline ();
+      play n st
   | "q" | "Q" -> quit play n st
   | _ ->
       ANSITerminal.print_string [ ANSITerminal.red ] "\nCheck input\n\n";
-      turn_printer st;
       print_newline ();
+      turn_printer st;
       play n st
 
 (** [main ()] prompts the user to input the number of players, and calls

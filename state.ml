@@ -95,9 +95,10 @@ let send_curr_jail st =
   in
   let plyr =
     Player.set_position (get_current_player st) jail_num
-    |> Player.change_jail_status
+    |> Player.incr_turns_in_jail |> Player.change_jail_status
   in
   change_current_player st plyr;
+  print_newline ();
   ANSITerminal.print_string [ ANSITerminal.red ]
     (Player.name plyr ^ " is now in jail.")
 
