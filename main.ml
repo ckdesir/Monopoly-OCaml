@@ -271,9 +271,8 @@ let handle_tax st current_square_name board =
   try Player.bank_transaction (-cost) !current_player
   with Player.InsufficientFunds ->
     ANSITerminal.print_string [ ANSITerminal.red ]
-      ("Sorry you do not have the sufficient funds. Your current \
-        balance is: "
-      ^ string_of_int (Player.balance !current_player))
+      "Sorry you do not have the sufficient funds. You are bankrupt!";
+    State.bankrupt_current_player st
 
 let start_in_jail st plyr =
   if Player.doubles plyr = 1 then (

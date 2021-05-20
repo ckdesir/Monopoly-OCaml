@@ -24,11 +24,27 @@ let get_player n st = st.players.(n)
 let get_current_player st = get_player st.current_player st
 
 let bankrupt_current_player st =
+  let rec count_bankrupt_players = function
+    | [] -> 0
+    | x :: xs ->
+        if Player.bankrupt x then 1 + count_bankrupt_players xs
+        else count_bankrupt_players xs
+  in
+
   change_current_player st
     (Player.make_bankrupt (get_current_player st));
   ANSITerminal.print_string [ ANSITerminal.cyan ]
     (Player.name (get_current_player st)
-    ^ " is now bankrupt and is out of the game! ")
+    ^ " is now bankrupt and is out of the game! ");
+  let bankruptcies =
+    count_bankrupt_players (Array.to_list st.players)
+  in
+  if bankruptcies = st.num_players - 1 then (
+    print_newline ();
+    ANSITerminal.print_string [ ANSITerminal.green ]
+      "Only one player remains. The game is over!";
+    exit 0)
+  else ()
 
 let get_turn st = st.current_player
 

@@ -46,15 +46,15 @@ let make_bankrupt p =
     piece = p.piece;
     current_square = p.current_square;
     balance = 0;
-    properties = p.properties;
+    properties = [];
     is_bankrupt = true;
     get_out_of_jail_cards = p.get_out_of_jail_cards;
     doubles = p.doubles;
     is_in_jail = p.is_in_jail;
     turns_in_jail = p.turns_in_jail;
-    sets = p.sets;
-    railroads = p.railroads;
-    utilities = p.utilities;
+    sets = [];
+    railroads = 0;
+    utilities = 0;
   }
 
 let is_in_jail t = t.is_in_jail
