@@ -315,3 +315,6 @@ val get_chance_card : t -> chance_card
 
     Raises [Failure] if there is no community_chest to obtain. *)
 val get_community_chest_card : t -> community_chest
+
+(** [draw_board ()] draws the standard monopoly board to the terminal *)
+val draw_board : unit -> unit

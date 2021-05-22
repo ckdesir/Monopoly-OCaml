@@ -335,17 +335,6 @@ let start_in_jail st plyr =
       "Sorry, you're still in jail\n";
     jail_rules st)
 
-(* let community_chest st board = let card =
-   Board.get_community_chest_card in print_endline ("You drew " ^ card) *)
-
-(* If not in jail *)
-(* Check to see if third double, send immediately to jail and end turn,
-   otherwise carry out respective roll *)
-(* If in jail, check to see if double then move them out, and carry out
-   respective roll, make sure they do not roll again. *)
-
-(** Not to sure of the jail rules, need to research. Not sure if you can
-    roll again if you pay to get out and roll a dobule. *)
 let rec roll play n st =
   let plyr = State.get_current_player st in
   let board = State.get_board st in
@@ -382,7 +371,7 @@ let rec roll play n st =
       ("You have landed on: " ^ current_square_name ^ "\n");
     match Board.type_of_square board current_square_name with
     | "Chance" -> ()
-    | "Community Chest" -> () (*community_chest st board*)
+    | "Community Chest" -> ()
     | "Street" ->
         handle_property st current_square_name board total_roll
     | "Income Tax" -> handle_tax st current_square_name board
@@ -453,7 +442,6 @@ let check_board play n st =
   print_newline ();
   play n st
 
-(** This is just for buying so far, have some mechanism to sell? *)
 let buy_sell_buildings play n st =
   let printer accu a = accu ^ a ^ " | " in
   let current_player = ref (State.get_current_player st) in
@@ -549,9 +537,10 @@ let rec play n st =
   print_endline "\t[1] - Trade";
   print_endline "\t[2] - Mortgage/Unmortgage properties";
   print_endline "\t[3] - Buy/Sell houses/hotels";
-  print_endline "\t[4] - Check board";
-  print_endline "\t[5] - Check a property";
-  print_endline "\t[6] - Check your balance";
+  print_endline "\t[4] - Check current position";
+  print_endline "\t[5] - Check entire board";
+  print_endline "\t[6] - Check a property";
+  print_endline "\t[7] - Check your balance";
   print_endline "\t[Q] - To quit";
   print_endline "----------------------------------------";
   ANSITerminal.print_string [ ANSITerminal.white ] "Option: ";
@@ -561,8 +550,9 @@ let rec play n st =
   | "2" -> ()
   | "3" -> buy_sell_buildings play n st
   | "4" -> check_board play n st
-  | "5" -> check_property play n st
-  | "6" ->
+  | "5" -> Board.draw_board (); Unix.sleep 1; play n st
+  | "6" -> check_property play n st
+  | "7" ->
       let current = State.get_current_player st in
       ANSITerminal.print_string [ ANSITerminal.green ]
         (string_of_int (get_balance current));
