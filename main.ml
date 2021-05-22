@@ -163,16 +163,18 @@ and ask_player_to_trade plyr amt prop st play =
 and handle_trade recip_index giver amt prop st play =
   let recip = State.get_player recip_index st in
 
+  (try Player.pay amt recip (State.get_current_player st)
+   with Player.InsufficientFunds ->
+     ANSITerminal.print_string [ ANSITerminal.red ]
+       "Sorry, you can't afford this offer";
+     turn_printer st;
+     play (State.get_turn st) st);
+
   State.change_current_player st (Player.remove_props giver [ prop ]);
   State.change_player_at recip_index st
     (Player.add_to_properties recip prop);
-
-  try Player.pay amt recip (State.get_current_player st)
-  with Player.InsufficientFunds ->
-    ANSITerminal.print_string [ ANSITerminal.red ]
-      "Sorry, you can't afford this offer";
-    turn_printer st;
-    play (State.get_turn st) st
+  turn_printer st;
+  play (State.get_turn st) st
 
 (** Maybe also print out how many they own in the set? + Add in mortgage
     process / bankrupcy process. *)
