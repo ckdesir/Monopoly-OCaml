@@ -125,6 +125,29 @@ and another_prop_helper play n st =
       print_newline ();
       play n st
 
+(** [trade_prop play n st] *)
+let rec trade_prop play n st =
+  print_endline "Please enter property to trade";
+  match read_line () with
+  | exception End_of_file -> ()
+  | prop ->
+      print_endline "Who would you like to trade with?";
+      let plyr = read_line () in
+      print_endline
+        "How much would you like to trade this property for?";
+      let amount = read_line () in
+      ask_player_to_trade plyr amount prop
+
+and ask_player_to_trade plyr amt prop =
+  print_endline
+    (plyr ^ ", would you like to trade " ^ amt
+   ^ " to have ownership of " ^ prop ^ "?");
+  match read_line () with
+  | "y" | "Y" ->
+      () (* make plyr the owner, make old player not the owner *)
+  | "n" | "N" -> ()
+(* return to normal game menu *)
+
 (** Maybe also print out how many they own in the set? + Add in mortgage
     process / bankrupcy process. *)
 let rec handle_property st current_square_name board roll =
@@ -506,7 +529,7 @@ let rec play n st =
   ANSITerminal.print_string [ ANSITerminal.white ] "Option: ";
   match read_line () with
   | "r" | "R" -> roll play n st
-  | "1" -> ()
+  | "1" -> trade_prop play n st
   | "2" -> ()
   | "3" -> buy_sell_buildings play n st
   | "4" -> check_board play n st
