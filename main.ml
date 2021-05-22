@@ -131,22 +131,49 @@ let rec trade_prop play n st =
   match read_line () with
   | exception End_of_file -> ()
   | prop ->
-      print_endline "Who would you like to trade with?";
-      let plyr = read_line () in
+      if not (Player.owns (State.get_current_player st) prop) then (
+        ANSITerminal.print_string [ ANSITerminal.red ]
+          "Sorry, it appears that property isn't yours to give away...";
+        turn_printer st;
+        play n st)
+      else
+        print_endline "What number player would you like to trade with?";
+      let plyr = int_of_string (read_line ()) - 1 in
       print_endline
         "How much would you like to trade this property for?";
-      let amount = read_line () in
-      ask_player_to_trade plyr amount prop
+      let amount = int_of_string (read_line ()) in
+      ask_player_to_trade plyr amount prop st play
 
-and ask_player_to_trade plyr amt prop =
+and ask_player_to_trade plyr amt prop st play =
+  let giver = State.get_current_player st in
   print_endline
-    (plyr ^ ", would you like to trade " ^ amt
-   ^ " to have ownership of " ^ prop ^ "?");
+    (Player.name (State.get_player plyr st)
+    ^ ", would you like to trade " ^ string_of_int amt
+    ^ " to have ownership of " ^ prop ^ "?");
   match read_line () with
   | "y" | "Y" ->
-      () (* make plyr the owner, make old player not the owner *)
-  | "n" | "N" -> ()
-(* return to normal game menu *)
+      handle_trade plyr giver amt prop st play;
+      play (State.get_turn st) st
+      (* make plyr the owner, make old player not the owner *)
+  | "n" | "N" -> play (State.get_turn st) st
+  | _ ->
+      ANSITerminal.print_string [ ANSITerminal.red ] "Bad input";
+      ask_player_to_trade plyr amt prop st play
+
+and handle_trade recip_index giver amt prop st play =
+  ANSITerminal.print_string [ ANSITerminal.cyan ] "HIHIHI";
+  let recip = State.get_player recip_index st in
+  try
+    State.change_current_player st (Player.remove_props giver [ prop ]);
+    State.change_player_at recip_index st
+      (Player.add_to_properties recip prop)
+  with Not_found -> (
+    try Player.pay amt recip (State.get_current_player st)
+    with Player.InsufficientFunds ->
+      ANSITerminal.print_string [ ANSITerminal.red ]
+        "Sorry, you can't afford this offer";
+      turn_printer st;
+      play (State.get_turn st) st)
 
 (** Maybe also print out how many they own in the set? + Add in mortgage
     process / bankrupcy process. *)

@@ -151,3 +151,5 @@ val clear_doubles : t -> unit
 (** [change_jaiL_status t] returns the player [t] that is now freed if
     [t] was in jail, or is now in jail if [t] was free*)
 val change_jail_status : t -> t
+
+val remove_props : t -> Board.square_name list -> t
