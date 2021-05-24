@@ -5,11 +5,13 @@ open Player
 (*TEST PLAN: Since our system is a game, our process for testing was
   divided between extensive play-testing and OUnit testing. We used
   OUnit to test foundational modules of the sytem: Player and Board,
-  whereas we play-tested the game moduels in State and main. We believe
-  this demonstrates correctness of the system in that the OUnit tests
-  ensure that invisible behavior of modules like Board and Player is
-  correct, and play-testing thoroughly verifies that those behaviors
-  interact properly in the game loop*)
+  whereas we play-tested the game modules in State and main. Glass box
+  testing was used to comprehensively test these modules, as we knew the
+  intended implementation and their specifications. We believe our
+  testing strategy demonstrates correctness of the system in that the
+  OUnit tests ensure that invisible behavior of modules like Board and
+  Player is correct, and play-testing thoroughly verifies that those
+  behaviors interact properly in the game loop. *)
 
 (** Testing helper functions! *)
 let list_printer printr lst =
@@ -56,8 +58,8 @@ let general_test f printer test_name arg1 arg2 expected_output =
   test_name >:: fun _ ->
   assert_equal expected_output (f arg1 arg2) ~printer
 
-let balance_test test_name value expected_output = 
-  test_name >:: fun _ -> 
+let balance_test test_name value expected_output =
+  test_name >:: fun _ ->
   assert_equal expected_output value ~printer:string_of_int
 
 let incr_upgrade_test test_name board name expected_output =

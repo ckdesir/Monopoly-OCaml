@@ -1,14 +1,14 @@
 (** CS 3110 Spring 2021 Final Assignmment
 
-    @authors Christopher Desir (ckd38), Jenna Mertz (jkm242), Jacob Kochian (jdk287)
-    
-*)
+    @authors Christopher Desir (ckd38), Jenna Mertz (jkm242), Jacob
+    Kochian (jdk287) *)
 
 (************************************************************ 
 
    Academic Integrity Statement
 
-   We, Christopher Desir, the persons named in the @authors comment above, 
+   We, Christopher Desir, Jenna Mertz, and Jacob Kochian,
+   the persons named in the @authors comment above, 
    have fully reviewed the course academic integrity policies.  
    We have adhered to those policies in solving the assignment.
 

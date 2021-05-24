@@ -208,6 +208,13 @@
 </div>
 </div>
 
+<pre><span id="VALmake_bankrupt"><span class="keyword">val</span> make_bankrupt</span> : <code class="type"><a href="Player.html#TYPEplayer">player</a> -> <a href="Player.html#TYPEplayer">player</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">make_bankrupt t</code> returns a copy of player <code class="code">t</code> except now they are
+   bankrupt, and thus out of the game</p>
+</div>
+</div>
+
 <pre><span id="VALis_in_jail"><span class="keyword">val</span> is_in_jail</span> : <code class="type"><a href="Player.html#TYPEplayer">player</a> -> bool</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">is_in_jail t</code> is whether or not the player represented by <code class="code">t</code> is
@@ -344,6 +351,9 @@
 </div>
 </div>
 
+<pre><span id="VALremove_elts"><span class="keyword">val</span> remove_elts</span> : <code class="type">'a list -> 'a list -> 'a list</code></pre>
+<pre><span id="VALremove_props"><span class="keyword">val</span> remove_props</span> : <code class="type"><a href="Player.html#TYPEplayer">player</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> list -> <a href="Player.html#TYPEplayer">player</a></code></pre>
+<pre><span id="VALget_props"><span class="keyword">val</span> get_props</span> : <code class="type"><a href="Player.html#TYPEplayer">player</a> -> <a href="Board.html#TYPEsquare_name">Board.square_name</a> list -> <a href="Player.html#TYPEplayer">player</a></code></pre>
 <pre><span id="VALtrade"><span class="keyword">val</span> trade</span> : <code class="type"><a href="Player.html#TYPEplayer">player</a> -><br>       <a href="Player.html#TYPEplayer">player</a> -><br>       <a href="Board.html#TYPEsquare_name">Board.square_name</a> list -><br>       <a href="Board.html#TYPEsquare_name">Board.square_name</a> list -> <a href="Player.html#TYPEplayer">player</a> * <a href="Player.html#TYPEplayer">player</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">trade p1 p2 p1_props p2_props</code> is a pair of players <code class="code">p1</code> and <code class="code">p2</code>

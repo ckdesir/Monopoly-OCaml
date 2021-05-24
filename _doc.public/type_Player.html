@@ -25,6 +25,7 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;balance&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;properties&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;bankrupt&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;make_bankrupt&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;sets&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;int)&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_to_sets&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_to_properties&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
@@ -56,4 +57,5 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;incr_doubles&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clear_doubles&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;change_jail_status&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;remove_props&nbsp;:&nbsp;<span class="constructor">Player</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Board</span>.square_name&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Player</span>.t<br>
 <span class="keyword">end</span></code></body></html>

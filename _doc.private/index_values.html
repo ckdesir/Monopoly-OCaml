@@ -38,6 +38,22 @@
 </td></tr>
 <tr><td><a href="Player.html#VALadd_utility">add_utility</a> [<a href="Player.html">Player</a>]</td>
 <td></td></tr>
+<tr><td><a href="Main.html#VALanother_prop_helper">another_prop_helper</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">another_prop_helper play n st</code> calls <code class="code">check_property</code> again if the
+    player inputs that they would like to check another property.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALask_player_to_trade">ask_player_to_trade</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">ask_player_to_trade plyr amt prop st play</code> asks the player
+    specified by the user input in <code class="code">trade_prop play n st</code> if they would
+    like to trade the specified amount of money for the specified
+    property.</p>
+
+</div>
+</td></tr>
 <tr><td align="left"><div>B</div></td></tr>
 <tr><td><a href="Player.html#VALbalance">balance</a> [<a href="Player.html">Player</a>]</td>
 <td><div class="info">
@@ -58,9 +74,16 @@
 
 </div>
 </td></tr>
+<tr><td><a href="State.html#VALbankrupt_current_player">bankrupt_current_player</a> [<a href="State.html">State</a>]</td>
+<td><div class="info">
+<p><code class="code">bankrupt_current_player st</code> marks the current player as bankrupt
+    and thus designates they are out of the game</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main.html#VALbuy_sell_buildings">buy_sell_buildings</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<p>This is just for buying so far, have some mechanism to sell?</p>
+<p><code class="code">buy_sell_buildings play n st</code></p>
 
 </div>
 </td></tr>
@@ -91,12 +114,19 @@
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALcheck_board">check_board</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">check_board play n st</code> prints out the next 12 squares on the board
+    that follow the square that the player is currently on in state
+    <code class="code">st</code>.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main.html#VALcheck_property">check_property</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<p>Extend this to cover railroads/utiltiis eventually, pattern match
-    against the type and carry out respective operations, exhaustive
-    pattern match is a recheck of input</p>
+<p><code class="code">check_property play n st</code> prompts the user to enter the name of a
+    property on the board, then prints the information about that
+    property, including its name, how much it costs to buy it, what set
+    it belongs to, and how much it costs to put houses and hotels on it.</p>
 
 </div>
 </td></tr>
@@ -212,10 +242,29 @@
 </div>
 </td></tr>
 <tr><td><a href="Board.html#VALdraw_board">draw_board</a> [<a href="Board.html">Board</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">draw_board ()</code> draws the standard monopoly board to the terminal</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>E</div></td></tr>
+<tr><td><a href="Main.html#VALenter_player">enter_player</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">enter_player ()</code> reads the user input of the names of each of the
+    players, the piece choice of each player, and then starts the game.</p>
+
+</div>
+</td></tr>
 <tr><td align="left"><div>F</div></td></tr>
 <tr><td><a href="Board.html#VALfind_square">find_square</a> [<a href="Board.html">Board</a>]</td>
 <td></td></tr>
+<tr><td><a href="Main.html#VALfree_player">free_player</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">free_player st player</code> changes the state so that the player is no
+    longer stuck in jail.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Board.html#VALfrom_json">from_json</a> [<a href="Board.html">Board</a>]</td>
 <td><div class="info">
 <p><code class="code">from_json j</code> is the board that <code class="code">j</code> represents.</p>
@@ -231,7 +280,12 @@
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALget_balance">get_balance</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">get_balance plyr</code> returns the amount of money in dollars that
+    player <code class="code">plyr</code> currently has.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="State.html#VALget_board">get_board</a> [<a href="State.html">State</a>]</td>
 <td><div class="info">
 <p><code class="code">get_board b</code> returns the board that is being used for gameplay.</p>
@@ -270,7 +324,12 @@
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALget_num_player">get_num_player</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">get_num_player ()</code> takes the user input for number of players and
+    stores it in variable <code class="code">num_of_players</code></p>
+
+</div>
+</td></tr>
 <tr><td><a href="State.html#VALget_num_players">get_num_players</a> [<a href="State.html">State</a>]</td>
 <td><div class="info">
 <p><code class="code">get_num_players st</code> returns the amount of players playing in state
@@ -279,7 +338,12 @@
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALget_piece">get_piece</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">get_piece ()</code> reads the user input for the name of their piece and
+    stores it in variable <code class="code">piece</code></p>
+
+</div>
+</td></tr>
 <tr><td><a href="State.html#VALget_player">get_player</a> [<a href="State.html">State</a>]</td>
 <td><div class="info">
 <p><code class="code">get_player n st</code> is the player <code class="code">n + 1</code> in state <code class="code">st</code>.</p>
@@ -287,6 +351,13 @@
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALget_player">get_player</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">get_player ()</code> reads the user input for the player name and stores
+    it in variable <code class="code">name</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALget_props">get_props</a> [<a href="Player.html">Player</a>]</td>
 <td></td></tr>
 <tr><td><a href="Player.html#VALget_set_by_name">get_set_by_name</a> [<a href="Player.html">Player</a>]</td>
 <td></td></tr>
@@ -305,8 +376,29 @@
 </div>
 </td></tr>
 <tr><td align="left"><div>H</div></td></tr>
+<tr><td><a href="Main.html#VALhandle_doubles">handle_doubles</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">handle_doubles plyr st</code> keeps track of how many times a player has
+    attempted to exit jail, and alerts them that they must pay if it is
+    their third failed attempt.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALhandle_fine">handle_fine</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">handle_fine st player</code> charges the player if they are exiting jail
+    by fine.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main.html#VALhandle_go_to_jail">handle_go_to_jail</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">handle_go_to_jail st</code> alerts the player that they are going to
+    jail, and then changes the state so that their location changes to
+    be in jail.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main.html#VALhandle_property">handle_property</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
 <p>Maybe also print out how many they own in the set? + Add in mortgage
@@ -316,7 +408,31 @@
 </td></tr>
 <tr><td><a href="Main.html#VALhandle_tax">handle_tax</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<p>Add in mortaging process / bakruptcy process etc.</p>
+<p><code class="code">handle_tax st current_square_name board</code> charges the player that
+    landed on the square that is owned by the bank.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALhandle_trade">handle_trade</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">handle_trade recip_index giver amt prop st play</code> does the actual
+    changing of the state when the player trading indicates that they
+    would like to trade.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALhandle_turn_limit">handle_turn_limit</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">handle_turn_limit st plyr</code> is a helper function to alert the player
+    that they must pay to exit jail, and then actually decrements their
+    balance.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALhotel_cost_helper">hotel_cost_helper</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">hotel_cost_helper board prop</code> prints the amount that it costs to
+    put houses and hotels on property <code class="code">prop</code> on board <code class="code">board</code></p>
 
 </div>
 </td></tr>
@@ -362,6 +478,12 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Main.html#VALinitial_cost_helper">initial_cost_helper</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">initial_cost_helper board prop</code> prints the cost of <code class="code">prop</code>.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="State.html#VALis_in_jail">is_in_jail</a> [<a href="State.html">State</a>]</td>
 <td><div class="info">
 <p><code class="code">is_in_jail st</code> returns true if the current player is in jail.</p>
@@ -385,18 +507,36 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Main.html#VALjail_on_turn">jail_on_turn</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<tr><td><a href="Main.html#VALjail_rules">jail_rules</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">jail_rules st</code> calls the appropriate helper function for the player
+    in jail's situation based on the number of times they have failed to
+    exit jail and the number of get-out-of-jail-free cards they have.</p>
+
+</div>
+</td></tr>
 <tr><td align="left"><div>M</div></td></tr>
 <tr><td><a href="Main.html#VALmain">main</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<p><code class="code">main ()</code> prompts the user to input the names of the two players,
-    and then starts the game.</p>
+<p><code class="code">main ()</code> prompts the user to input the number of players, and calls
+    helper function <code class="code">enter_player ()</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Player.html#VALmake_bankrupt">make_bankrupt</a> [<a href="Player.html">Player</a>]</td>
+<td><div class="info">
+<p><code class="code">make_bankrupt t</code> returns a copy of player <code class="code">t</code> except now they are
+   bankrupt, and thus out of the game</p>
 
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALmake_board">make_board</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">make_board board_json</code> converts the json file of the board into a
+    Board.t object.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Board.html#VALmortgage_of_square">mortgage_of_square</a> [<a href="Board.html">Board</a>]</td>
 <td><div class="info">
 <p><code class="code">mortgage_of_square b s</code> is the mortgage of square <code class="code">s</code> on board <code class="code">b</code>.</p>
@@ -418,6 +558,13 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Main.html#VALname_helper">name_helper</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">name_helper prop</code> prints <code class="code">prop</code>, labeled as the name of that
+    property.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Board.html#VALnext_twelve">next_twelve</a> [<a href="Board.html">Board</a>]</td>
 <td><div class="info">
 <p><code class="code">next_twelve b n</code> returns the next 12 squares as a string starting
@@ -433,6 +580,20 @@
 </div>
 </td></tr>
 <tr><td align="left"><div>O</div></td></tr>
+<tr><td><a href="Main.html#VALoptions_reader">options_reader</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">options_reader play n st</code> reads the user input for which option
+    they chose from the game menu, and calls the corresponding helper
+    functions to carry out that option.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALowner_helper">owner_helper</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">owner_helper player</code> prints the name of the player <code class="code">player</code></p>
+
+</div>
+</td></tr>
 <tr><td><a href="Player.html#VALowns">owns</a> [<a href="Player.html">Player</a>]</td>
 <td><div class="info">
 <p><code class="code">owns t s</code> returns the boolean of whether or not player <code class="code">t</code> owns the
@@ -480,9 +641,18 @@
 </td></tr>
 <tr><td align="left"><div>Q</div></td></tr>
 <tr><td><a href="Main.html#VALquit">quit</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<p><code class="code">quit play n st</code> prompts the user for confirmation before quitting
+    gameplay.</p>
+
+</div>
+</td></tr>
 <tr><td align="left"><div>R</div></td></tr>
 <tr><td><a href="Player.html#VALrailroads">railroads</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td><a href="Player.html#VALremove_elts">remove_elts</a> [<a href="Player.html">Player</a>]</td>
+<td></td></tr>
+<tr><td><a href="Player.html#VALremove_props">remove_props</a> [<a href="Player.html">Player</a>]</td>
 <td></td></tr>
 <tr><td><a href="Player.html#VALremove_railroad">remove_railroad</a> [<a href="Player.html">Player</a>]</td>
 <td></td></tr>
@@ -493,16 +663,19 @@
 <tr><td><a href="Player.html#VALreplace_a_set">replace_a_set</a> [<a href="Player.html">Player</a>]</td>
 <td></td></tr>
 <tr><td><a href="Main.html#VALroll">roll</a> [<a href="Main.html">Main</a>]</td>
-<td><div class="info">
-<p>Not to sure of the jail rules, need to research.</p>
-
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td align="left"><div>S</div></td></tr>
 <tr><td><a href="State.html#VALsend_curr_jail">send_curr_jail</a> [<a href="State.html">State</a>]</td>
 <td><div class="info">
 <p><code class="code">send_curr_jail st</code> returns an identical position except the current
     player is now standing on the "jail" square and is now in jail.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALset_helper">set_helper</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">set_helper board prop</code> prints the set that <code class="code">prop</code> belongs to on
+    board <code class="code">board</code></p>
 
 </div>
 </td></tr>
@@ -531,6 +704,8 @@
 <td></td></tr>
 <tr><td><a href="Board.html#VALsquares_of_board">squares_of_board</a> [<a href="Board.html">Board</a>]</td>
 <td></td></tr>
+<tr><td><a href="Main.html#VALstart_in_jail">start_in_jail</a> [<a href="Main.html">Main</a>]</td>
+<td></td></tr>
 <tr><td><a href="State.html#VALswitch_turns">switch_turns</a> [<a href="State.html">State</a>]</td>
 <td><div class="info">
 <p><code class="code">switch_turns plyr1 plyr2 b</code> changes the state between being
@@ -542,8 +717,8 @@
 <tr><td align="left"><div>T</div></td></tr>
 <tr><td><a href="Main.html#VALtake_turn">take_turn</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<p><code class="code">take_turn s</code> switches the state from being player 1's turn to
-    player 2's turn or vice versa.</p>
+<p><code class="code">take_turn st</code> switches the state from one player's turn to the next
+    player's turn in <code class="code">st</code>.</p>
 
 </div>
 </td></tr>
@@ -562,10 +737,18 @@
 
 </div>
 </td></tr>
+<tr><td><a href="Main.html#VALtrade_prop">trade_prop</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<p><code class="code">trade_prop play n st</code> reads the user input for which property they
+    would like to trade, which player they would like to trade with, and
+    for what amount they would like to trade the property for.</p>
+
+</div>
+</td></tr>
 <tr><td><a href="Main.html#VALturn_printer">turn_printer</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<p><code class="code">turn_printer b st</code> prints the name of <code class="code">player1</code> in <code class="code">st</code> if <code class="code">b</code> is
-    <code class="code">true</code>.</p>
+<p><code class="code">turn_printer st</code> prints the name of the player whose turn it
+    currently is in state <code class="code">st</code>.</p>
 
 </div>
 </td></tr>
